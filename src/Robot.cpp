@@ -1,10 +1,12 @@
 #include "Robot.h"
 
+std::shared_ptr<Collector> Robot::collector;
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
 	RobotMap::init();
+    collector.reset(new Collector());
     driveTrain.reset(new DriveTrain());
 	oi.reset(new OI());
 	autonomousCommand.reset(new TestMotors());

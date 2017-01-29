@@ -2,6 +2,9 @@
 #include "LiveWindow/LiveWindow.h"
 #include "Robot.h"
 
+//Collector
+std::shared_ptr<CANTalon> RobotMap::collectorRoller;
+
 //DriveTrain
 std::shared_ptr<CANTalon> RobotMap::driveLeftMaster;
 std::shared_ptr<CANTalon> RobotMap::driveRightMaster;
@@ -16,8 +19,13 @@ std::shared_ptr<DoubleSolenoid> RobotMap::driveShifter;
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
 
 void RobotMap::init() {
+	initCollector();
 	initDriveTrain();
 	initOI();
+}
+
+void RobotMap::initCollector() {
+	collectorRoller.reset(new CANTalon(COLLECTOR_CAN_ROLLER));
 }
 
 void RobotMap::initDriveTrain() {
@@ -50,3 +58,5 @@ void RobotMap::initDriveTrain() {
 void RobotMap::initOI() {
 	xbox.reset(new frc::XboxController(DRIVER_XBOX));
 }
+
+

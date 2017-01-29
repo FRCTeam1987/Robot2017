@@ -6,6 +6,7 @@
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
 #include "OI.h"
+#include "Subsystems/Collector.h"
 #include "Subsystems/DriveTrain.h"
 #include "Commands/DriveTrain/TestMotors.h"
 
@@ -14,6 +15,7 @@ public:
 	std::unique_ptr<Command> autonomousCommand;
 	static std::unique_ptr<OI> oi;
 	LiveWindow *lw = LiveWindow::GetInstance();
+	static std::shared_ptr<Collector> collector;
     static std::shared_ptr<DriveTrain> driveTrain;
 
 	virtual void RobotInit();

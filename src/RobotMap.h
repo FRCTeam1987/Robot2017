@@ -8,6 +8,13 @@
 
 class RobotMap {
 public:
+	//Collector
+	static std::shared_ptr<CANTalon> collectorRoller;
+
+	enum {
+		COLLECTOR_CAN_ROLLER = 5,
+	};
+
 	//Drive Train
 	static std::shared_ptr<CANTalon> driveLeftMaster;
 	static std::shared_ptr<CANTalon> driveRightMaster;
@@ -36,6 +43,7 @@ public:
 	};
 
 	static void init();
+	static void initCollector();
 	static void initDriveTrain();
 	static void initOI();
 };
