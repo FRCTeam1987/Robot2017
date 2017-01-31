@@ -2,12 +2,14 @@
 
 std::shared_ptr<Collector> Robot::collector;
 std::shared_ptr<DriveTrain> Robot::driveTrain;
+std::shared_ptr<GearManipulator> Robot::gearManipulator;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
 	RobotMap::init();
     collector.reset(new Collector());
     driveTrain.reset(new DriveTrain());
+    gearManipulator.reset(new GearManipulator());
 	oi.reset(new OI());
 	autonomousCommand.reset(new TestMotors());
 }

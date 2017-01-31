@@ -5,7 +5,9 @@ StartCollector::StartCollector() {
 }
 
 void StartCollector::Initialize() {
-	Robot::collector.get()->StartRoller();
+	if (!Robot::collector.get()->HasBall()){
+		Robot::collector.get()->StartRoller();
+	}
 }
 
 void StartCollector::Execute() {
@@ -13,11 +15,11 @@ void StartCollector::Execute() {
 }
 
 bool StartCollector::IsFinished() {
-	return true;
+	return (Robot::collector.get()->HasBall());
 }
 
 void StartCollector::End() {
-
+	Robot::collector.get()->StopRoller();
 }
 
 void StartCollector::Interrupted() {

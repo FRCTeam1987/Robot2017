@@ -10,9 +10,11 @@ class RobotMap {
 public:
 	//Collector
 	static std::shared_ptr<CANTalon> collectorRoller;
+	static std::shared_ptr<frc::DigitalInput> collectorBallSensor;
 
 	enum {
-		COLLECTOR_CAN_ROLLER = 5,
+		COLLECTOR_CAN_ROLLER = 6,
+		COLLECTOR_DIO_BALL = 4,
 	};
 
 	//Drive Train
@@ -35,6 +37,21 @@ public:
 		DRIVE_PCM_SHIFT_LOW = 1,
 	};
 
+	//Gear Manipulator
+	static std::shared_ptr<frc::DigitalInput> gearSensor;
+	static std::shared_ptr<frc::Solenoid> gearLift;
+	static std::shared_ptr<frc::DigitalInput> gearPositionRaised;
+	static std::shared_ptr<frc::DigitalInput> gearPositionLowered;
+	static std::shared_ptr<CANTalon> gearRoller;
+
+	enum {
+		GEAR_CAN_ROLLER = 5,
+		GEAR_DIO_GEAR = 5,
+		GEAR_DIO_POSITION_RAISED = 6,
+		GEAR_DIO_POSITION_LOWERED = 7,
+		GEAR_PCM_LIFT = 2,
+	};
+
 	//OI
 	static std::shared_ptr<frc::XboxController> xbox;
 
@@ -45,6 +62,7 @@ public:
 	static void init();
 	static void initCollector();
 	static void initDriveTrain();
+	static void initGearManipulator();
 	static void initOI();
 };
 

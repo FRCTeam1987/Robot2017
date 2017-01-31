@@ -8,6 +8,7 @@
 #include "OI.h"
 #include "Subsystems/Collector.h"
 #include "Subsystems/DriveTrain.h"
+#include "Subsystems/GearManipulator.h"
 #include "Commands/DriveTrain/TestMotors.h"
 
 class Robot : public IterativeRobot {
@@ -17,6 +18,7 @@ public:
 	LiveWindow *lw = LiveWindow::GetInstance();
 	static std::shared_ptr<Collector> collector;
     static std::shared_ptr<DriveTrain> driveTrain;
+    static std::shared_ptr<GearManipulator> gearManipulator;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

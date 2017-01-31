@@ -4,8 +4,9 @@
 
 //Collector
 std::shared_ptr<CANTalon> RobotMap::collectorRoller;
+std::shared_ptr<frc::DigitalInput> RobotMap::collectorBallSensor;
 
-//DriveTrain
+//Drive Train
 std::shared_ptr<CANTalon> RobotMap::driveLeftMaster;
 std::shared_ptr<CANTalon> RobotMap::driveRightMaster;
 std::shared_ptr<CANTalon> RobotMap::driveLeftSlave;
@@ -15,17 +16,26 @@ std::shared_ptr<AHRS> RobotMap::driveAhrs;
 std::shared_ptr<navXSensor> RobotMap::driveNavx;
 std::shared_ptr<DoubleSolenoid> RobotMap::driveShifter;
 
+//Gear Manipulator
+std::shared_ptr<frc::DigitalInput> RobotMap::gearSensor;
+std::shared_ptr<frc::Solenoid> RobotMap::gearLift;
+std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionRaised;
+std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionLowered;
+std::shared_ptr<CANTalon> RobotMap::gearRoller;
+
 //OI
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
 
 void RobotMap::init() {
 	initCollector();
 	initDriveTrain();
+	initGearManipulator();
 	initOI();
 }
 
 void RobotMap::initCollector() {
 	collectorRoller.reset(new CANTalon(COLLECTOR_CAN_ROLLER));
+	collectorBallSensor.reset(new DigitalInput(COLLECTOR_DIO_BALL));
 }
 
 void RobotMap::initDriveTrain() {
@@ -55,8 +65,25 @@ void RobotMap::initDriveTrain() {
 	driveShifter.reset(new DoubleSolenoid(DRIVE_PCM_SHIFT_HIGH, DRIVE_PCM_SHIFT_LOW));
 }
 
+void RobotMap::initGearManipulator() {
+	LiveWindow *lw = LiveWindow::GetInstance();
+
+	gearRoller.reset(new CANTalon(GEAR_CAN_ROLLER));
+	lw->AddActuator("Gear Manipulator", "Roller", gearRoller);
+
+	gearSensor.reset(new DigitalInput(GEAR_DIO_GEAR));
+	lw->AddSensor("Gear Manipulator", "Has Gear Sensor", gearSensor);
+
+	gearPositionRaised.reset(new DigitalInput(GEAR_DIO_POSITION_RAISED));
+	lw->AddSensor("Gear Manipulator", "Is Gear Raised", gearPositionRaised);
+
+	gearPositionLowered.reset(new DigitalInput(GEAR_DIO_POSITION_LOWERED));
+	lw->AddSensor("Gear Manipulator", "Is Gear Lowered", gearPositionLowered);
+
+	gearLift.reset(new Solenoid(GEAR_PCM_LIFT));
+	lw->AddActuator("Gear Manipulator", "Gear Lift", gearLift);
+}
+
 void RobotMap::initOI() {
 	xbox.reset(new frc::XboxController(DRIVER_XBOX));
 }
-
-

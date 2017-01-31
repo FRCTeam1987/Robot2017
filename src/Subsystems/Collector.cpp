@@ -1,18 +1,26 @@
 #include "Collector.h"
 #include "../RobotMap.h"
+#include "../Commands/Collector/StartCollector.h"
 
 Collector::Collector() : Subsystem("Collector") {
-	collectorMotor = RobotMap::collectorRoller;
+	roller = RobotMap::collectorRoller;
+	ballSensor = RobotMap::collectorBallSensor;
 }
 
 void Collector::InitDefaultCommand() {
+	SetDefaultCommand(new StartCollector());
+}
 
+bool Collector::HasBall() {
+//	return false;
+	return ballSensor->Get();
+//	return ballSensor.get();
 }
 
 void Collector::StartRoller() {
-	collectorMotor->Set(.5);
+	roller->Set(.5);
 }
 
 void Collector::StopRoller() {
-	collectorMotor->Set(0);
+	roller->Set(0);
 }
