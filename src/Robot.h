@@ -9,6 +9,7 @@
 #include "Subsystems/Collector.h"
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/GearManipulator.h"
+#include "Subsystems/Shooter.h"
 #include "Commands/DriveTrain/TestMotors.h"
 
 class Robot : public IterativeRobot {
@@ -19,6 +20,7 @@ public:
 	static std::shared_ptr<Collector> collector;
     static std::shared_ptr<DriveTrain> driveTrain;
     static std::shared_ptr<GearManipulator> gearManipulator;
+    static std::shared_ptr<Shooter> shooter;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

@@ -3,6 +3,7 @@
 std::shared_ptr<Collector> Robot::collector;
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::shared_ptr<GearManipulator> Robot::gearManipulator;
+std::shared_ptr<Shooter> Robot::shooter;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
@@ -10,6 +11,7 @@ void Robot::RobotInit() {
     collector.reset(new Collector());
     driveTrain.reset(new DriveTrain());
     gearManipulator.reset(new GearManipulator());
+    shooter.reset(new Shooter());
 	oi.reset(new OI());
 	autonomousCommand.reset(new TestMotors());
 }

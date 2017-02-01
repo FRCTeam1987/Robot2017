@@ -23,6 +23,11 @@ std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionRaised;
 std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionLowered;
 std::shared_ptr<CANTalon> RobotMap::gearRoller;
 
+//Shooter
+std::shared_ptr<CANTalon> RobotMap::shooterWheel;
+std::shared_ptr<CANTalon> RobotMap::shooterElevator;
+std::shared_ptr<CANTalon> RobotMap::shooterRoller;
+
 //OI
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
 
@@ -30,6 +35,7 @@ void RobotMap::init() {
 	initCollector();
 	initDriveTrain();
 	initGearManipulator();
+	initShooter();
 	initOI();
 }
 
@@ -82,6 +88,19 @@ void RobotMap::initGearManipulator() {
 
 	gearLift.reset(new Solenoid(GEAR_PCM_LIFT));
 	lw->AddActuator("Gear Manipulator", "Gear Lift", gearLift);
+}
+
+void RobotMap::initShooter() {
+	LiveWindow *lw = LiveWindow::GetInstance();
+
+	shooterWheel.reset(new CANTalon(SHOOTER_CAN_WHEEL));
+	lw->AddActuator("Shooter", "Wheel", shooterWheel);
+
+	shooterElevator.reset(new CANTalon(SHOOTER_CAN_ELEVATOR));
+	lw->AddActuator("Shooter", "Elevator", shooterElevator);
+
+	shooterRoller.reset(new CANTalon(SHOOTER_CAN_ROLLER));
+	lw->AddActuator("Shooter", "Roller", shooterRoller);
 }
 
 void RobotMap::initOI() {
