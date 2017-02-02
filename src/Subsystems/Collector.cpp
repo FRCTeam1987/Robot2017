@@ -12,9 +12,7 @@ void Collector::InitDefaultCommand() {
 }
 
 bool Collector::HasBall() {
-//	return false;
 	return ballSensor->Get();
-//	return ballSensor.get();
 }
 
 void Collector::StartRoller() {

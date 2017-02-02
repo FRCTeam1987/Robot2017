@@ -26,7 +26,8 @@ public:
 	static std::shared_ptr<AHRS> driveAhrs;
 	static std::shared_ptr<navXSensor> driveNavx;
 	static std::shared_ptr<DoubleSolenoid> driveShifter;
-
+	static std::shared_ptr<DoubleSolenoid> climberPTO;
+	static std::shared_ptr<frc::DigitalInput> climberPlateSensor;
 
 	enum {
 		DRIVE_CAN_LEFT_MASTER = 1,
@@ -35,6 +36,9 @@ public:
 		DRIVE_CAN_RIGHT_SLAVE = 4,
 		DRIVE_PCM_SHIFT_HIGH = 0,
 		DRIVE_PCM_SHIFT_LOW = 1,
+		CLIMBER_PCM_LEFTPTO = 3,
+		CLIMBER_PCM_RIGHTPTO = 4,
+		CLIMBER_DIO_PLATE = 11,
 	};
 
 	//Gear Manipulator
@@ -62,10 +66,11 @@ public:
 		SHOOTER_CAN_ELEVATOR = 6,
 		SHOOTER_CAN_ROLLER = 5,
 	};
+
 	//OI
 	static std::shared_ptr<frc::XboxController> xbox;
 
-	enum{
+	enum {
 		DRIVER_XBOX = 0,
 	};
 
@@ -74,6 +79,7 @@ public:
 	static void initDriveTrain();
 	static void initGearManipulator();
 	static void initShooter();
+	static void initClimber();
 	static void initOI();
 };
 

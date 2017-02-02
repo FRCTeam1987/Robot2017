@@ -1,15 +1,15 @@
-#ifndef TestMotors_H
-#define TestMotors_H
+#ifndef SetPTO_H
+#define SetPTO_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class TestMotors : public frc::Command {
+class SetPTO : public frc::Command {
 private:
-	float m_voltage;
+	bool m_isEnabled;
 public:
-	TestMotors(float voltage);
+	SetPTO(bool isEnabled);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // TestMotors_H
+#endif  // SetPTO_H

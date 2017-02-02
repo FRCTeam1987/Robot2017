@@ -1,15 +1,15 @@
-#ifndef TestMotors_H
-#define TestMotors_H
+#ifndef ClimbToPlate_H
+#define ClimbToPlate_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class TestMotors : public frc::Command {
+class ClimbToPlate : public frc::Command {
 private:
 	float m_voltage;
 public:
-	TestMotors(float voltage);
+	ClimbToPlate(float voltage);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // TestMotors_H
+#endif  // ClimbToPlate_H

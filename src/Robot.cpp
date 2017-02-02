@@ -8,12 +8,12 @@ std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
 	RobotMap::init();
-    collector.reset(new Collector());
+	collector.reset(new Collector());
     driveTrain.reset(new DriveTrain());
     gearManipulator.reset(new GearManipulator());
     shooter.reset(new Shooter());
 	oi.reset(new OI());
-	autonomousCommand.reset(new TestMotors());
+	autonomousCommand.reset(new TestMotors(0.5));
 }
 
 void Robot::DisabledInit() {

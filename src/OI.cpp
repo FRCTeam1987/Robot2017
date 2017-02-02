@@ -24,7 +24,7 @@ OI::OI() {
 	frc::SmartDashboard::PutData("StopCollector", new StopCollector());
 
 	//Drive Train
-	frc::SmartDashboard::PutData("TestMotors", new TestMotors());
+	frc::SmartDashboard::PutData("TestMotors", new TestMotors(0.5));
 	frc::SmartDashboard::PutData("ShiftHigh", new Shift(true));
 	frc::SmartDashboard::PutData("ShifthLow", new Shift(false));
 

@@ -13,6 +13,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	ahrs = RobotMap::driveAhrs;
 	navx = RobotMap::driveNavx;
 	shifter = RobotMap::driveShifter;
+	PTO = RobotMap::climberPTO;
+	plateSensor = RobotMap::climberPlateSensor;
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -31,11 +33,22 @@ void DriveTrain::Shift(bool isHighGear)
 		shifter->Set(DoubleSolenoid::kReverse);
 	}
 }
-void DriveTrain::StartMotor() {
-	leftMaster->Set(.5);
-	rightMaster->Set(-.5);
+void DriveTrain::StartMotor(float percent) {
+	leftMaster->Set(percent);
+	rightMaster->Set(-percent);
 }
 
 void DriveTrain::StopMotor() {
 	leftMaster->Set(0);
+}
+
+void DriveTrain::SetPTO(bool isEnabled) {
+	if (isEnabled == true)
+		PTO->Set(DoubleSolenoid::kForward);
+	else
+		PTO->Set(DoubleSolenoid::kReverse);
+}
+
+bool DriveTrain::IsTouchingPlate() {
+	return plateSensor->Get();
 }

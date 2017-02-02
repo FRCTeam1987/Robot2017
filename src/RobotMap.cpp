@@ -15,6 +15,8 @@ std::shared_ptr<RobotDrive> RobotMap::robotDrive;
 std::shared_ptr<AHRS> RobotMap::driveAhrs;
 std::shared_ptr<navXSensor> RobotMap::driveNavx;
 std::shared_ptr<DoubleSolenoid> RobotMap::driveShifter;
+std::shared_ptr<DoubleSolenoid> RobotMap::climberPTO;
+std::shared_ptr<DigitalInput> RobotMap::climberPlateSensor;
 
 //Gear Manipulator
 std::shared_ptr<frc::DigitalInput> RobotMap::gearSensor;
@@ -69,6 +71,12 @@ void RobotMap::initDriveTrain() {
 	driveAhrs.reset(new AHRS(frc::SerialPort::kMXP));
 
 	driveShifter.reset(new DoubleSolenoid(DRIVE_PCM_SHIFT_HIGH, DRIVE_PCM_SHIFT_LOW));
+
+	climberPTO.reset(new DoubleSolenoid(CLIMBER_PCM_LEFTPTO, CLIMBER_PCM_RIGHTPTO));
+	lw->AddActuator("Climber", "Climber PTO", climberPTO);
+
+	climberPlateSensor.reset(new DigitalInput(CLIMBER_DIO_PLATE));
+	lw->AddSensor("Climber", "Is Plate Touched", climberPlateSensor);
 }
 
 void RobotMap::initGearManipulator() {
