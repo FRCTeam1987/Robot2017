@@ -9,7 +9,7 @@ class StartRoller : public frc::Command{
 private:
 	float m_RPM;
 public:
-	StartRoller(float RollerRPM);
+	StartRoller(float rollerRPM);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

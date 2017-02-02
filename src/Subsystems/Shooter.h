@@ -14,11 +14,11 @@ private:
 public:
 	Shooter();
 	void InitDefaultCommand();
-	void StartShooter(float RPM);
+	void StartShooter(float wheelRPM);
 	void StopShooter();
 	void StartElevator(float speed);
 	void StopElevator();
-	void StartRoller(float RPM);
+	void StartRoller(float rollerRPM);
 	void StopRoller();
 	float GetWheelRPM();
 	float GetRollerRPM();

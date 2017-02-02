@@ -1,8 +1,8 @@
 #include "StartRoller.h"
 
-StartRoller::StartRoller(float RollerRPM) {
+StartRoller::StartRoller(float rollerRPM) {
 	Requires(Robot::shooter.get());
-	m_RPM = RollerRPM;
+	m_RPM = rollerRPM;
 }
 
 void StartRoller::Initialize() {

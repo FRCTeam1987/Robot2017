@@ -1,8 +1,8 @@
 #include "StartShooter.h"
 
-StartShooter::StartShooter(float WheelRPM) {
+StartShooter::StartShooter(float wheelRPM) {
 	Requires(Robot::shooter.get());
-	m_RPM = WheelRPM;
+	m_RPM = wheelRPM;
 }
 
 void StartShooter::Initialize() {

@@ -9,7 +9,7 @@ class StartShooter : public frc::Command {
 private:
 	float m_RPM;
 public:
-	StartShooter(float WheelRPM);
+	StartShooter(float wheelRPM);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
