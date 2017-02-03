@@ -13,7 +13,6 @@ void Robot::RobotInit() {
     gearManipulator.reset(new GearManipulator());
     shooter.reset(new Shooter());
 	oi.reset(new OI());
-	autonomousCommand.reset(new TestMotors(0.5));
 }
 
 void Robot::DisabledInit() {

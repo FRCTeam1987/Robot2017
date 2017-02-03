@@ -1,6 +1,5 @@
 #include "DriveTrain.h"
 #include "../RobotMap.h"
-#include "../Commands/DriveTrain/TestMotors.h"
 #include "LiveWindow/LiveWindow.h"
 #include "../Commands/DriveTrain/Drive.h"
 
@@ -27,19 +26,15 @@ void DriveTrain::DriveArcade(frc::XboxController *xbox) {
 
 void DriveTrain::Shift(bool isHighGear)
 {
-	if (isHighGear){
+	if (isHighGear)
 		shifter->Set(DoubleSolenoid::kForward);
-	}else {
+	else
 		shifter->Set(DoubleSolenoid::kReverse);
-	}
-}
-void DriveTrain::StartMotor(float percent) {
-	leftMaster->Set(percent);
-	rightMaster->Set(-percent);
 }
 
-void DriveTrain::StopMotor() {
-	leftMaster->Set(0);
+void DriveTrain::DriveTank(float left, float right)
+{
+	robotDrive->TankDrive(left, -right);
 }
 
 void DriveTrain::SetPTO(bool isEnabled) {

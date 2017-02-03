@@ -1,13 +1,15 @@
-#ifndef StopGearManipulator_H
-#define StopGearManipulator_H
+#ifndef SetElevator_H
+#define SetElevator_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class StopGearManipulator : public frc::Command {
+class SetElevator : public frc::Command {
+private:
+	float m_power;
 public:
-	StopGearManipulator();
+	SetElevator(float power);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -15,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // StopGearManipulator_H
+#endif  // SetElevator_H

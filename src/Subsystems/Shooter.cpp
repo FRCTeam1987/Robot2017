@@ -10,28 +10,16 @@ Shooter::Shooter() : Subsystem("Shooter") {
 void Shooter::InitDefaultCommand() {
 }
 
-void Shooter::StartShooter(float wheelRPM){
-	wheel->Set(wheelRPM);
+void Shooter::SetShooter(float power){
+	wheel->Set(power);
 }
 
-void Shooter::StopShooter(){
-	wheel->Set(0);
+void Shooter::SetElevator(float power){
+	elevator->Set(power);
 }
 
-void Shooter::StartElevator(float speed){
-	elevator->Set(speed);
-}
-
-void Shooter::StopElevator(){
-	elevator->Set(0);
-}
-
-void Shooter::StartRoller(float rollerRPM){
-	roller->Set(rollerRPM);
-}
-
-void Shooter::StopRoller(){
-	roller->Set(0);
+void Shooter::SetRoller(float power){
+	roller->Set(power);
 }
 
 float Shooter::GetWheelRPM(){
@@ -41,4 +29,3 @@ float Shooter::GetWheelRPM(){
 float Shooter::GetRollerRPM(){
 	return roller->GetSpeed();
 }
-

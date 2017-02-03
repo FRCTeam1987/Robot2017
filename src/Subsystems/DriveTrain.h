@@ -24,9 +24,8 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 	void DriveArcade(frc::XboxController *xbox);
+	void DriveTank(float left, float right);
 	void Shift(bool isHighGear);
-	void StartMotor(float percent);
-	void StopMotor();
 	void SetPTO(bool isEnabled);
 	bool IsTouchingPlate();
 };

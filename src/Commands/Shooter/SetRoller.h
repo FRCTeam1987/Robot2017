@@ -1,15 +1,15 @@
-#ifndef StartElevator_H
-#define StartElevator_H
+#ifndef SetRoller_H
+#define SetRoller_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class StartElevator : public frc::Command{
+class SetRoller : public frc::Command {
 private:
-	float m_speed;
+	float m_power;
 public:
-	StartElevator(float speed);
+	SetRoller(float power);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // StartElevator_H
+#endif  // SetRoller_H

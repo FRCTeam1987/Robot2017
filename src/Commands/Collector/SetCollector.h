@@ -1,15 +1,15 @@
-#ifndef StartShooter_H
-#define StartShooter_H
+#ifndef SetCollector_H
+#define SetCollector_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class StartShooter : public frc::Command {
+class SetCollector : public frc::Command {
 private:
-	float m_RPM;
+	float m_power;
 public:
-	StartShooter(float wheelRPM);
+	SetCollector(float power);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // StartShooter_H
+#endif  // SetCollector_H

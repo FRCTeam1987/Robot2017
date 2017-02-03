@@ -15,8 +15,7 @@ public:
 	Collector();
 	void InitDefaultCommand();
 	bool HasBall();
-	void StartRoller();
-	void StopRoller();
+	void SetRoller(float power);
 };
 
 #endif  // Collector_H

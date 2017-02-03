@@ -14,12 +14,9 @@ private:
 public:
 	Shooter();
 	void InitDefaultCommand();
-	void StartShooter(float wheelRPM);
-	void StopShooter();
-	void StartElevator(float speed);
-	void StopElevator();
-	void StartRoller(float rollerRPM);
-	void StopRoller();
+	void SetShooter(float power);
+	void SetElevator(float power);
+	void SetRoller(float power);
 	float GetWheelRPM();
 	float GetRollerRPM();
 };

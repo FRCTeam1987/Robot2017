@@ -1,12 +1,12 @@
 #include "ClimbToPlate.h"
 
-ClimbToPlate::ClimbToPlate(float voltage) {
+ClimbToPlate::ClimbToPlate(float power) {
 	Requires(Robot::driveTrain.get());
-	m_voltage = voltage;
+	m_power = power;
 }
 
 void ClimbToPlate::Initialize() {
-	Robot::driveTrain.get()->StartMotor(m_voltage);
+	Robot::driveTrain.get()->DriveTank(m_power, m_power);
 }
 
 void ClimbToPlate::Execute() {
@@ -17,9 +17,9 @@ bool ClimbToPlate::IsFinished() {
 }
 
 void ClimbToPlate::End() {
-	Robot::driveTrain.get()->StopMotor();
+	Robot::driveTrain.get()->DriveTank(0, 0);
 }
 
 void ClimbToPlate::Interrupted() {
-	Robot::driveTrain.get()->StopMotor();
+	Robot::driveTrain.get()->DriveTank(0, 0);
 }

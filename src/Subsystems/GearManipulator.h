@@ -7,11 +7,11 @@
 
 class GearManipulator : public frc::Subsystem {
 private:
+	std::shared_ptr<CANTalon> roller;
 	std::shared_ptr<frc::DigitalInput> gearSensor;
-	std::shared_ptr<frc::Solenoid> lift;
 	std::shared_ptr<frc::DigitalInput> gearRaisedSensor;
 	std::shared_ptr<frc::DigitalInput> gearLoweredSensor;
-	std::shared_ptr<CANTalon> roller;
+	std::shared_ptr<frc::Solenoid> lift;
 
 public:
 	GearManipulator();
@@ -20,8 +20,7 @@ public:
 	bool IsGearLowered();
 	bool IsGearRaised();
 	void SetGearPosition(bool isRaised);
-	void StartRoller(float speed);
-	void StopRoller();
+	void SetRoller(float power);
 };
 
 #endif  // GearManipulator_H

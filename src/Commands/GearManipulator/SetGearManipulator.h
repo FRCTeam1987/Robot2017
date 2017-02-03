@@ -1,15 +1,15 @@
-#ifndef ClimbToPlate_H
-#define ClimbToPlate_H
+#ifndef SetGearManipulator_H
+#define SetGearManipulator_H
 
 #include "WPILib.h"
 #include <CANTalon.h>
 #include "../../Robot.h"
 
-class ClimbToPlate : public frc::Command {
+class SetGearManipulator : public frc::Command {
 private:
 	float m_power;
 public:
-	ClimbToPlate(float power);
+	SetGearManipulator(float power);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // ClimbToPlate_H
+#endif  // SetGearManipulator_H

@@ -4,9 +4,9 @@
 GearManipulator::GearManipulator() : Subsystem("GearManipulator") {
 	roller = RobotMap::gearRoller;
 	gearSensor = RobotMap::gearSensor;
-	lift = RobotMap::gearLift;
 	gearRaisedSensor = RobotMap::gearPositionRaised;
 	gearLoweredSensor = RobotMap::gearPositionLowered;
+	lift = RobotMap::gearLift;
 }
 
 void GearManipulator::InitDefaultCommand() {
@@ -28,10 +28,6 @@ void GearManipulator::SetGearPosition(bool isRaised) {
 	lift->Set(isRaised);
 }
 
-void GearManipulator::StartRoller(float speed) {
-	roller->Set(speed);
-}
-
-void GearManipulator::StopRoller() {
-	roller->Set(0);
+void GearManipulator::SetRoller(float power) {
+	roller->Set(power);
 }
