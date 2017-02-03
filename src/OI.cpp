@@ -6,6 +6,7 @@
 #include "Commands/Collector/StopCollector.h"
 #include "Commands/DriveTrain/TestMotors.h"
 #include "Commands/DriveTrain/Shift.h"
+#include "Commands/DriveTrain/Climb.h"
 #include "Commands/GearManipulator/StartGearManipulator.h"
 #include "Commands/GearManipulator/StopGearManipulator.h"
 #include "Commands/GearManipulator/SetGearPosition.h"
@@ -27,6 +28,7 @@ OI::OI() {
 	frc::SmartDashboard::PutData("TestMotors", new TestMotors(0.5));
 	frc::SmartDashboard::PutData("ShiftHigh", new Shift(true));
 	frc::SmartDashboard::PutData("ShifthLow", new Shift(false));
+	frc::SmartDashboard::PutData("Climb", new Climb());
 
 	//Gear Manipulator
 	frc::SmartDashboard::PutData("Start Gear Manipulator", new StartGearManipulator(0.25));
