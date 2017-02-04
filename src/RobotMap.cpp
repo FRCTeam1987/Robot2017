@@ -17,6 +17,8 @@ std::shared_ptr<navXSensor> RobotMap::driveNavx;
 std::shared_ptr<DoubleSolenoid> RobotMap::driveShifter;
 std::shared_ptr<DoubleSolenoid> RobotMap::climberPTO;
 std::shared_ptr<DigitalInput> RobotMap::climberPlateSensor;
+std::shared_ptr<frc::Encoder> RobotMap::driveLeftEncoder;
+std::shared_ptr<frc::Encoder> RobotMap::driveRightEncoder;
 
 //Gear Manipulator
 std::shared_ptr<frc::DigitalInput> RobotMap::gearSensor;
@@ -30,6 +32,9 @@ std::shared_ptr<CANTalon> RobotMap::shooterWheel;
 std::shared_ptr<CANTalon> RobotMap::shooterElevator;
 std::shared_ptr<CANTalon> RobotMap::shooterRoller;
 
+//Turret
+std::shared_ptr<CANTalon> RobotMap::turretMotor;
+
 //OI
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
 
@@ -38,6 +43,7 @@ void RobotMap::init() {
 	initDriveTrain();
 	initGearManipulator();
 	initShooter();
+	initTurret();
 	initOI();
 }
 
@@ -48,6 +54,12 @@ void RobotMap::initCollector() {
 
 void RobotMap::initDriveTrain() {
 	LiveWindow *lw = LiveWindow::GetInstance();
+
+	const int wheelDiameter = 4;
+
+	const double PI = 3.141593;
+
+	const int ENCODER_TICKS = 360; //change value
 
 	driveLeftMaster.reset(new CANTalon(DRIVE_CAN_LEFT_MASTER));
 	lw->AddActuator("Drive Train", "Left Master", driveLeftMaster);
@@ -77,6 +89,14 @@ void RobotMap::initDriveTrain() {
 
 	climberPlateSensor.reset(new DigitalInput(CLIMBER_DIO_PLATE));
 	lw->AddSensor("Climber", "Is Plate Touched", climberPlateSensor);
+
+	driveLeftEncoder.reset(new Encoder(DRIVE_DIO_LEFT_ENCODER_A, DRIVE_DIO_LEFT_ENCODER_B));
+	driveLeftEncoder->SetDistancePerPulse((PI * wheelDiameter) / ENCODER_TICKS);
+	lw->AddActuator("DriveTrain", "left Drive Encoder", driveLeftEncoder);
+
+	driveRightEncoder.reset(new Encoder(DRIVE_DIO_RIGHT_ENCODER_A, DRIVE_DIO_RIGHT_ENCODER_B));
+	driveRightEncoder->SetDistancePerPulse((PI * wheelDiameter) / ENCODER_TICKS);
+	lw->AddActuator("DriveTrain", "right Drive Encoder", driveRightEncoder);
 }
 
 void RobotMap::initGearManipulator() {
@@ -109,6 +129,14 @@ void RobotMap::initShooter() {
 
 	shooterRoller.reset(new CANTalon(SHOOTER_CAN_ROLLER));
 	lw->AddActuator("Shooter", "Roller", shooterRoller);
+}
+
+void RobotMap::initTurret() {
+	LiveWindow *lw = LiveWindow::GetInstance();
+
+	turretMotor.reset(new CANTalon(TURRET_CAN_MOTOR));
+	lw->AddActuator("Turret", "Motor", turretMotor);
+
 }
 
 void RobotMap::initOI() {

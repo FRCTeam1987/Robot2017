@@ -10,7 +10,9 @@
 #include "Commands/Shooter/SetShooter.h"
 #include "Commands/Shooter/SetElevator.h"
 #include "Commands/Shooter/SetRoller.h"
+#include "Commands/Turret/ZeroTurret.h"
 #include "Commands/PrintStuff.h"
+#include "Commands/Turret/SetPosition.h"
 
 
 OI::OI() {
@@ -36,6 +38,11 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Stop Elevator", new SetElevator(0));
 	frc::SmartDashboard::PutData("Start Roller", new SetRoller(.25));
 	frc::SmartDashboard::PutData("Stop Roller", new SetRoller(0));
+
+	//Turret
+	frc::SmartDashboard::PutData("ZeroTurret", new ZeroTurret(.1));
+	frc::SmartDashboard::PutData("Set Turret 180", new SetPosition(180));
+	frc::SmartDashboard::PutData("Set Turret -180", new SetPosition(-180));
 
 	//PrintStuff
 	frc::SmartDashboard::PutData("Print Stuff", new PrintStuff());

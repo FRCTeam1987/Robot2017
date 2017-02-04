@@ -4,6 +4,7 @@ std::shared_ptr<Collector> Robot::collector;
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::shared_ptr<GearManipulator> Robot::gearManipulator;
 std::shared_ptr<Shooter> Robot::shooter;
+std::shared_ptr<Turret> Robot::turret;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
@@ -12,6 +13,7 @@ void Robot::RobotInit() {
     driveTrain.reset(new DriveTrain());
     gearManipulator.reset(new GearManipulator());
     shooter.reset(new Shooter());
+    turret.reset(new Turret());
 	oi.reset(new OI());
 }
 
@@ -19,7 +21,7 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
-	Scheduler::GetInstance()->Run();
+	frc::Scheduler::GetInstance()->Run();
 }
 
 void Robot::AutonomousInit() {
@@ -28,7 +30,7 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
-	Scheduler::GetInstance()->Run();
+	frc::Scheduler::GetInstance()->Run();
 }
 
 void Robot::TeleopInit() {
@@ -37,7 +39,7 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-	Scheduler::GetInstance()->Run();
+	frc::Scheduler::GetInstance()->Run();
 }
 
 void Robot::TestPeriodic() {

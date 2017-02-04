@@ -19,6 +19,8 @@ private:
 	std::shared_ptr<DoubleSolenoid> shifter;
 	std::shared_ptr<frc::DoubleSolenoid> PTO;
 	std::shared_ptr<frc::DigitalInput> plateSensor;
+	std::shared_ptr<frc::Encoder> leftEncoder;
+	std::shared_ptr<frc::Encoder> rightEncoder;
 
 public:
 	DriveTrain();

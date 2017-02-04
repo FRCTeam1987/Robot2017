@@ -14,6 +14,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	shifter = RobotMap::driveShifter;
 	PTO = RobotMap::climberPTO;
 	plateSensor = RobotMap::climberPlateSensor;
+	leftEncoder = RobotMap::driveLeftEncoder;
+	rightEncoder = RobotMap::driveRightEncoder;
 }
 
 void DriveTrain::InitDefaultCommand() {

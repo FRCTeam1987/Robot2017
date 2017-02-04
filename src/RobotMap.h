@@ -28,6 +28,8 @@ public:
 	static std::shared_ptr<DoubleSolenoid> driveShifter;
 	static std::shared_ptr<DoubleSolenoid> climberPTO;
 	static std::shared_ptr<frc::DigitalInput> climberPlateSensor;
+	static std::shared_ptr<frc::Encoder> driveLeftEncoder;
+	static std::shared_ptr<frc::Encoder> driveRightEncoder;
 
 	enum {
 		DRIVE_CAN_LEFT_MASTER = 1,
@@ -39,6 +41,10 @@ public:
 		CLIMBER_PCM_LEFTPTO = 3,
 		CLIMBER_PCM_RIGHTPTO = 4,
 		CLIMBER_DIO_PLATE = 11,
+		DRIVE_DIO_LEFT_ENCODER_A = 0,
+		DRIVE_DIO_LEFT_ENCODER_B = 1,
+		DRIVE_DIO_RIGHT_ENCODER_A = 2,
+		DRIVE_DIO_RIGHT_ENCODER_B = 3,
 	};
 
 	//Gear Manipulator
@@ -49,7 +55,7 @@ public:
 	static std::shared_ptr<CANTalon> gearRoller;
 
 	enum {
-		GEAR_CAN_ROLLER = 9,
+		GEAR_CAN_ROLLER = 8,
 		GEAR_DIO_GEAR = 5,
 		GEAR_DIO_POSITION_RAISED = 10,
 		GEAR_DIO_POSITION_LOWERED = 8,
@@ -64,7 +70,14 @@ public:
 	enum {
 		SHOOTER_CAN_WHEEL = 7,
 		SHOOTER_CAN_ELEVATOR = 6,
-		SHOOTER_CAN_ROLLER = 5,
+		SHOOTER_CAN_ROLLER = 11,//was 5
+	};
+
+	//Turret
+	static std::shared_ptr<CANTalon> turretMotor;
+
+	enum {
+		TURRET_CAN_MOTOR = 5,
 	};
 
 	//OI
@@ -79,7 +92,7 @@ public:
 	static void initDriveTrain();
 	static void initGearManipulator();
 	static void initShooter();
-	static void initClimber();
+	static void initTurret();
 	static void initOI();
 };
 

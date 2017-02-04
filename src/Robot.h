@@ -10,6 +10,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/GearManipulator.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/Turret.h"
 
 class Robot : public IterativeRobot {
 public:
@@ -20,6 +21,7 @@ public:
     static std::shared_ptr<DriveTrain> driveTrain;
     static std::shared_ptr<GearManipulator> gearManipulator;
     static std::shared_ptr<Shooter> shooter;
+    static std::shared_ptr<Turret> turret;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
