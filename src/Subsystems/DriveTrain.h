@@ -7,7 +7,7 @@
 #include <CANTalon.h>
 #include <AHRS.h>
 
-class DriveTrain : public frc::Subsystem {
+class DriveTrain : public frc::PIDSubsystem {
 private:
 	std::shared_ptr<CANTalon> leftMaster;
 	std::shared_ptr<CANTalon> rightMaster;
@@ -21,15 +21,28 @@ private:
 	std::shared_ptr<frc::DigitalInput> plateSensor;
 	std::shared_ptr<frc::Encoder> leftEncoder;
 	std::shared_ptr<frc::Encoder> rightEncoder;
+	double m_output;
+	double m_autoSpeed;
 
 public:
 	DriveTrain();
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
 	void InitDefaultCommand();
 	void DriveArcade(frc::XboxController *xbox);
 	void DriveTank(float left, float right);
 	void Shift(bool isHighGear);
 	void SetPTO(bool isEnabled);
 	bool IsTouchingPlate();
+	double GetLeftEncoderDistance();
+	double GetRightEncoderDistance();
+	double GetAngle();
+	void ZeroAngle();
+	void ZeroEncoders();
+	double GetHeadingChange();
+	void AutoDrive(float move, float rotate);
+	void SetAutoSpeed(double autoSpeed);
+	void SetSetpoint(double setpoint);
 };
 
 #endif  // DriveTrain_H

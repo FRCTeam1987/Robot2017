@@ -59,13 +59,16 @@ void RobotMap::initDriveTrain() {
 
 	const double PI = 3.141593;
 
-	const int ENCODER_TICKS = 360; //change value
+	const int ENCODER_TICKS = 1024; //change value
 
 	driveLeftMaster.reset(new CANTalon(DRIVE_CAN_LEFT_MASTER));
 	lw->AddActuator("Drive Train", "Left Master", driveLeftMaster);
+	driveLeftMaster.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
 	driveRightMaster.reset(new CANTalon(DRIVE_CAN_RIGHT_MASTER));
 	lw->AddActuator("Drive Train", "Right Master", driveRightMaster);
+	driveRightMaster.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+
 
 	driveLeftSlave.reset(new CANTalon(DRIVE_CAN_LEFT_SLAVE));
 	lw->AddActuator("Drive Train", "Left Slave", driveLeftSlave);
