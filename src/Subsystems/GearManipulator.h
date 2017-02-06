@@ -16,11 +16,11 @@ private:
 public:
 	GearManipulator();
 	void InitDefaultCommand();
+	void SetRoller(float power);
+	void SetGearPosition(bool isRaised);
 	bool HasGear();
 	bool IsGearLowered();
 	bool IsGearRaised();
-	void SetGearPosition(bool isRaised);
-	void SetRoller(float power);
 };
 
 #endif  // GearManipulator_H

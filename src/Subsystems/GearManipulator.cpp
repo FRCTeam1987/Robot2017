@@ -12,6 +12,14 @@ GearManipulator::GearManipulator() : Subsystem("GearManipulator") {
 void GearManipulator::InitDefaultCommand() {
 }
 
+void GearManipulator::SetRoller(float power) {
+	roller->Set(power);
+}
+
+void GearManipulator::SetGearPosition(bool isRaised) {
+	lift->Set(isRaised);
+}
+
 bool GearManipulator::HasGear() {
 	return gearSensor->Get();
 }
@@ -22,12 +30,4 @@ bool GearManipulator::IsGearLowered() {
 
 bool GearManipulator::IsGearRaised() {
 	return gearRaisedSensor->Get();
-}
-
-void GearManipulator::SetGearPosition(bool isRaised) {
-	lift->Set(isRaised);
-}
-
-void GearManipulator::SetRoller(float power) {
-	roller->Set(power);
 }

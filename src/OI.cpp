@@ -11,9 +11,8 @@
 #include "Commands/Shooter/SetElevator.h"
 #include "Commands/Shooter/SetRoller.h"
 #include "Commands/Turret/ZeroTurret.h"
-#include "Commands/PrintStuff.h"
 #include "Commands/Turret/SetPosition.h"
-
+#include "Commands/PrintStuff.h"
 
 OI::OI() {
 	//Collector
@@ -46,5 +45,4 @@ OI::OI() {
 
 	//PrintStuff
 	frc::SmartDashboard::PutData("Print Stuff", new PrintStuff());
-
 }

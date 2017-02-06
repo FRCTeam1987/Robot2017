@@ -11,10 +11,10 @@ void Collector::InitDefaultCommand() {
 	SetDefaultCommand(new SetCollector(0.25));
 }
 
-bool Collector::HasBall() {
-	return ballSensor->Get();
-}
-
 void Collector::SetRoller(float power) {
 	roller->Set(power);
+}
+
+bool Collector::HasBall() {
+	return ballSensor->Get();
 }

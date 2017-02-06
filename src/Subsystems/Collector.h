@@ -14,8 +14,8 @@ private:
 public:
 	Collector();
 	void InitDefaultCommand();
-	bool HasBall();
 	void SetRoller(float power);
+	bool HasBall();
 };
 
 #endif  // Collector_H
