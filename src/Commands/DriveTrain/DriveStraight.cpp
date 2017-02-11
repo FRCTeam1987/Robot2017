@@ -25,8 +25,7 @@ void DriveStraight::Execute() {
 
 	if (m_isDecc) {
 		m_currentSpeed -= m_deccRatio;
-	}
-	else if (currentRatio <= m_deccRatio && m_currentSpeed < m_maxSpeed) {
+	} else if (currentRatio <= m_deccRatio && m_currentSpeed < m_maxSpeed) {
 		m_currentSpeed += m_accRate;
 	} else if (currentRatio <= m_deccRatio && m_currentSpeed == m_maxSpeed) {
 		return;
@@ -35,7 +34,8 @@ void DriveStraight::Execute() {
 		m_currentSpeed -= m_deccRatio;
 	}
 
-	Robot::driveTrain.get()->AutoDrive(m_currentSpeed, 0);
+//	Should not need to do this because the PID subsystem is enabled.
+//	Robot::driveTrain.get()->AutoDrive(m_currentSpeed, 0);
 
 }
 
