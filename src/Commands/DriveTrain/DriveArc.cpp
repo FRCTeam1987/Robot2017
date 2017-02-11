@@ -6,7 +6,7 @@ DriveArc::DriveArc(double initialSpeed, double finalSpeed, double radius, double
 	m_angle = angle;
 	m_currentSpeed = 0;
 	m_currentAngle = 0;
-	m_isDecc = false;
+	m_isDec = false;
 	m_initialSpeed = initialSpeed;
 	m_finalSpeed = finalSpeed;
 
@@ -37,15 +37,15 @@ void DriveArc::Execute() {
 
 	m_currentAngle = percentDriven * m_angle;
 
-	if (m_isDecc) {
-		m_currentSpeed -= m_deccRatio;
-	} else if (currentRatio <= m_deccRatio && m_currentSpeed < m_maxSpeed) {
+	if (m_isDec) {
+		m_currentSpeed -= m_accRate;
+	} else if (currentRatio <= m_decRatio && m_currentSpeed < m_maxSpeed) {
 		m_currentSpeed += m_accRate;
-	} else if (currentRatio <= m_deccRatio && m_currentSpeed == m_maxSpeed) {
+	} else if (currentRatio <= m_decRatio && m_currentSpeed == m_maxSpeed) {
 		return;
-	} else if (currentRatio >= m_deccRatio) {
-		m_isDecc = true;
-		m_currentSpeed -= m_deccRatio;
+	} else if (currentRatio >= m_decRatio) {
+		m_isDec = true;
+		m_currentSpeed -= m_accRate;
 	}
 
 //	Should not need to do this because the PID subsystem is enabled.
