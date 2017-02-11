@@ -26,6 +26,7 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit() {
 	if (autonomousCommand.get() != nullptr)
+		driveTrain.get()->SetBrake();
 		autonomousCommand->Start();
 }
 
@@ -35,6 +36,7 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr)
+		driveTrain.get()->SetCoast();
 		autonomousCommand->Cancel();
 }
 

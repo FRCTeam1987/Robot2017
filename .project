@@ -25,46 +25,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>edu.wpi.first.wpilib.plugins.core.nature.FRCProjectNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/TrajectoryStuff/FileParser.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/FileParser.cpp</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/FileParser.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/FileParser.h</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/Path.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/Path.cpp</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/Path.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/Path.h</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/Trajectory.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/Trajectory.cpp</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/Trajectory.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/Trajectory.h</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/TrajectoryRunner.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/TrajectoryRunner.cpp</locationURI>
-		</link>
-		<link>
-			<name>src/TrajectoryStuff/TrajectoryRunner.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drive-Path/TrajectoryRunner.h</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

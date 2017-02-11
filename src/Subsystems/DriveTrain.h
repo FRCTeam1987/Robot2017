@@ -43,6 +43,8 @@ public:
 	void AutoDrive(float move, float rotate);
 	void SetAutoSpeed(double autoSpeed);
 	void SetSetpoint(double setpoint);
+	void SetBrake();
+	void SetCoast();
 };
 
 #endif  // DriveTrain_H

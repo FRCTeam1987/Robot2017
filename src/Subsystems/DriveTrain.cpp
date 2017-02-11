@@ -3,6 +3,7 @@
 #include "LiveWindow/LiveWindow.h"
 #include "../Commands/DriveTrain/Drive.h"
 #include "../Commands/DriveTrain/UpdateSmartDashboard.h"
+#include <CANTalon.h>
 
 DriveTrain::DriveTrain() :
 	PIDSubsystem("DriveTrain", 1.0, 0.0, 0.0)
@@ -110,4 +111,14 @@ void DriveTrain::SetAutoSpeed(double autoSpeed) {
 
 void DriveTrain::SetSetpoint(double setpoint) {
 	GetPIDController()->SetSetpoint(setpoint);
+}
+
+void DriveTrain::SetBrake() {
+	leftMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+	rightMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+}
+
+void DriveTrain::SetCoast() {
+	leftMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	rightMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 }

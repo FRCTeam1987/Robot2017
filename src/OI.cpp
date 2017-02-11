@@ -13,8 +13,6 @@
 #include "Commands/Turret/ZeroTurret.h"
 #include "Commands/PrintStuff.h"
 #include "Commands/Turret/SetPosition.h"
-#include "Commands/DriveTrain/DriveTrajectory.h"
-#include <FileParser.h>
 #include "Commands/DriveTrain/UpdateSmartDashboard.h"
 #include "Commands/DriveTrain/ZeroDriveTrain.h"
 #include "Commands/DriveTrain/DriveStraight.h"
@@ -32,10 +30,6 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Update Smart Dash Board", new UpdateSmartDashboard());
 	frc::SmartDashboard::PutData("Zero Sensors", new ZeroDriveTrain());
 	frc::SmartDashboard::PutData("Drive For Distance", new DriveStraight(.4, 0, 5));
-
-	FileParser * fp = new FileParser();
-	vector<Trajectory> myTrajectory = fp->parseFile("/home/lvuser/high-path.txt");
-	frc::SmartDashboard::PutData("DrivePath", new DriveTrajectory(myTrajectory));
 
 	//Gear Manipulator
 	frc::SmartDashboard::PutData("Start Gear Manipulator", new SetGearManipulator(0.25));
