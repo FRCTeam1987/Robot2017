@@ -11,7 +11,7 @@ private:
 	std::shared_ptr<frc::DigitalInput> gearSensor;
 	std::shared_ptr<frc::DigitalInput> gearRaisedSensor;
 	std::shared_ptr<frc::DigitalInput> gearLoweredSensor;
-	std::shared_ptr<frc::Solenoid> lift;
+	std::shared_ptr<frc::DoubleSolenoid> lift;
 
 public:
 	GearManipulator();

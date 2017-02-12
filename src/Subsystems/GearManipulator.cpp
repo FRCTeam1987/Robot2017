@@ -25,7 +25,10 @@ bool GearManipulator::IsGearRaised() {
 }
 
 void GearManipulator::SetGearPosition(bool isRaised) {
-	lift->Set(isRaised);
+	if (isRaised)
+		lift->Set(DoubleSolenoid::kForward);
+	else
+		lift->Set(DoubleSolenoid::kReverse);
 }
 
 void GearManipulator::SetRoller(float power) {

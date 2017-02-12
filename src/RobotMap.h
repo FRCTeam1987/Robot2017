@@ -38,8 +38,8 @@ public:
 		DRIVE_CAN_RIGHT_SLAVE = 4,
 		DRIVE_PCM_SHIFT_HIGH = 0,
 		DRIVE_PCM_SHIFT_LOW = 1,
-		CLIMBER_PCM_LEFTPTO = 3,
-		CLIMBER_PCM_RIGHTPTO = 4,
+		CLIMBER_PCM_LEFTPTO = 2,
+		CLIMBER_PCM_RIGHTPTO = 3,
 		CLIMBER_DIO_PLATE = 11,
 		DRIVE_DIO_LEFT_ENCODER_A = 0,
 		DRIVE_DIO_LEFT_ENCODER_B = 1,
@@ -49,7 +49,7 @@ public:
 
 	//Gear Manipulator
 	static std::shared_ptr<frc::DigitalInput> gearSensor;
-	static std::shared_ptr<frc::Solenoid> gearLift;
+	static std::shared_ptr<frc::DoubleSolenoid> gearLift;
 	static std::shared_ptr<frc::DigitalInput> gearPositionRaised;
 	static std::shared_ptr<frc::DigitalInput> gearPositionLowered;
 	static std::shared_ptr<CANTalon> gearRoller;
@@ -59,7 +59,8 @@ public:
 		GEAR_DIO_GEAR = 5,
 		GEAR_DIO_POSITION_RAISED = 10,
 		GEAR_DIO_POSITION_LOWERED = 8,
-		GEAR_PCM_LIFT = 2,
+		GEAR_PCM_TOPLIFT = 4,
+		GEAR_PCM_BOTTOMLIFT = 5,
 	};
 
 	//Shooter

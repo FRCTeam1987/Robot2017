@@ -22,7 +22,7 @@ std::shared_ptr<frc::Encoder> RobotMap::driveRightEncoder;
 
 //Gear Manipulator
 std::shared_ptr<frc::DigitalInput> RobotMap::gearSensor;
-std::shared_ptr<frc::Solenoid> RobotMap::gearLift;
+std::shared_ptr<frc::DoubleSolenoid> RobotMap::gearLift;
 std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionRaised;
 std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionLowered;
 std::shared_ptr<CANTalon> RobotMap::gearRoller;
@@ -117,7 +117,7 @@ void RobotMap::initGearManipulator() {
 	gearPositionLowered.reset(new DigitalInput(GEAR_DIO_POSITION_LOWERED));
 	lw->AddSensor("Gear Manipulator", "Is Gear Lowered", gearPositionLowered);
 
-	gearLift.reset(new Solenoid(GEAR_PCM_LIFT));
+	gearLift.reset(new DoubleSolenoid(GEAR_PCM_TOPLIFT, GEAR_PCM_BOTTOMLIFT));
 	lw->AddActuator("Gear Manipulator", "Gear Lift", gearLift);
 }
 
