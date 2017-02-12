@@ -16,7 +16,7 @@ DriveArc::DriveArc(double initialSpeed, double finalSpeed, double radius, double
 	m_leftDistance = m_leftRadius * m_angle;
 	m_rightDistance = m_rightRadius * m_angle;
 
-	m_distance = (m_leftDistance * m_rightDistance) / 2;
+	m_distance = (m_leftDistance + m_rightDistance) / 2;
 }
 
 void DriveArc::Initialize() {
@@ -53,7 +53,7 @@ void DriveArc::Execute() {
 }
 
 bool DriveArc::IsFinished() {
-	return abs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= abs(m_leftDistance) && abs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= abs(m_rightDistance) && (m_angle >= Robot::driveTrain.get()->GetAngle());
+	return fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_leftDistance) && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_rightDistance) && (m_angle >= Robot::driveTrain.get()->GetAngle());
 }
 
 void DriveArc::End() {

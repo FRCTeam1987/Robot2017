@@ -29,6 +29,7 @@ DriveTrain::DriveTrain() :
 	m_output = 0;
 	m_autoSpeed = 0;
 }
+
 double DriveTrain::ReturnPIDInput() {
 	return GetHeadingChange();
 }
@@ -38,6 +39,7 @@ void DriveTrain::UsePIDOutput(double output) {
 
 	AutoDrive(m_autoSpeed, output);
 }
+
 void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new Drive());
 //	SetDefaultCommand(new UpdateSmartDashboard());
@@ -47,16 +49,14 @@ void DriveTrain::DriveArcade(frc::XboxController *xbox) {
 	robotDrive->ArcadeDrive((-xbox->GetTriggerAxis(XboxController::kLeftHand) + xbox->GetTriggerAxis(XboxController::kRightHand)), -xbox->GetX(XboxController::kLeftHand));
 }
 
-void DriveTrain::Shift(bool isHighGear)
-{
+void DriveTrain::Shift(bool isHighGear) {
 	if (isHighGear)
 		shifter->Set(DoubleSolenoid::kForward);
 	else
 		shifter->Set(DoubleSolenoid::kReverse);
 }
 
-void DriveTrain::DriveTank(float left, float right)
-{
+void DriveTrain::DriveTank(float left, float right) {
 	robotDrive->TankDrive(left, -right);
 }
 
