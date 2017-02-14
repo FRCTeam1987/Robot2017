@@ -8,7 +8,7 @@
 class Shooter : public frc::Subsystem {
 private:
 	std::shared_ptr<CANTalon> wheel;
-	std::shared_ptr<CANTalon> elevator;
+	std::shared_ptr<Talon> elevator;
 	std::shared_ptr<CANTalon> roller;
 
 public:

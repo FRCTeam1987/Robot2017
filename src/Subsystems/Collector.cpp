@@ -1,6 +1,6 @@
-#include "Collector.h"
+#include "Collector.h")
 #include "../RobotMap.h"
-#include "../Commands/Collector/SetCollector.h"
+#include "../Commands/Collector/AutoRunCollector.h"
 
 Collector::Collector() : Subsystem("Collector") {
 	roller = RobotMap::collectorRoller;
@@ -8,11 +8,11 @@ Collector::Collector() : Subsystem("Collector") {
 }
 
 void Collector::InitDefaultCommand() {
-	SetDefaultCommand(new SetCollector(0.25));
+	SetDefaultCommand(new AutoRunCollector());
 }
 
 bool Collector::HasBall() {
-	return ballSensor->Get();
+	return (!(ballSensor->Get()));
 }
 
 void Collector::SetRoller(float power) {

@@ -3,7 +3,7 @@
 #include "Robot.h"
 
 //Collector
-std::shared_ptr<CANTalon> RobotMap::collectorRoller;
+std::shared_ptr<Talon> RobotMap::collectorRoller;
 std::shared_ptr<frc::DigitalInput> RobotMap::collectorBallSensor;
 
 //Drive Train
@@ -29,7 +29,7 @@ std::shared_ptr<CANTalon> RobotMap::gearRoller;
 
 //Shooter
 std::shared_ptr<CANTalon> RobotMap::shooterWheel;
-std::shared_ptr<CANTalon> RobotMap::shooterElevator;
+std::shared_ptr<Talon> RobotMap::shooterElevator;
 std::shared_ptr<CANTalon> RobotMap::shooterRoller;
 
 //Turret
@@ -48,7 +48,7 @@ void RobotMap::init() {
 }
 
 void RobotMap::initCollector() {
-	collectorRoller.reset(new CANTalon(COLLECTOR_CAN_ROLLER));
+	collectorRoller.reset(new Talon(COLLECTOR_PWM_ROLLER));
 	collectorBallSensor.reset(new DigitalInput(COLLECTOR_DIO_BALL));
 }
 
@@ -61,7 +61,7 @@ void RobotMap::initDriveTrain() {
 
 	const int ENCODER_TICKS = 1024; //change value
 
-	driveLeftMaster.reset(new CANTalon(DRIVE_CAN_LEFT_MASTER));
+	driveLeftMaster.reset(new CANTalon(DRIVE_CAN_LEFT_MASTER));  // Green motor
 	lw->AddActuator("Drive Train", "Left Master", driveLeftMaster);
 	driveLeftMaster.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
@@ -70,7 +70,7 @@ void RobotMap::initDriveTrain() {
 	driveRightMaster.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
 
-	driveLeftSlave.reset(new CANTalon(DRIVE_CAN_LEFT_SLAVE));
+	driveLeftSlave.reset(new CANTalon(DRIVE_CAN_LEFT_SLAVE));  // Yellow motor
 	lw->AddActuator("Drive Train", "Left Slave", driveLeftSlave);
 	driveLeftSlave.get()->SetControlMode(CANTalon::kFollower);
 	driveLeftSlave.get()->Set(DRIVE_CAN_LEFT_MASTER);
@@ -127,7 +127,7 @@ void RobotMap::initShooter() {
 	shooterWheel.reset(new CANTalon(SHOOTER_CAN_WHEEL));
 	lw->AddActuator("Shooter", "Wheel", shooterWheel);
 
-	shooterElevator.reset(new CANTalon(SHOOTER_CAN_ELEVATOR));
+	shooterElevator.reset(new Talon(SHOOTER_PWM_ELEVATOR));
 	lw->AddActuator("Shooter", "Elevator", shooterElevator);
 
 	shooterRoller.reset(new CANTalon(SHOOTER_CAN_ROLLER));

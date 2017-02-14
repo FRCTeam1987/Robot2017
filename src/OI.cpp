@@ -3,6 +3,7 @@
 #include <WPILib.h>
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/Collector/SetCollector.h"
+#include "Commands/Collector/ShowHasBall.h"
 #include "Commands/DriveTrain/Shift.h"
 #include "Commands/DriveTrain/Climb.h"
 #include "Commands/GearManipulator/SetGearManipulator.h"
@@ -11,6 +12,7 @@
 #include "Commands/Shooter/SetElevator.h"
 #include "Commands/Shooter/SetRoller.h"
 #include "Commands/Turret/ZeroTurret.h"
+#include "Commands/Turret/SetTurretPercent.h"
 #include "Commands/PrintStuff.h"
 #include "Commands/Turret/SetPosition.h"
 #include "Commands/DriveTrain/UpdateSmartDashboard.h"
@@ -20,8 +22,9 @@
 
 OI::OI() {
 	//Collector
-	frc::SmartDashboard::PutData("Start Collector", new SetCollector(0.25));
+	frc::SmartDashboard::PutData("Start Collector", new SetCollector(0.95));
 	frc::SmartDashboard::PutData("Stop Collector", new SetCollector(0));
+	frc::SmartDashboard::PutData("Show Has Ball Sensor", new ShowHasBall());
 
 	//Drive Train
 	frc::SmartDashboard::PutData("Shift High", new Shift(true));
@@ -29,7 +32,8 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Climb", new Climb());
 	frc::SmartDashboard::PutData("Update Smart Dash Board", new UpdateSmartDashboard());
 	frc::SmartDashboard::PutData("Zero Sensors", new ZeroDriveTrain());
-	frc::SmartDashboard::PutData("Drive For Distance", new DriveStraight(.4, 0, 5));
+	frc::SmartDashboard::PutData("Drive 4 feet", new DriveStraight(48, 0, 0));
+	frc::SmartDashboard::PutData("Drive 8 feet", new DriveStraight(96, 0, 0));
 
 	//Gear Manipulator
 	frc::SmartDashboard::PutData("Start Gear Manipulator", new SetGearManipulator(0.25));
@@ -38,19 +42,20 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Lower Gear", new SetGearPosition(false));
 
 	//Shooter
-	frc::SmartDashboard::PutData("Start Shooter", new SetShooter(0.25));
+	frc::SmartDashboard::PutData("Start Shooter", new SetShooter(0.75));
 	frc::SmartDashboard::PutData("Stop Shooter", new SetShooter(0));
-	frc::SmartDashboard::PutData("Start Elevator", new SetElevator(.25));
+	frc::SmartDashboard::PutData("Start Elevator", new SetElevator(.75));
 	frc::SmartDashboard::PutData("Stop Elevator", new SetElevator(0));
-	frc::SmartDashboard::PutData("Start Roller", new SetRoller(.25));
+	frc::SmartDashboard::PutData("Start Roller", new SetRoller(.5));
 	frc::SmartDashboard::PutData("Stop Roller", new SetRoller(0));
 
 	//Turret
 	frc::SmartDashboard::PutData("ZeroTurret", new ZeroTurret(.1));
 	frc::SmartDashboard::PutData("Set Turret 180", new SetPosition(180));
 	frc::SmartDashboard::PutData("Set Turret -180", new SetPosition(-180));
+	frc::SmartDashboard::PutData("Set Turret Speed To 0.5", new SetTurretPercent(0.5));
+	frc::SmartDashboard::PutData("Set Turret Speed To -0.5", new SetTurretPercent(-0.5));
 
 	//PrintStuff
 	frc::SmartDashboard::PutData("Print Stuff", new PrintStuff());
-
 }

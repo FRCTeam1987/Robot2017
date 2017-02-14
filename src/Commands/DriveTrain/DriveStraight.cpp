@@ -12,6 +12,7 @@ DriveStraight::DriveStraight(double distance, double initialSpeed, double finalS
 void DriveStraight::Initialize() {
 	m_currentSpeed = m_initialSpeed;
 	Robot::driveTrain.get()->ZeroEncoders();
+	Robot::driveTrain.get()->ZeroAngle();
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
 	Robot::driveTrain.get()->SetSetpoint(0);
 	Robot::driveTrain.get()->Enable();
@@ -32,7 +33,10 @@ void DriveStraight::Execute() {
 	} else if (currentRatio >= m_decRatio) {
 		m_isDec = true;
 		m_currentSpeed -= m_accRate;
+
 	}
+
+	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
 
 //	Should not need to do this because the PID subsystem is enabled.
 //	Robot::driveTrain.get()->AutoDrive(m_currentSpeed, 0);
@@ -48,6 +52,7 @@ void DriveStraight::End() {
 	frc::SmartDashboard::PutNumber("Right Encoder Post Drive", Robot::driveTrain.get()->GetRightEncoderDistance());
 	Robot::driveTrain.get()->Disable();
 	Robot::driveTrain.get()->AutoDrive(m_finalSpeed, 0);
+	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
 }
 
 void DriveStraight::Interrupted() {

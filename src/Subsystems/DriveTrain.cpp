@@ -6,7 +6,7 @@
 #include <CANTalon.h>
 
 DriveTrain::DriveTrain() :
-	PIDSubsystem("DriveTrain", 1.0, 0.0, 0.0)
+	PIDSubsystem("DriveTrain", 0.3, 0.0, 0.0)
 {
 	leftMaster = RobotMap::driveLeftMaster;
 	rightMaster = RobotMap::driveRightMaster;
@@ -31,6 +31,7 @@ DriveTrain::DriveTrain() :
 }
 
 double DriveTrain::ReturnPIDInput() {
+	printf("heading change: %d\n", GetHeadingChange());
 	return GetHeadingChange();
 }
 

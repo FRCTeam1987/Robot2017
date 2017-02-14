@@ -8,7 +8,7 @@
 
 class Collector : public frc::Subsystem {
 private:
-	std::shared_ptr<CANTalon> roller;
+	std::shared_ptr<Talon> roller;
 	std::shared_ptr<frc::DigitalInput> ballSensor;
 
 public:

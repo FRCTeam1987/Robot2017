@@ -11,7 +11,7 @@ void Shooter::InitDefaultCommand() {
 }
 
 void Shooter::SetShooter(float power){
-	wheel->Set(power);
+	wheel->Set(-power);
 }
 
 void Shooter::SetElevator(float power){
@@ -19,7 +19,7 @@ void Shooter::SetElevator(float power){
 }
 
 void Shooter::SetRoller(float power){
-	roller->Set(power);
+	roller->Set(-power);
 }
 
 float Shooter::GetWheelRPM(){
