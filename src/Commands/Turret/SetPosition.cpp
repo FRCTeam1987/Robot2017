@@ -1,34 +1,27 @@
 #include "SetPosition.h"
 
-SetPosition::SetPosition(double position) {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+SetPosition::SetPosition(double angle) {
 	Requires(Robot::turret.get());
-	m_position = position;
+	m_angle = angle;
 }
 
-// Called just before this Command runs the first time
 void SetPosition::Initialize() {
-	Robot::turret.get()->SetPosition(m_position);
+	frc::SmartDashboard::PutNumber("Target Angle", m_angle);
+	Robot::turret.get()->SetPosition(m_angle);
 }
 
-// Called repeatedly when this Command is scheduled to run
 void SetPosition::Execute() {
-	frc::SmartDashboard::PutNumber("Turret Position", Robot::turret.get()->GetPosition());
+	frc::SmartDashboard::PutNumber("Turret Angle", Robot::turret.get()->GetAngle());
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool SetPosition::IsFinished() {
-	return true;
+	return (Robot::turret.get()->isOnTarget());
 }
 
-// Called once after isFinished returns true
 void SetPosition::End() {
 
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void SetPosition::Interrupted() {
 
 }

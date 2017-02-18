@@ -65,12 +65,14 @@ public:
 	};
 
 	//Shooter
-	static std::shared_ptr<CANTalon> shooterWheel;
+	static std::shared_ptr<CANTalon> shooterWheelMaster;
+	static std::shared_ptr<CANTalon> shooterWheelSlave;
 	static std::shared_ptr<Talon> shooterElevator;
 	static std::shared_ptr<CANTalon> shooterRoller;
 
 	enum {
-		SHOOTER_CAN_WHEEL = 7,
+		SHOOTER_CAN_WHEEL_MASTER = 9,
+		SHOOTER_CAN_WHEEL_SLAVE = 7,
 		SHOOTER_PWM_ELEVATOR = 1,
 		SHOOTER_CAN_ROLLER = 11,
 	};

@@ -13,7 +13,7 @@ void GearManipulator::InitDefaultCommand() {
 }
 
 bool GearManipulator::HasGear() {
-	return gearSensor->Get();
+	return !gearSensor->Get();
 }
 
 bool GearManipulator::IsGearLowered() {
@@ -26,9 +26,9 @@ bool GearManipulator::IsGearRaised() {
 
 void GearManipulator::SetGearPosition(bool isRaised) {
 	if (isRaised)
-		lift->Set(DoubleSolenoid::kReverse);
+		lift->Set(frc::DoubleSolenoid::kReverse);
 	else
-		lift->Set(DoubleSolenoid::kForward);
+		lift->Set(frc::DoubleSolenoid::kForward);
 }
 
 void GearManipulator::SetRoller(float power) {

@@ -12,14 +12,14 @@ void SetGearManipulator::Initialize() {
 void SetGearManipulator::Execute() {
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool SetGearManipulator::IsFinished() {
-	return true;
+	return Robot::gearManipulator.get()->HasGear();
 }
 
 void SetGearManipulator::End() {
+	Robot::gearManipulator.get()->SetRoller(0);
 }
 
 void SetGearManipulator::Interrupted() {
-	Robot::gearManipulator.get()->SetRoller(m_power);
+	Robot::gearManipulator.get()->SetRoller(0);
 }

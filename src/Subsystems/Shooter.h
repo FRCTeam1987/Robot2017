@@ -7,14 +7,17 @@
 
 class Shooter : public frc::Subsystem {
 private:
-	std::shared_ptr<CANTalon> wheel;
+	std::shared_ptr<CANTalon> wheelMaster;
+	std::shared_ptr<CANTalon> wheelSlave;
 	std::shared_ptr<Talon> elevator;
 	std::shared_ptr<CANTalon> roller;
 
 public:
+	bool m_isRun;
 	Shooter();
 	void InitDefaultCommand();
 	void SetShooter(float power);
+	void SetShooterRpm(float rpm);
 	void SetElevator(float power);
 	void SetRoller(float power);
 	float GetWheelRPM();

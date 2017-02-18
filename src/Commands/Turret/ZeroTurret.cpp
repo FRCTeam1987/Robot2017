@@ -11,12 +11,14 @@ void ZeroTurret::Initialize() {
 }
 
 void ZeroTurret::Execute() {
-//	frc::SmartDashboard::PutNumber("Turret Position", Robot::turret.get()->GetPosition());
-	frc::SmartDashboard::PutNumber("Turret Limits", Robot::turret.get()->GetReverseLimit());
+	frc::SmartDashboard::PutNumber("Turret Position", Robot::turret.get()->GetPosition());
+	frc::SmartDashboard::PutNumber("Turret Limits Reverse", Robot::turret.get()->GetReverseLimit());
+	frc::SmartDashboard::PutNumber("Turret Limits Forward", Robot::turret.get()->GetForwardLimit());
+
 }
 
 bool ZeroTurret::IsFinished() {
-	if (Robot::turret.get()->GetReverseLimit() == 1) {
+	if (Robot::turret.get()->GetForwardLimit() == 1) {
 		return true;
 	}else{
 		return false;
@@ -26,7 +28,7 @@ bool ZeroTurret::IsFinished() {
 
 void ZeroTurret::End() {
 	Robot::turret.get()->ZeroPosition();
-	frc::SmartDashboard::PutNumber("Turret Limits", Robot::turret.get()->GetReverseLimit());
+
 	Robot::turret.get()->SetVoltage(0);
 }
 

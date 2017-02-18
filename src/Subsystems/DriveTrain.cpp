@@ -6,7 +6,7 @@
 #include <CANTalon.h>
 
 DriveTrain::DriveTrain() :
-	PIDSubsystem("DriveTrain", 0.3, 0.0, 0.0)
+	PIDSubsystem("DriveTrain", 0.01, 0.0, 0.0)
 {
 	leftMaster = RobotMap::driveLeftMaster;
 	rightMaster = RobotMap::driveRightMaster;
@@ -21,6 +21,8 @@ DriveTrain::DriveTrain() :
 	leftEncoder = RobotMap::driveLeftEncoder;
 	rightEncoder = RobotMap::driveRightEncoder;
 
+//	ZeroAngle(); //move to somewhere else
+
 	GetPIDController()->SetAbsoluteTolerance(2.0);
 	GetPIDController()->SetContinuous(true);
 	GetPIDController()->SetInputRange(0, 360);
@@ -28,17 +30,21 @@ DriveTrain::DriveTrain() :
 
 	m_output = 0;
 	m_autoSpeed = 0;
+	m_autoTurn = 0;
+	m_headingOffset = ahrs->GetFusedHeading();
 }
 
 double DriveTrain::ReturnPIDInput() {
-	printf("heading change: %d\n", GetHeadingChange());
+//	printf("heading change: %d\n", GetHeadingChange()); //Warning
 	return GetHeadingChange();
 }
 
 void DriveTrain::UsePIDOutput(double output) {
 	m_output = output;
-
-	AutoDrive(m_autoSpeed, output);
+	frc::SmartDashboard::PutNumber("drive-power", m_autoSpeed);
+	frc::SmartDashboard::PutNumber("drive-rotate", output);
+	printf("power: %f, rotate: %f\n", m_autoSpeed, output);
+	AutoDrive(m_autoSpeed, output + m_autoTurn);
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -47,6 +53,15 @@ void DriveTrain::InitDefaultCommand() {
 }
 
 void DriveTrain::DriveArcade(frc::XboxController *xbox) {
+	frc::SmartDashboard::PutBoolean("imu-connected", ahrs->IsConnected());
+	frc::SmartDashboard::PutNumber("imu-yaw", ahrs->GetYaw());
+	frc::SmartDashboard::PutNumber("imu-getFusedHeading", ahrs->GetFusedHeading());
+	frc::SmartDashboard::PutNumber("imu-velocity-x", ahrs->GetVelocityX());
+	frc::SmartDashboard::PutNumber("imu-velocity-y", ahrs->GetVelocityY());
+	frc::SmartDashboard::PutNumber("imu-displacement-x", ahrs->GetDisplacementX());
+	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
+	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
+	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
 	robotDrive->ArcadeDrive((-xbox->GetTriggerAxis(XboxController::kLeftHand) + xbox->GetTriggerAxis(XboxController::kRightHand)), -xbox->GetX(XboxController::kLeftHand));
 }
 
@@ -80,12 +95,23 @@ double DriveTrain::GetRightEncoderDistance() {
 	return -(rightEncoder->GetDistance());
 }
 
-double DriveTrain::GetAngle() {
+float DriveTrain::GetAngle() {
+//	frc::SmartDashboard::PutBoolean("imu-connected", ahrs->IsConnected());
+//	frc::SmartDashboard::PutNumber("imu-yaw", ahrs->GetYaw());
+//	frc::SmartDashboard::PutNumber("imu-getFusedHeading", ahrs->GetFusedHeading());
+//	frc::SmartDashboard::PutNumber("imu-velocity-x", ahrs->GetVelocityX());
+//	frc::SmartDashboard::PutNumber("imu-velocity-y", ahrs->GetVelocityY());
+//	frc::SmartDashboard::PutNumber("imu-displacement-x", ahrs->GetDisplacementX());
+//	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
+//	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
+//	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
 	return ahrs->GetFusedHeading();
 }
 
 void DriveTrain::ZeroAngle() {
-	ahrs->Reset();
+	ahrs->ZeroYaw();
+//	ahrs->Reset();
+	m_headingOffset = Robot::driveTrain.get()->GetAngle();
 }
 
 void DriveTrain::ZeroEncoders() {
@@ -93,12 +119,14 @@ void DriveTrain::ZeroEncoders() {
 	rightEncoder->Reset();
 }
 
-double DriveTrain::GetHeadingChange() {
+float DriveTrain::GetHeadingChange() {
 	if (GetAngle() < 0)
 	{
-		return (GetAngle() + 360);
+		frc::SmartDashboard::PutNumber("Drive Train Angle", GetAngle() + 360.0);
+		return ((GetAngle() - m_headingOffset) + 360.0);
 	}else {
-		return GetAngle();
+		frc::SmartDashboard::PutNumber("Drive Train Angle", GetAngle());
+		return (GetAngle() - m_headingOffset);
 	}
 }
 
@@ -108,6 +136,10 @@ void DriveTrain::AutoDrive(float move, float rotate) {
 
 void DriveTrain::SetAutoSpeed(double autoSpeed) {
 	m_autoSpeed = autoSpeed;
+}
+
+void DriveTrain::SetAutoTurn(float turn) {
+	m_autoTurn = turn;
 }
 
 void DriveTrain::SetSetpoint(double setpoint) {

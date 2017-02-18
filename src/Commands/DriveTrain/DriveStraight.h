@@ -12,9 +12,9 @@ private:
 	double m_initialSpeed;
 	double m_finalSpeed;
 	bool m_isDec;
-	const double m_accRate = 0.1; //todo:needs to change
+	const double m_accRate = 0.05; //todo:needs to change
 	const double m_maxSpeed = 0.95;
-	const double m_decRatio = 0.95/24; //todo:needs to change
+	const double m_decRatio = 0.1/6; //todo:needs to change
 public:
 	DriveStraight(double distance, double initialSpeed, double finalSpeed);
 	void Initialize();

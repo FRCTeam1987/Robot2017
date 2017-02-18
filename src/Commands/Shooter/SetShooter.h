@@ -7,9 +7,10 @@
 
 class SetShooter : public frc::Command {
 private:
-	float m_power;
+	float m_rpm;
+	float m_tolerance;
 public:
-	SetShooter(float power);
+	SetShooter(float rpm);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

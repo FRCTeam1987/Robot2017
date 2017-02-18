@@ -48,6 +48,7 @@
 								<option id="gnu.cpp.link.option.libs.1363675797" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="CTRLib"/>
 									<listOptionValue builtIn="false" value="navx_frc_cpp"/>
+									<listOptionValue builtIn="false" value="pathfinder"/>
 									<listOptionValue builtIn="false" value="sf2-frc"/>
 									<listOptionValue builtIn="false" value="wpi"/>
 								</option>
@@ -63,7 +64,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.412234585" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.1047448065" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
-								<option id="gnu.both.asm.option.include.paths.408984" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath"/>
+								<option id="gnu.both.asm.option.include.paths.408984" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1542016468" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 						</toolChain>

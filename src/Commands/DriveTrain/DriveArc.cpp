@@ -37,19 +37,24 @@ void DriveArc::Execute() {
 
 	m_currentAngle = percentDriven * m_angle;
 
-	if (m_isDec) {
-		m_currentSpeed -= m_accRate;
-	} else if (currentRatio <= m_decRatio && m_currentSpeed < m_maxSpeed) {
-		m_currentSpeed += m_accRate;
-	} else if (currentRatio <= m_decRatio && m_currentSpeed == m_maxSpeed) {
-		return;
-	} else if (currentRatio >= m_decRatio) {
-		m_isDec = true;
-		m_currentSpeed -= m_accRate;
+	if (deltaDistance > 12 && fabs(m_currentSpeed) < fabs(m_maxSpeed)) {
+		m_currentSpeed += m_accRate*2;
+	} else if (deltaDistance <= 12 && m_currentSpeed > 0.2 && fabs(m_currentSpeed) >  fabs(m_finalSpeed)) {
+		m_currentSpeed -= m_accRate*2;
 	}
+	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
+	Robot::driveTrain.get()->SetAutoTurn(m_currentAngle);
 
-//	Should not need to do this because the PID subsystem is enabled.
-//	Robot::driveTrain.get()->AutoDrive(m_currentSpeed, m_currentAngle);
+//	if (m_isDec) {
+//		m_currentSpeed -= m_accRate;
+//	} else if (currentRatio <= m_decRatio && m_currentSpeed < m_maxSpeed) {
+//		m_currentSpeed += m_accRate;
+//	} else if (currentRatio <= m_decRatio && m_currentSpeed == m_maxSpeed) {
+//		return;
+//	} else if (currentRatio >= m_decRatio) {
+//		m_isDec = true;
+//		m_currentSpeed -= m_accRate;
+//	}
 }
 
 bool DriveArc::IsFinished() {

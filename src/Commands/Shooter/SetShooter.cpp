@@ -1,19 +1,21 @@
 #include "SetShooter.h"
 
-SetShooter::SetShooter(float power) {
+SetShooter::SetShooter(float rpm) {
 	Requires(Robot::shooter.get());
-	m_power = power;
+	m_rpm = rpm;
+	m_tolerance = 50;
 }
 
 void SetShooter::Initialize() {
-	Robot::shooter.get()->SetShooter(m_power);
+	Robot::shooter.get()->SetShooterRpm(m_rpm);
 }
 
 void SetShooter::Execute() {
+	frc::SmartDashboard::PutNumber("Shooter RPM", Robot::shooter.get()->GetWheelRPM());
 }
 
 bool SetShooter::IsFinished() {
-	return true;
+	return fabs(fabs(Robot::shooter.get()->GetWheelRPM()) - fabs(m_rpm)) <= m_tolerance;
 }
 
 void SetShooter::End() {

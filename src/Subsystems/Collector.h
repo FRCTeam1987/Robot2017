@@ -14,6 +14,7 @@ private:
 public:
 	Collector();
 	void InitDefaultCommand();
+	void DisableDefaultCommand();
 	bool HasBall();
 	void SetRoller(float power);
 };

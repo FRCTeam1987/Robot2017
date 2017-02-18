@@ -23,6 +23,8 @@ private:
 	std::shared_ptr<frc::Encoder> rightEncoder;
 	double m_output;
 	double m_autoSpeed;
+	double m_autoTurn;
+	double m_headingOffset;
 
 public:
 	DriveTrain();
@@ -36,12 +38,13 @@ public:
 	bool IsTouchingPlate();
 	double GetLeftEncoderDistance();
 	double GetRightEncoderDistance();
-	double GetAngle();
+	float GetAngle();
 	void ZeroAngle();
 	void ZeroEncoders();
-	double GetHeadingChange();
+	float GetHeadingChange();
 	void AutoDrive(float move, float rotate);
 	void SetAutoSpeed(double autoSpeed);
+	void SetAutoTurn(float autoTurn);
 	void SetSetpoint(double setpoint);
 	void SetBrake();
 	void SetCoast();

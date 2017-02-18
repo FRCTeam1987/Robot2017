@@ -6,9 +6,9 @@
 
 class SetPosition : public frc::Command {
 private:
-	double m_position;
+	double m_angle;
 public:
-	SetPosition(double position);
+	SetPosition(double angle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

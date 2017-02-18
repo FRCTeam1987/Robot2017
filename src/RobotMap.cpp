@@ -28,7 +28,8 @@ std::shared_ptr<frc::DigitalInput> RobotMap::gearPositionLowered;
 std::shared_ptr<CANTalon> RobotMap::gearRoller;
 
 //Shooter
-std::shared_ptr<CANTalon> RobotMap::shooterWheel;
+std::shared_ptr<CANTalon> RobotMap::shooterWheelMaster;
+std::shared_ptr<CANTalon> RobotMap::shooterWheelSlave;
 std::shared_ptr<Talon> RobotMap::shooterElevator;
 std::shared_ptr<CANTalon> RobotMap::shooterRoller;
 
@@ -124,8 +125,15 @@ void RobotMap::initGearManipulator() {
 void RobotMap::initShooter() {
 	LiveWindow *lw = LiveWindow::GetInstance();
 
-	shooterWheel.reset(new CANTalon(SHOOTER_CAN_WHEEL));
-	lw->AddActuator("Shooter", "Wheel", shooterWheel);
+	shooterWheelMaster.reset(new CANTalon(SHOOTER_CAN_WHEEL_MASTER));
+	shooterWheelMaster.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	lw->AddActuator("Shooter", "Wheel Master", shooterWheelMaster);
+
+	shooterWheelSlave.reset(new CANTalon(SHOOTER_CAN_WHEEL_SLAVE));
+	shooterWheelSlave.get()->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	shooterWheelSlave.get()->SetControlMode(CANTalon::kFollower);
+	shooterWheelSlave.get()->Set(SHOOTER_CAN_WHEEL_MASTER);
+	lw->AddActuator("Shooter", "Wheel Slave", shooterWheelSlave);
 
 	shooterElevator.reset(new Talon(SHOOTER_PWM_ELEVATOR));
 	lw->AddActuator("Shooter", "Elevator", shooterElevator);

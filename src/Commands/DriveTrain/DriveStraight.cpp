@@ -14,37 +14,43 @@ void DriveStraight::Initialize() {
 	Robot::driveTrain.get()->ZeroEncoders();
 	Robot::driveTrain.get()->ZeroAngle();
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
+	Robot::driveTrain.get()->SetAutoTurn(0);
 	Robot::driveTrain.get()->SetSetpoint(0);
 	Robot::driveTrain.get()->Enable();
 }
 
 void DriveStraight::Execute() {
-	double deltaSpeed = m_currentSpeed - m_finalSpeed;
+	double deltaSpeed = fabs(fabs(m_currentSpeed) - fabs(m_finalSpeed));
 	double currentAverageDistance = (Robot::driveTrain.get()->GetLeftEncoderDistance() + Robot::driveTrain.get()->GetRightEncoderDistance()) / 2;
-	double deltaDistance = currentAverageDistance - m_distance;
+	double deltaDistance = fabs(fabs(currentAverageDistance) - fabs(m_distance));
 	double currentRatio = deltaSpeed / deltaDistance;
 
-	if (m_isDec) {
-		m_currentSpeed -= m_accRate;
-	} else if (currentRatio <= m_decRatio && m_currentSpeed < m_maxSpeed) {
-		m_currentSpeed += m_accRate;
-	} else if (currentRatio <= m_decRatio && m_currentSpeed == m_maxSpeed) {
-		return;
-	} else if (currentRatio >= m_decRatio) {
-		m_isDec = true;
-		m_currentSpeed -= m_accRate;
+	frc::SmartDashboard::PutNumber("autodrive-currentDistance", currentAverageDistance);
+	frc::SmartDashboard::PutNumber("autodrive-deltaDistance", deltaDistance);
+	frc::SmartDashboard::PutNumber("autodrive-deltaSpeed", deltaSpeed);
+	frc::SmartDashboard::PutNumber("autodrive-currentRatio", currentRatio);
 
+	// make an awesome function for this
+	// also this doesn't work for ending at certain speeds
+	if (m_distance > 0) {
+		if (deltaDistance > 12 && fabs(m_currentSpeed) < fabs(m_maxSpeed)) {
+			m_currentSpeed += m_accRate*2;
+		} else if (deltaDistance <= 12 && m_currentSpeed > 0.2 && fabs(m_currentSpeed) >  fabs(m_finalSpeed)) {
+			m_currentSpeed -= m_accRate*2;
+		}
+	} else {
+		if (deltaDistance > 12 && fabs(m_currentSpeed) < fabs(m_maxSpeed)) {
+			m_currentSpeed -= m_accRate*2;
+		} else if (deltaDistance <= 12 && m_currentSpeed > 0.2 && fabs(m_currentSpeed) >  fabs(m_finalSpeed)) {
+			m_currentSpeed += m_accRate*2;
+		}
 	}
 
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
-
-//	Should not need to do this because the PID subsystem is enabled.
-//	Robot::driveTrain.get()->AutoDrive(m_currentSpeed, 0);
-
 }
 
 bool DriveStraight::IsFinished() {
-	return abs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= abs(m_distance) && abs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= abs(m_distance);
+	return fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance);
 }
 
 void DriveStraight::End() {

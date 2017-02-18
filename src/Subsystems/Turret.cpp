@@ -1,59 +1,116 @@
 #include "Turret.h"
 #include "../RobotMap.h"
 #include "../Commands/Turret/ZeroTurret.h"
+#include "../Commands/Turret/SetPosition.h"
 
 Turret::Turret() : Subsystem("Turret") {
 	m_angle = 0;
-	m_tolerance = 2.0;
+	m_tolerance = .10;
 	motor = RobotMap::turretMotor;
 
-	motor.get()->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	motor.get()->ConfigLimitMode(frc::CANSpeedController::kLimitMode_SwitchInputsOnly);
-	motor.get()->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
-	motor.get()->ConfigPeakOutputVoltage(12, -12);
-	motor.get()->ConfigNominalOutputVoltage(0, 0);
 
-	motor.get()->SetPID(.05, 0, 0, 0);
+	m_driveGearDiameter = 1.375;
+	m_turretGearDiameter = 13;
+
+	int absolutePosition = motor->GetPulseWidthPosition() & 0xFFF;
+
+	motor->SetEncPosition(absolutePosition);
+	motor->SetSensorDirection(true);
+
+	motor->SetControlMode(CANTalon::kPosition);
+
+
+	motor->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	motor->ConfigLimitMode(frc::CANSpeedController::kLimitMode_SwitchInputsOnly);
+	motor->ConfigForwardSoftLimitEnable(true);
+	motor->ConfigReverseSoftLimitEnable(true);
+	motor->ConfigForwardLimit(3.399169921875);
+	motor->ConfigReverseLimit(-3.399169921875);
+
+
+	motor->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
+
+	motor->SetAllowableClosedLoopErr(1);
+	motor->SetClosedLoopOutputDirection(true);
+	motor->ConfigPeakOutputVoltage(8, -8); // change this cuz mechanizm is lame
+	motor->ConfigNominalOutputVoltage(0, 0);
+
+	motor->SetPID(.7, 0, 30.0, 0);
 }
 
 void Turret::InitDefaultCommand() {
-//	SetDefaultCommand(new ZeroTurret(0.25));
+	SetDefaultCommand(new ::SetPosition(90));
 }
 
 void Turret::SetPosition(double angle) {
-	m_angle = angle;
-	double targetAngle = (angle * (10 / 360));//accounts for 10:1 gear ration on turret
+	motor->SetControlMode(CANTalon::kPosition);
 
-	motor.get()->SetControlMode(CANTalon::kPosition);
-	motor.get()->Set(targetAngle);
+	frc::SmartDashboard::PutNumber("Pre Calc Turret Angle", angle);
+	angle = angle - (GetYaw());
+
+	if (fabs(GetAngle() - angle) <= 10) {
+		motor->SetPID(.3, 0, 2.0, 0);
+	} else {
+		motor->SetPID(.7, 0, 30.0, 0);
+	}
+
+	if (angle > 180) {
+		angle = (angle - 180) * -1;
+	} else if (angle < -180) {
+		angle = (angle + 180) * -1;
+	}
+
+	if (angle >= 126) {
+		angle = 120;
+	} else if (angle <= -126) {
+		angle = -120;
+	}
+
+
+
+	m_angle = angle;
+	frc::SmartDashboard::PutNumber("Target Turret Angle", angle);
+	double targetPosition = (angle * m_rotationsToDegrees);//accounts for 10:1 gear ration on turret
+
+	motor->Set(targetPosition);
 }
 
 double Turret::GetPosition() {
-	return motor.get()->GetPosition();
+	return motor->GetPosition();
+}
+
+double Turret::GetAngle() {
+	return  GetPosition() / m_rotationsToDegrees;
 }
 
 double Turret::GetPositionError() {
-	return fabs(m_angle - GetPosition());
+	return (motor->GetClosedLoopError() / 1024.0) * m_rotationsToDegrees;
 }
 
 bool Turret::isOnTarget() {
-	return (GetPositionError() <= m_tolerance);
+	return (fabs(GetPositionError()) <= m_tolerance);
 }
 
 void Turret::SetVoltage(double voltage) {
-	motor.get()->SetControlMode(CANTalon::kPercentVbus);
-	motor.get()->Set(voltage);
+	motor->SetControlMode(CANTalon::kPercentVbus);
+	motor->Set(voltage);
 }
 
 void Turret::ZeroPosition() {
-	motor.get()->SetPosition(0);
+	motor->SetPosition(0);
 }
 
 int Turret::GetForwardLimit() {
-	return motor.get()->IsFwdLimitSwitchClosed();
+	return motor->IsFwdLimitSwitchClosed();
 }
 
 int Turret::GetReverseLimit() {
-	return motor.get()->IsRevLimitSwitchClosed();
+	return motor->IsRevLimitSwitchClosed();
 }
+
+double Turret::GetYaw() {
+	return Robot::driveTrain.get()->GetAngle();
+}
+
+
