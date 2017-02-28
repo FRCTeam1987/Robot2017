@@ -11,7 +11,7 @@ private:
 	std::shared_ptr<CANTalon> wheelSlave;
 	std::shared_ptr<Talon> elevator;
 	std::shared_ptr<CANTalon> roller;
-
+	const CANTalon::FeedbackDevice feedbackDevice = CANTalon::CtreMagEncoder_Relative;
 public:
 	bool m_isRun;
 	Shooter();

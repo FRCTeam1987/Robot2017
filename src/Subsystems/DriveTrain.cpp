@@ -6,7 +6,7 @@
 #include <CANTalon.h>
 
 DriveTrain::DriveTrain() :
-	PIDSubsystem("DriveTrain", 0.01, 0.0, 0.0)
+	PIDSubsystem("DriveTrain", -0.1, 0.0, 0.0), m_history(100) //Was P -0.1
 {
 	leftMaster = RobotMap::driveLeftMaster;
 	rightMaster = RobotMap::driveRightMaster;
@@ -20,6 +20,8 @@ DriveTrain::DriveTrain() :
 	plateSensor = RobotMap::climberPlateSensor;
 	leftEncoder = RobotMap::driveLeftEncoder;
 	rightEncoder = RobotMap::driveRightEncoder;
+	gyro = new ADXRS450_Gyro();
+	m_isHigh = true;
 
 //	ZeroAngle(); //move to somewhere else
 
@@ -31,19 +33,24 @@ DriveTrain::DriveTrain() :
 	m_output = 0;
 	m_autoSpeed = 0;
 	m_autoTurn = 0;
+	m_azimuth = 0;
 	m_headingOffset = ahrs->GetFusedHeading();
 }
 
 double DriveTrain::ReturnPIDInput() {
 //	printf("heading change: %d\n", GetHeadingChange()); //Warning
-	return GetHeadingChange();
+	float headingChange = GetAngle();
+//	if (headingChange > 180) {
+//		headingChange -= 360;
+//	}
+	return headingChange;
 }
 
 void DriveTrain::UsePIDOutput(double output) {
 	m_output = output;
 	frc::SmartDashboard::PutNumber("drive-power", m_autoSpeed);
 	frc::SmartDashboard::PutNumber("drive-rotate", output);
-	printf("power: %f, rotate: %f\n", m_autoSpeed, output);
+	printf("power: %f, rotate: %f, heading-change: %f\n", m_autoSpeed, output, Robot::driveTrain.get()->ReturnPIDInput());
 	AutoDrive(m_autoSpeed, output + m_autoTurn);
 }
 
@@ -62,6 +69,7 @@ void DriveTrain::DriveArcade(frc::XboxController *xbox) {
 	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
 	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
 	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
+	frc::SmartDashboard::PutNumber("gryo-angle", GetGyroAngle());
 	robotDrive->ArcadeDrive((-xbox->GetTriggerAxis(XboxController::kLeftHand) + xbox->GetTriggerAxis(XboxController::kRightHand)), -xbox->GetX(XboxController::kLeftHand));
 }
 
@@ -87,6 +95,10 @@ bool DriveTrain::IsTouchingPlate() {
 	return plateSensor->Get();
 }
 
+bool DriveTrain::IsRotating() {
+	return ahrs->IsRotating();
+}
+
 double DriveTrain::GetLeftEncoderDistance() {
 	return leftEncoder->GetDistance();
 }
@@ -96,22 +108,26 @@ double DriveTrain::GetRightEncoderDistance() {
 }
 
 float DriveTrain::GetAngle() {
-//	frc::SmartDashboard::PutBoolean("imu-connected", ahrs->IsConnected());
-//	frc::SmartDashboard::PutNumber("imu-yaw", ahrs->GetYaw());
-//	frc::SmartDashboard::PutNumber("imu-getFusedHeading", ahrs->GetFusedHeading());
-//	frc::SmartDashboard::PutNumber("imu-velocity-x", ahrs->GetVelocityX());
-//	frc::SmartDashboard::PutNumber("imu-velocity-y", ahrs->GetVelocityY());
-//	frc::SmartDashboard::PutNumber("imu-displacement-x", ahrs->GetDisplacementX());
-//	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
-//	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
-//	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
-	return ahrs->GetFusedHeading();
+	frc::SmartDashboard::PutBoolean("imu-connected", ahrs->IsConnected());
+	frc::SmartDashboard::PutNumber("imu-yaw", ahrs->GetYaw());
+	frc::SmartDashboard::PutNumber("imu-getFusedHeading", ahrs->GetFusedHeading());
+	frc::SmartDashboard::PutNumber("imu-velocity-x", ahrs->GetVelocityX());
+	frc::SmartDashboard::PutNumber("imu-velocity-y", ahrs->GetVelocityY());
+	frc::SmartDashboard::PutNumber("imu-displacement-x", ahrs->GetDisplacementX());
+	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
+	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
+	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
+	frc::SmartDashboard::PutNumber("Raw X", ahrs->GetRawGyroX());
+	frc::SmartDashboard::PutNumber("Raw Y", ahrs->GetRawGyroY());
+	frc::SmartDashboard::PutNumber("Raw Z", ahrs->GetRawGyroZ());
+
+	return ahrs->GetYaw();
 }
 
 void DriveTrain::ZeroAngle() {
-	ahrs->ZeroYaw();
-//	ahrs->Reset();
-	m_headingOffset = Robot::driveTrain.get()->GetAngle();
+//	ahrs->ZeroYaw();
+	ahrs->Reset();
+//	m_headingOffset = Robot::driveTrain.get()->GetAngle();
 }
 
 void DriveTrain::ZeroEncoders() {
@@ -120,14 +136,26 @@ void DriveTrain::ZeroEncoders() {
 }
 
 float DriveTrain::GetHeadingChange() {
-	if (GetAngle() < 0)
-	{
+
+	if (GetAngle() < 0) {
 		frc::SmartDashboard::PutNumber("Drive Train Angle", GetAngle() + 360.0);
-		return ((GetAngle() - m_headingOffset) + 360.0);
+		return GetAngle() + 360.0;
 	}else {
 		frc::SmartDashboard::PutNumber("Drive Train Angle", GetAngle());
-		return (GetAngle() - m_headingOffset);
+		return GetAngle();
 	}
+
+	m_recentHeadings.push_back(GetAngle());
+	if (m_recentHeadings.size() > 5) {
+		m_recentHeadings.erase(m_recentHeadings.begin());
+	}
+	double currentHeading = GetAngle();
+	printf("heading! %f\n", currentHeading);
+	double headingChange = GetRecentHeadingChange();
+	if(headingChange > 180) {
+		headingChange -= 360;
+	}
+	return headingChange;
 }
 
 void DriveTrain::AutoDrive(float move, float rotate) {
@@ -154,4 +182,54 @@ void DriveTrain::SetBrake() {
 void DriveTrain::SetCoast() {
 	leftMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 	rightMaster->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+}
+
+void DriveTrain::ResetHeadingOffset()
+{
+	m_headingOffset = ahrs->GetFusedHeading();
+}
+
+void DriveTrain::SetAzimuth(double azimuth)
+{
+	m_azimuth = azimuth;
+}
+double DriveTrain::GetAzimuth()
+{
+	return m_azimuth;
+}
+
+double DriveTrain::GetRecentHeadingChange()
+{
+	double first = m_recentHeadings[0];
+	if (first > 180)
+		first -= 360;
+
+	double last = m_recentHeadings[m_recentHeadings.size()-1];
+	if (last > 180)
+		last -= 360;
+
+	return last - first;
+}
+
+double DriveTrain::GetGyroAngle() {
+	return gyro->GetAngle();
+}
+
+void DriveTrain::ResetGyro() {
+	gyro->Reset();
+}
+
+void DriveTrain::UpdateHistory() {
+	TimeStampedValue value(GetAngle(), GetLeftEncoderDistance(), GetRightEncoderDistance());
+	m_history.Add(value);
+}
+
+TimeStampedValue DriveTrain::GetHistory(double timeStamp) {
+	return m_history.GetHistory(timeStamp);
+}
+
+void DriveTrain::ToggleShift() {
+	shifter->Set((m_isHigh ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse));
+
+	m_isHigh = !m_isHigh;
 }

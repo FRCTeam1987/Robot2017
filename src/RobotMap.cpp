@@ -60,7 +60,7 @@ void RobotMap::initDriveTrain() {
 
 	const double PI = 3.141593;
 
-	const int ENCODER_TICKS = 1024; //change value
+	const int ENCODER_TICKS = 1023; //change value
 
 	driveLeftMaster.reset(new CANTalon(DRIVE_CAN_LEFT_MASTER));  // Green motor
 	lw->AddActuator("Drive Train", "Left Master", driveLeftMaster);

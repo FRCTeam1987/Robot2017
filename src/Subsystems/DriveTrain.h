@@ -6,6 +6,7 @@
 #include <navXSensor.h>
 #include <CANTalon.h>
 #include <AHRS.h>
+#include "../Lib/TimeStampedHistory.h"
 
 class DriveTrain : public frc::PIDSubsystem {
 private:
@@ -25,9 +26,17 @@ private:
 	double m_autoSpeed;
 	double m_autoTurn;
 	double m_headingOffset;
+	double m_azimuth;
+	bool m_isHigh;
+	std::vector<double> m_recentHeadings;
+	ADXRS450_Gyro* gyro;
+	TimeStampedHistory m_history;
+
+	double GetRecentHeadingChange();
 
 public:
 	DriveTrain();
+	void ClearRecentHeadings() { m_recentHeadings.clear(); }
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
@@ -36,6 +45,7 @@ public:
 	void Shift(bool isHighGear);
 	void SetPTO(bool isEnabled);
 	bool IsTouchingPlate();
+	bool IsRotating();
 	double GetLeftEncoderDistance();
 	double GetRightEncoderDistance();
 	float GetAngle();
@@ -48,6 +58,14 @@ public:
 	void SetSetpoint(double setpoint);
 	void SetBrake();
 	void SetCoast();
+	void ResetHeadingOffset();
+	void SetAzimuth(double azimuth);
+	double GetAzimuth();
+	double GetGyroAngle();
+	void ResetGyro();
+	void UpdateHistory();
+	TimeStampedValue GetHistory(double timeStamp);
+	void ToggleShift();
 };
 
 #endif  // DriveTrain_H

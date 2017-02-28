@@ -2,7 +2,6 @@
 #define SetShooter_H
 
 #include "WPILib.h"
-#include <CANTalon.h>
 #include "../../Robot.h"
 
 class SetShooter : public frc::Command {

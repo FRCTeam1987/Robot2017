@@ -88,6 +88,12 @@ public:
 	static std::shared_ptr<frc::XboxController> xbox;
 
 	enum {
+		BUTTON_PLACE_GEAR_XBOX = 4, 	//Y
+		BUTTON_SHOOT_XBOX = 6, 			//RB
+		BUTTON_STOP_SHOOT_XBOX = 2,		//B
+		BUTTON_COLLECT_GEAR_XBOX = 3,	//X
+		BUTTON_COLLECT_GEAR_HOPPER = 1, //A
+		BUTTON_SHIFT_XBOX = 9,		//LS
 		DRIVER_XBOX = 0,
 	};
 

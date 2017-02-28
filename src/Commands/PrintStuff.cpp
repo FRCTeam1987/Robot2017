@@ -16,7 +16,9 @@ void PrintStuff::Execute() {
 	frc::SmartDashboard::PutNumber("Gear Sensor", Robot::gearManipulator.get()->HasGear());
 	frc::SmartDashboard::PutNumber("Fuel Sensor", Robot::collector.get()->HasBall());
 	frc::SmartDashboard::PutNumber("turret position", Robot::turret.get()->GetPosition());
-
+	frc::SmartDashboard::PutNumber("Reverse Limit", Robot::turret.get()->GetReverseLimit());
+	frc::SmartDashboard::PutNumber("Forward position", Robot::turret.get()->GetForwardLimit());
+	printf("turret position: %f\n", Robot::turret->GetPosition());
 
 }
 

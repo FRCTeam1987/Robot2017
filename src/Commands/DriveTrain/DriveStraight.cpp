@@ -2,7 +2,7 @@
 
 DriveStraight::DriveStraight(double distance, double initialSpeed, double finalSpeed) {
 	Requires(Robot::driveTrain.get());
-	m_distance = distance;
+	m_distance = distance + (distance < 0 ? -1.0 : 1.0);  // bump the distance by an inch
 	m_initialSpeed = initialSpeed;
 	m_finalSpeed = finalSpeed;
 	m_isDec = false;
@@ -16,12 +16,13 @@ void DriveStraight::Initialize() {
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
 	Robot::driveTrain.get()->SetAutoTurn(0);
 	Robot::driveTrain.get()->SetSetpoint(0);
+	Robot::driveTrain.get()->SetBrake();
 	Robot::driveTrain.get()->Enable();
 }
 
 void DriveStraight::Execute() {
 	double deltaSpeed = fabs(fabs(m_currentSpeed) - fabs(m_finalSpeed));
-	double currentAverageDistance = (Robot::driveTrain.get()->GetLeftEncoderDistance() + Robot::driveTrain.get()->GetRightEncoderDistance()) / 2;
+	double currentAverageDistance = (Robot::driveTrain.get()->GetLeftEncoderDistance() + Robot::driveTrain.get()->GetRightEncoderDistance()) / 2.0;
 	double deltaDistance = fabs(fabs(currentAverageDistance) - fabs(m_distance));
 	double currentRatio = deltaSpeed / deltaDistance;
 
@@ -33,27 +34,36 @@ void DriveStraight::Execute() {
 	// make an awesome function for this
 	// also this doesn't work for ending at certain speeds
 	if (m_distance > 0) {
-		if (deltaDistance > 12 && fabs(m_currentSpeed) < fabs(m_maxSpeed)) {
-			m_currentSpeed += m_accRate*2;
-		} else if (deltaDistance <= 12 && m_currentSpeed > 0.2 && fabs(m_currentSpeed) >  fabs(m_finalSpeed)) {
-			m_currentSpeed -= m_accRate*2;
+		if (deltaDistance > 19 && m_currentSpeed < m_maxSpeed) {
+			m_currentSpeed += m_accRate;
+
+			printf("CurrentSpeed: %f\n", m_currentSpeed);
+
+		} else if (deltaDistance <= 19 && m_currentSpeed > m_finalSpeed+m_decRate) {
+			m_currentSpeed -= m_decRate;
+			printf("CurrentSpeed: %f\n", m_currentSpeed);
 		}
 	} else {
-		if (deltaDistance > 12 && fabs(m_currentSpeed) < fabs(m_maxSpeed)) {
-			m_currentSpeed -= m_accRate*2;
-		} else if (deltaDistance <= 12 && m_currentSpeed > 0.2 && fabs(m_currentSpeed) >  fabs(m_finalSpeed)) {
-			m_currentSpeed += m_accRate*2;
+		if (deltaDistance > 19 && m_currentSpeed > m_maxSpeed * -1) {
+			m_currentSpeed -= m_accRate;
+			printf("CurrentSpeed: %f\n", m_currentSpeed);
+
+		} else if (deltaDistance <= 19 && m_currentSpeed < m_finalSpeed-m_decRate) {
+			m_currentSpeed += m_decRate;
+			printf("CurrentSpeed: %f\n", m_currentSpeed);
 		}
 	}
 
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
+	printf("Left Encoder Distance: %f     Right Encoder Distance: %f\n", Robot::driveTrain.get()->GetLeftEncoderDistance(), Robot::driveTrain.get()->GetRightEncoderDistance());
 }
 
 bool DriveStraight::IsFinished() {
-	return fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance);
+	return fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) - 1 && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance) - 1;
 }
 
 void DriveStraight::End() {
+	printf("Drive Straight Ended\n");
 	frc::SmartDashboard::PutNumber("Left Encoder Post Drive", Robot::driveTrain.get()->GetLeftEncoderDistance());
 	frc::SmartDashboard::PutNumber("Right Encoder Post Drive", Robot::driveTrain.get()->GetRightEncoderDistance());
 	Robot::driveTrain.get()->Disable();

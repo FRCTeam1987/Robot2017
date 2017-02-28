@@ -7,7 +7,7 @@ SetPosition::SetPosition(double angle) {
 
 void SetPosition::Initialize() {
 	frc::SmartDashboard::PutNumber("Target Angle", m_angle);
-	Robot::turret.get()->SetPosition(m_angle);
+	Robot::turret.get()->SetMyPosition(m_angle);
 }
 
 void SetPosition::Execute() {

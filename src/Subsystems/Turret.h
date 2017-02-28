@@ -5,6 +5,9 @@
 #include <CANTalon.h>
 #include "WPILIB.h"
 #include "math.h"
+#include "Timer.h"
+
+#include "../Lib/TimeStampedHistory.h"
 
 class Turret : public frc::Subsystem {
 private:
@@ -13,10 +16,12 @@ private:
 	double m_tolerance;
 	double m_driveGearDiameter;
 	double m_turretGearDiameter;
-	const double m_rotationsToDegrees = (10.0 / 360.0);
+	const double m_rotationsToDegrees = (9.98 / 360.0);
+	TimeStampedHistory m_history;
 public:
 	Turret();
 	void InitDefaultCommand();
+	void SetMyPosition(double deltaAngle);
 	void SetPosition(double angle);
 	double GetPosition();
 	double GetAngle();
@@ -26,7 +31,10 @@ public:
 	void ZeroPosition();
 	int GetForwardLimit();
 	int GetReverseLimit();
-	double GetYaw();
+	double GetHeading();
+	void UpdateHistory();
+	TimeStampedValue GetHistory(double timeStamp);
+	TimeStampedValue FetchAngleToGoal();
 };
 
 #endif  // Turret_H

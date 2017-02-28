@@ -9,6 +9,7 @@ void Drive::Initialize() {
 
 void Drive::Execute() {
 	Robot::driveTrain.get()->DriveArcade(RobotMap::xbox.get());
+	Robot::driveTrain->UpdateHistory();
 }
 
 bool Drive::IsFinished() {
