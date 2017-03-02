@@ -26,12 +26,12 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 	motor->ConfigLimitMode(frc::CANSpeedController::kLimitMode_SwitchInputsOnly);
 	motor->ConfigForwardSoftLimitEnable(true);
 	motor->ConfigReverseSoftLimitEnable(true);
-	motor->ConfigForwardLimit(3.399169921875);
-	motor->ConfigReverseLimit(-3.399169921875);
+//	motor->ConfigForwardLimit(3.399169921875);
+//	motor->ConfigReverseLimit(-3.399169921875);
 	motor->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	motor->SetAllowableClosedLoopErr(0);
 	motor->SetClosedLoopOutputDirection(true);
-	motor->ConfigPeakOutputVoltage(6, -6); // change this cuz mechanizm is lame
+	motor->ConfigPeakOutputVoltage(10, -10); // change this cuz mechanizm is lame
 //	motor->ConfigNominalOutputVoltage(3, -3);
 //	motor->SetPID(.7, 0, 30.0, 0);
 	motor->SetPID(0.05, 0, 2.25, 0);
@@ -44,7 +44,22 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 }
 
 void Turret::InitDefaultCommand() {
-	SetDefaultCommand(new ::AutoTarget());
+//	SetDefaultCommand(new ::AutoTarget());
+}
+
+void Turret::SetAbsoluteAngle(double targetAngle)
+{
+	double targetPosition = (targetAngle * m_rotationsToDegrees);//accounts for 10:1 gear ration on turret
+	if (targetAngle > 180) {
+		targetPosition -= 10.0;
+	}
+
+	motor->SetControlMode(CANTalon::kPosition);
+	printf("targetAngle: %3.0f, targetPosition: %4.1f\n", targetAngle, targetPosition);
+	if (fabs(targetPosition) > 3.39) {
+		return;
+	}
+	motor->Set(targetPosition);
 }
 
 void Turret::SetMyPosition(double deltaAngle) {
@@ -217,9 +232,9 @@ TimeStampedValue Turret::FetchAngleToGoal() {
 	const double defaultDistanceToGoal = 0.0;
 	const bool targetSeen = false;
 
-	double isTargetSeen = frc::SmartDashboard::GetBoolean("Can See Target?", targetSeen);
+	double isTargetSeen = frc::SmartDashboard::GetBoolean("hasTarget", targetSeen);
 	double angleToGoal = frc::SmartDashboard::GetNumber("angle", defaultAngleToGoal);
-	double timeOfGoal = frc::SmartDashboard::GetNumber("Time Taken To process", defaultTimeToFindAngle);
+	double timeOfGoal = frc::SmartDashboard::GetNumber("timeDelta", defaultTimeToFindAngle);
 	double distanceToGoal = frc::SmartDashboard::GetNumber("distance", defaultDistanceToGoal);
 	double currentTime = frc::Timer::GetFPGATimestamp();
 

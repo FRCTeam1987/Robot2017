@@ -6,7 +6,6 @@ AutoTarget::AutoTarget() {
 
 void AutoTarget::Initialize() {
 //	Robot::turret->SetMyPosition(5);
-//	printf("thingy - %f\n", frc::SmartDashboard::GetNumber("angle", 0));
 }
 
 void AutoTarget::Execute() {
@@ -14,16 +13,18 @@ void AutoTarget::Execute() {
 	Robot::turret->UpdateHistory();
 	TimeStampedValue target = Robot::turret->FetchAngleToGoal();
 	TimeStampedValue history = Robot::turret->GetHistory(target.GetTimeStamp());
-
-	double cameraAngle = -frc::SmartDashboard::GetNumber("angle", 0);
-	if(fabs(cameraAngle) <= 1){
+	printf("history: %s\n", history.ToString().c_str());
+	if (!target.GetValue1()) {
 		return;
 	}
-	Robot::turret->SetMyPosition(cameraAngle * .5);
-//	if(!target.GetValue1()) {
-//		printf("No Target Value 1\n");
-//		return;
-//	}
+
+	double cameraAngle = -frc::SmartDashboard::GetNumber("angle", 0);
+
+	if(fabs(cameraAngle) <= 1 || !Robot::turret->isOnTarget()){
+		return;
+	}
+	Robot::turret->SetMyPosition(cameraAngle * .15);
+
 
 }
 

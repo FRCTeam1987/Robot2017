@@ -23,6 +23,7 @@ public:
 	void InitDefaultCommand();
 	void SetMyPosition(double deltaAngle);
 	void SetPosition(double angle);
+	void SetAbsoluteAngle(double angle); // 0 - 359
 	double GetPosition();
 	double GetAngle();
 	double GetPositionError();

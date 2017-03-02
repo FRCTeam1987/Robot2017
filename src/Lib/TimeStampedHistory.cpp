@@ -29,6 +29,7 @@ void TimeStampedHistory::Add(TimeStampedValue value) {
 TimeStampedValue TimeStampedHistory::GetHistory(double timeStamp) {
 	int historySize = m_history.size();
 	if(historySize <= 1) {	// Not enough history to look through!
+		printf("historySize 1 %d\n", historySize);
 		return TimeStampedValue(0);	// might want a better default return value
 	}
 	double currentTime = Timer::GetFPGATimestamp();
@@ -39,6 +40,8 @@ TimeStampedValue TimeStampedHistory::GetHistory(double timeStamp) {
 			GetInterpolatedValue(i, i+1, timeStamp);
 		}
 	}
+	printf("historySize 2 %d\n", historySize);
+
 	return TimeStampedValue(0); // none found! might want a better default value
 }
 
