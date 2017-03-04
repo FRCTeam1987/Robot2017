@@ -20,6 +20,7 @@ private:
 public:
 	TimeStampedHistory(int maxHistory);
 	virtual ~TimeStampedHistory();
+	double Interpolate(double xGoal, double x1, double y1, double x2, double y2);
 	void Add(TimeStampedValue value);
 	TimeStampedValue GetHistory(double timeStamp);
 };

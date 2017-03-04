@@ -38,7 +38,8 @@
 #include "Commands/Turret/AddToCurrentAngle.h"
 #include "Commands/Turret/AutoTarget.h"
 #include "Commands/Turret/AnchorTurret.h"
-#include "COmmands/DriveTrain/ToggleShift.h"
+#include "Commands/DriveTrain/ToggleShift.h"
+#include "Commands/Turret/TargetAndAnchor.h"
 
 
 OI::OI() {
@@ -159,6 +160,8 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Set Turret 0", new SetPosition(0));
 
 	frc::SmartDashboard::PutData("Auto Target", new AutoTarget());
+
+	frc::SmartDashboard::PutData("Target And Anchor", new TargetAndAnchor());
 //
 //	frc::SmartDashboard::PutData("Zero Turret And Move", new ZeroAndMove());
 //

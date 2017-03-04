@@ -88,43 +88,20 @@ void Turret::SetMyPosition(double deltaAngle) {
 
 void Turret::SetPosition(double angle) {
 	motor->SetControlMode(CANTalon::kPosition);
-//	motor->SetTalonControlMode(CANTalon::kMotionMagicMode);
 
 	frc::SmartDashboard::PutNumber("Pre Calc Turret Angle", angle);
 
 	double targetAngle = angle;
 
-//	if (targetAngle < 0) {
-//		targetAngle = 360 + targetAngle;
-//	}
-
-//	if (fabs(targetAngle) > 120 && fabs(targetAngle) < 240) {
-//		frc::SmartDashboard::PutNumber("Short Circuit Hdg First", fabs(targetAngle));
-//		 return;
-//	}
 
 	targetAngle = targetAngle - GetHeading(); //Accounts for robot heading
 //	targetAngle = fmod(targetAngle+360.0, 360.0);
 
 	frc::SmartDashboard::PutNumber("Target Angle First", targetAngle);
 
-//	targetAngle += 60; // Account for robot compass heading
 
 	frc::SmartDashboard::PutNumber("Target Angle Second", targetAngle);
 
-//	if(targetAngle < 0) {
-//		targetAngle += 360;
-//	}
-//	targetAngle = fmod((targetAngle), 360.0);
-
-//	if (targetAngle > 180) {
-//		targetAngle = (targetAngle - 180) * -1;
-//	} else if (targetAngle < -180) {
-//		targetAngle = (targetAngle + 180) * -1; // ------
-//		if (targetAngle < 0) {
-//			targetAngle = 180 - fabs(targetAngle);
-//		}
-//	}
 
 	double deltaAngle = fabs(targetAngle - GetHeading());
 
@@ -140,7 +117,6 @@ void Turret::SetPosition(double angle) {
 		isCw = !isCw;
 	}
 
-//	targetAngle = deltaAngle * (isCw ? -1 : 1);
 
 	frc::SmartDashboard::PutNumber("Target Angle Post Mod", targetAngle);
 
@@ -148,27 +124,6 @@ void Turret::SetPosition(double angle) {
 		frc::SmartDashboard::PutNumber("Short Circuit Hdg Second", fabs(targetAngle));
 		 return;
 	}
-
-//	angle = angle - GetHeading();
-
-//	if (fabs(GetAngle() - angle) <= 10) {
-//		motor->SetPID(.3, 0, 2.0, 0);
-//	} else {
-//		motor->SetPID(.7, 0, 30.0, 0);
-//	}
-
-//	if (angle > 180) {
-//		angle = (angle - 180) * -1;
-//	} else if (angle < -180) {
-//		angle = (angle + 180) * 1; // ------
-//	}
-//
-//	if (angle >= 120) {
-//		angle = 120;
-//	} else if (angle <= -120) {
-//		angle = -120;
-//	}
-
 
 
 	m_angle = targetAngle;
@@ -233,14 +188,24 @@ TimeStampedValue Turret::FetchAngleToGoal() {
 	const bool targetSeen = false;
 
 	double isTargetSeen = frc::SmartDashboard::GetBoolean("hasTarget", targetSeen);
-	double angleToGoal = frc::SmartDashboard::GetNumber("angle", defaultAngleToGoal);
+	double angleToGoal = -frc::SmartDashboard::GetNumber("angle", defaultAngleToGoal);
 	double timeOfGoal = frc::SmartDashboard::GetNumber("timeDelta", defaultTimeToFindAngle);
 	double distanceToGoal = frc::SmartDashboard::GetNumber("distance", defaultDistanceToGoal);
 	double currentTime = frc::Timer::GetFPGATimestamp();
-
 	TimeStampedValue angleToSet = TimeStampedValue(isTargetSeen, angleToGoal, distanceToGoal);
 	angleToSet.SetTimeStamp(currentTime - timeOfGoal - timeFromPi);
 	return angleToSet;
 
 
+}
+
+void Turret::SetTargetAngle(double angle) {
+	m_angleToTarget = angle;
+}
+double Turret::GetTargetAngle() {
+	return m_angleToTarget;
+}
+
+double Turret::GetOutputVoltage() {
+	return motor->GetOutputVoltage();
 }

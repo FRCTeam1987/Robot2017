@@ -6,6 +6,9 @@
 
 
 class AutoTarget : public frc::Command {
+private:
+	double m_anchorPoint;
+	double m_angleToGoal;
 public:
 	AutoTarget();
 	void Initialize();

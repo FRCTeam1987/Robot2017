@@ -9,16 +9,17 @@ AnchorTurret::AnchorTurret(double anchorPoint) {
 	Requires(Robot::turret.get());
 	m_anchorPoint = anchorPoint;
 
+	m_anchorPoint = Robot::turret.get()->GetTargetAngle();
 }
 
 void AnchorTurret::Initialize() {
 
 }
 
-// Called repeatedly when this Command is scheduled to run
 void AnchorTurret::Execute() {
 	double chassisAngle = Robot::driveTrain->GetAngle();
 	double posTurret = fabs(fmod(m_anchorPoint - chassisAngle + 360.0, 360.0));
+
 	if (posTurret < TURRET_NOGO_LO || posTurret > TURRET_NOGO_HI) {
 		; // already there
 	} else {
@@ -30,18 +31,14 @@ void AnchorTurret::Execute() {
 //	printf("Turret Position: %f\n", posTurret);
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool AnchorTurret::IsFinished() {
 	return false;
 }
 
-// Called once after isFinished returns true
 void AnchorTurret::End() {
 
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void AnchorTurret::Interrupted() {
 
 }
