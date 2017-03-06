@@ -74,7 +74,6 @@ bool AutoTarget::IsFinished() {
 }
 
 void AutoTarget::End() {
-	Robot::turret.get()->SetTargetAngle(m_angleToGoal);
 //	printf("CurrentAngle %f\n", Robot::turret->GetAngle());
 }
 
