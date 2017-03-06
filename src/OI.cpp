@@ -40,7 +40,11 @@
 #include "Commands/Turret/AnchorTurret.h"
 #include "Commands/DriveTrain/ToggleShift.h"
 #include "Commands/Turret/TargetAndAnchor.h"
-
+#include "Commands/PlaceGearAndHopperAuto.h"
+#include "Commands/MiddlePegRed.h"
+#include "Commands/MiddlePegBlue.h"
+#include "Commands/Turret/TargetAndAnchor.h"
+#include "Commands/Vision/VisionUpdateTurret.h"
 
 OI::OI() {
 	//Xbox Controls
@@ -59,6 +63,9 @@ OI::OI() {
 	collectGearFromHopperXbox->WhenPressed(new SetGearManipulator(.75));
 	shiftButton->WhenPressed(new ToggleShift());
 
+#if 0
+	//Auto
+	frc::SmartDashboard::PutData("Auto", new PlaceGearAndHopperAuto());
 
 //	//Collector
 	frc::SmartDashboard::PutData("Start Collector", new SetCollector(0.95));
@@ -91,11 +98,13 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Drive Rotate -90", new DriveRotate(-90));
 	frc::SmartDashboard::PutData("Drive Rotate -45", new DriveRotate(-45));
 	frc::SmartDashboard::PutData("Drive Rotate -15", new DriveRotate(-15));
-	frc::SmartDashboard::PutData("DriveArc Power", new DriveArcPower(true));
+	frc::SmartDashboard::PutData("DriveArc Power", new DriveArcPower(true, 30));
 	frc::SmartDashboard::PutData("Drive chaining stuff", new TestDriveStuff());
 
 	frc::SmartDashboard::PutData("Drive From Blue Driver Station Edge to Hopper", new BlueEdgeDriveStationToHopper());
 	frc::SmartDashboard::PutData("Place Gear From Drive Station", new PlaceGearFromDriveStation());
+	frc::SmartDashboard::PutData("Middle Peg Red", new MiddlePegRed());
+	frc::SmartDashboard::PutData("Middle Peg Blue", new MiddlePegBlue());
 
 //	//Gear Manipulator
 //	frc::SmartDashboard::PutData("Start Gear Manipulator", new SetGearManipulator(0.75));
@@ -136,13 +145,13 @@ OI::OI() {
 //	frc::SmartDashboard::PutData("Set Turret -10", new SetPosition(-10));
 //	frc::SmartDashboard::PutData("Set Turret -50 (Real)", new SetPosition(-50));
 //	frc::SmartDashboard::PutData("Set Turret 270", new SetPosition(270));
-	frc::SmartDashboard::PutData("AnchorTurret 90", new AnchorTurret(90));
-	frc::SmartDashboard::PutData("AnchorTurret 270", new AnchorTurret(270));
-	frc::SmartDashboard::PutData("AnchorTurret 10", new AnchorTurret(10));
-	frc::SmartDashboard::PutData("AnchorTurret 359", new AnchorTurret(359));
-	frc::SmartDashboard::PutData("AnchorTurret 350", new AnchorTurret(350));
-	frc::SmartDashboard::PutData("AnchorTurret 5", new AnchorTurret(5));
-	frc::SmartDashboard::PutData("AnchorTurret 1", new AnchorTurret(1));
+	frc::SmartDashboard::PutData("AnchorTurret 90", new AnchorTurret(90, false));
+	frc::SmartDashboard::PutData("AnchorTurret 270", new AnchorTurret(270, false));
+	frc::SmartDashboard::PutData("AnchorTurret 10", new AnchorTurret(10, false));
+	frc::SmartDashboard::PutData("AnchorTurret 359", new AnchorTurret(359, false));
+	frc::SmartDashboard::PutData("AnchorTurret 350", new AnchorTurret(350, false));
+	frc::SmartDashboard::PutData("AnchorTurret 5", new AnchorTurret(5, false));
+	frc::SmartDashboard::PutData("AnchorTurret 1", new AnchorTurret(1, false));
 
 	frc::SmartDashboard::PutData("Turret Angle +5", new SetPosition(5));
 	frc::SmartDashboard::PutData("Turret Angle -5", new SetPosition(-5));
@@ -173,4 +182,6 @@ OI::OI() {
 //
 //	//All
 //	frc::SmartDashboard::PutData("Set Default State", new SetDefaultState());
+#endif
+	frc::SmartDashboard::PutData("Vision Update Anchor", new VisionUpdateTurret());
 }

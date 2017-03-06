@@ -3,11 +3,13 @@
 #include "../Commands/Turret/ZeroTurret.h"
 #include "../Commands/Turret/SetPosition.h"
 #include "../Commands/Turret/AutoTarget.h"
+#include "../Commands/Turret/AnchorTurret.h"
 
 #include "Timer.h"
 
 Turret::Turret() : Subsystem("Turret"), m_history(100) {
 	m_angle = 0;
+	m_desiredAngle = 0;
 	m_tolerance = .030;
 	motor = RobotMap::turretMotor;
 
@@ -44,6 +46,7 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 }
 
 void Turret::InitDefaultCommand() {
+	SetDefaultCommand(new AnchorTurret());
 //	SetDefaultCommand(new ::AutoTarget());
 }
 
@@ -55,7 +58,7 @@ void Turret::SetAbsoluteAngle(double targetAngle)
 	}
 
 	motor->SetControlMode(CANTalon::kPosition);
-	printf("targetAngle: %3.0f, targetPosition: %4.1f\n", targetAngle, targetPosition);
+//	printf("targetAngle: %3.0f, targetPosition: %4.1f\n", targetAngle, targetPosition);
 	if (fabs(targetPosition) > 3.39) {
 		return;
 	}
@@ -80,7 +83,7 @@ void Turret::SetMyPosition(double deltaAngle) {
 //	}
 
 	double targetPosition = (targetAngle * m_rotationsToDegrees);//accounts for 10:1 gear ration on turret
-	printf("deltaAngle: %f, currentAngle: %f, targetAngle: %f, currentPosition: %f, targetPosition: %f\n", deltaAngle, currentAngle, targetAngle, GetPosition(), targetPosition);
+//	printf("deltaAngle: %f, currentAngle: %f, targetAngle: %f, currentPosition: %f, targetPosition: %f\n", deltaAngle, currentAngle, targetAngle, GetPosition(), targetPosition);
 
 	motor->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motor->Set(targetPosition);
@@ -187,23 +190,43 @@ TimeStampedValue Turret::FetchAngleToGoal() {
 	const double defaultDistanceToGoal = 0.0;
 	const bool targetSeen = false;
 
-	double isTargetSeen = frc::SmartDashboard::GetBoolean("hasTarget", targetSeen);
-	double angleToGoal = -frc::SmartDashboard::GetNumber("angle", defaultAngleToGoal);
+	double isTargetSeen = frc::SmartDashboard::GetBoolean("hasTarget", targetSeen) ? 1.0 : 0.0;
+	double angleToGoal = frc::SmartDashboard::GetNumber("angle", defaultAngleToGoal);
 	double timeOfGoal = frc::SmartDashboard::GetNumber("timeDelta", defaultTimeToFindAngle);
 	double distanceToGoal = frc::SmartDashboard::GetNumber("distance", defaultDistanceToGoal);
 	double currentTime = frc::Timer::GetFPGATimestamp();
 	TimeStampedValue angleToSet = TimeStampedValue(isTargetSeen, angleToGoal, distanceToGoal);
 	angleToSet.SetTimeStamp(currentTime - timeOfGoal - timeFromPi);
 	return angleToSet;
-
-
 }
 
-void Turret::SetTargetAngle(double angle) {
-	m_angleToTarget = angle;
+void Turret::SetDesiredAngle(double desiredAngle) {
+	const int TURRET_NOGO_LO = -145;
+	const int TURRET_NOGO_HI = 145;
+	double currentAngle = GetAngle() + desiredAngle;
+	printf("desiredAngle: %f, currentTurretAngle: %f, newTurretAngle: %f\n", desiredAngle, GetAngle(), currentAngle);
+	if(currentAngle > TURRET_NOGO_LO && currentAngle < TURRET_NOGO_HI) {
+		m_desiredAngle = desiredAngle;
+	}
 }
-double Turret::GetTargetAngle() {
-	return m_angleToTarget;
+
+void Turret::SetDesiredAngle(double desiredAngle, double timeStamp) {
+	const int TURRET_NOGO_LO = -145;
+	const int TURRET_NOGO_HI = 145;
+	TimeStampedValue snapshot = GetHistory(timeStamp);
+	double oldAngle = snapshot.GetValue1();
+	if(oldAngle == 0.0) {
+		return;
+	}
+	double currentAngle = oldAngle + desiredAngle;
+	//printf("desiredAngle: %f, currentTurretAngle: %f, newTurretAngle: %f\n", desiredAngle, oldAngle, currentAngle);
+	if(currentAngle > TURRET_NOGO_LO && currentAngle < TURRET_NOGO_HI) {
+		m_desiredAngle = desiredAngle;
+	}
+}
+
+double Turret::GetDesiredAngle() {
+	return m_desiredAngle;
 }
 
 double Turret::GetOutputVoltage() {

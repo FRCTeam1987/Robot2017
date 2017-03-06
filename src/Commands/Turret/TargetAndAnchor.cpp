@@ -2,5 +2,6 @@
 
 TargetAndAnchor::TargetAndAnchor() {
 	AddSequential(new AutoTarget());
-	AddSequential(new AnchorTurret(20)); // parameter means nothing currently
+	// TODO: update to use parallel anchoring
+//	AddSequential(new AnchorTurret(0, true)); // parameter means nothing currently
 }

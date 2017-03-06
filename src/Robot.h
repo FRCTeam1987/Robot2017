@@ -2,6 +2,7 @@
 #define _ROBOT_H
 
 #include "WPILib.h"
+#include <SmartDashboard/SendableChooser.h>
 #include "Commands/Command.h"
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
@@ -11,6 +12,11 @@
 #include "Subsystems/GearManipulator.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/Turret.h"
+#include "Subsystems/Vision.h"
+#include "Commands/MiddlePeg.h"
+#include "Commands/MiddlePegRed.h"
+#include "Commands/MiddlePegBlue.h"
+
 
 class Robot : public IterativeRobot {
 public:
@@ -22,6 +28,9 @@ public:
     static std::shared_ptr<GearManipulator> gearManipulator;
     static std::shared_ptr<Shooter> shooter;
     static std::shared_ptr<Turret> turret;
+    static std::shared_ptr<Vision> vision;
+
+    frc::SendableChooser<frc::Command *> autoChooser;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

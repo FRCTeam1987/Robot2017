@@ -6,8 +6,9 @@
 class DriveArcPower : public frc::Command {
 private:
 	bool m_isCw;
+	double m_distance;
 public:
-	DriveArcPower(bool isCw);
+	DriveArcPower(bool isCw, double distance);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

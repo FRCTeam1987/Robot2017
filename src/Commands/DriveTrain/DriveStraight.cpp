@@ -33,26 +33,30 @@ void DriveStraight::Execute() {
 
 	// make an awesome function for this
 	// also this doesn't work for ending at certain speeds
-	if (m_distance > 0) {
-		if (deltaDistance > 19 && m_currentSpeed < m_maxSpeed) {
-			m_currentSpeed += m_accRate;
+//	if (m_distance >= 30) {
+		if (m_distance > 0) {
+			if (deltaDistance > 19 && m_currentSpeed < m_maxSpeed) {
+				m_currentSpeed += m_accRate;
 
-			printf("CurrentSpeed: %f\n", m_currentSpeed);
+				printf("CurrentSpeed: %f\n", m_currentSpeed);
 
-		} else if (deltaDistance <= 19 && m_currentSpeed > m_finalSpeed+m_decRate) {
-			m_currentSpeed -= m_decRate;
-			printf("CurrentSpeed: %f\n", m_currentSpeed);
+			} else if (deltaDistance <= 19 && m_currentSpeed > m_finalSpeed+m_decRate) {
+				m_currentSpeed -= m_decRate;
+				printf("CurrentSpeed: %f\n", m_currentSpeed);
+			}
+		} else {
+			if (deltaDistance > 19 && m_currentSpeed > m_maxSpeed * -1) {
+				m_currentSpeed -= m_accRate;
+				printf("CurrentSpeed: %f\n", m_currentSpeed);
+
+			} else if (deltaDistance <= 19 && m_currentSpeed < m_finalSpeed-m_decRate) {
+				m_currentSpeed += m_decRate;
+				printf("CurrentSpeed: %f\n", m_currentSpeed);
+			}
 		}
-	} else {
-		if (deltaDistance > 19 && m_currentSpeed > m_maxSpeed * -1) {
-			m_currentSpeed -= m_accRate;
-			printf("CurrentSpeed: %f\n", m_currentSpeed);
-
-		} else if (deltaDistance <= 19 && m_currentSpeed < m_finalSpeed-m_decRate) {
-			m_currentSpeed += m_decRate;
-			printf("CurrentSpeed: %f\n", m_currentSpeed);
-		}
-	}
+//	} else {
+//		m_currentSpeed = .6;
+//	}
 
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
 	printf("Left Encoder Distance: %f     Right Encoder Distance: %f\n", Robot::driveTrain.get()->GetLeftEncoderDistance(), Robot::driveTrain.get()->GetRightEncoderDistance());

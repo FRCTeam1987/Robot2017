@@ -7,9 +7,8 @@
 
 class AnchorTurret : public frc::Command {
 private:
-	double m_anchorPoint;
 public:
-	AnchorTurret(double anchorPoint);
+	AnchorTurret();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

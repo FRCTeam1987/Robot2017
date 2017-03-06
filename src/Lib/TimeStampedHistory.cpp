@@ -30,17 +30,17 @@ TimeStampedValue TimeStampedHistory::GetHistory(double timeStamp) {
 	int historySize = m_history.size();
 
 	if(historySize <= 1) {	// Not enough history to look through!
-		printf("size too small");
+		printf("size too small\n");
 		return TimeStampedValue(0);	// might want a better default return value
 	}
 
 	double currentTimeStamp = Timer::GetFPGATimestamp();
 	if(timeStamp > currentTimeStamp) {	// interpolate on a near future time
+		printf("it's the future! currentTime: %f, desiredTime: %f\n", currentTimeStamp, timeStamp);
 		return GetInterpolatedValue(m_history[historySize - 2], m_history[historySize - 1], timeStamp);
 	}
 	for(int i = historySize - 1; i>0; i--) {
 		if(m_history[i].GetTimeStamp() == timeStamp) {
-
 			return m_history[i];
 		} else if (m_history[i].GetTimeStamp() < timeStamp) {
 
@@ -48,7 +48,7 @@ TimeStampedValue TimeStampedHistory::GetHistory(double timeStamp) {
 		}
 
 	}
-	printf("historySize 2 %d\n", historySize);
+	printf("historySize %d, currentTime: %f, desiredTime: %f, deltaTime: %f\n", historySize, currentTimeStamp, timeStamp, currentTimeStamp - timeStamp);
 
 	return TimeStampedValue(0); // none found! might want a better default value
 }

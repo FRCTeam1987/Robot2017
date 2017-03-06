@@ -18,7 +18,7 @@ private:
 	double m_turretGearDiameter;
 	const double m_rotationsToDegrees = (9.98 / 360.0);
 	TimeStampedHistory m_history;
-	double m_angleToTarget;
+	double m_desiredAngle;
 public:
 	Turret();
 	void InitDefaultCommand();
@@ -37,8 +37,9 @@ public:
 	void UpdateHistory();
 	TimeStampedValue GetHistory(double timeStamp);
 	TimeStampedValue FetchAngleToGoal();
-	void SetTargetAngle(double angle);
-	double GetTargetAngle();
+	void SetDesiredAngle(double desiredAngle);
+	void SetDesiredAngle(double desiredAngle, double timeStamp);
+	double GetDesiredAngle();
 	double GetOutputVoltage();
 };
 
