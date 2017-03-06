@@ -17,6 +17,7 @@
 #include "Commands/Shooter/SetShooterPercent.h"
 #include "Commands/Turret/ZeroTurret.h"
 #include "Commands/Turret/SetTurretPercent.h"
+#include "Commands/Turret/SetDesiredAngle.h"
 #include "Commands/PrintStuff.h"
 #include "Commands/Turret/SetPosition.h"
 #include "Commands/DriveTrain/Shift.h"
@@ -39,11 +40,9 @@
 #include "Commands/Turret/AutoTarget.h"
 #include "Commands/Turret/AnchorTurret.h"
 #include "Commands/DriveTrain/ToggleShift.h"
-#include "Commands/Turret/TargetAndAnchor.h"
 #include "Commands/PlaceGearAndHopperAuto.h"
 #include "Commands/MiddlePegRed.h"
 #include "Commands/MiddlePegBlue.h"
-#include "Commands/Turret/TargetAndAnchor.h"
 #include "Commands/Vision/VisionUpdateTurret.h"
 
 OI::OI() {
@@ -170,7 +169,6 @@ OI::OI() {
 
 	frc::SmartDashboard::PutData("Auto Target", new AutoTarget());
 
-	frc::SmartDashboard::PutData("Target And Anchor", new TargetAndAnchor());
 //
 //	frc::SmartDashboard::PutData("Zero Turret And Move", new ZeroAndMove());
 //
@@ -184,4 +182,5 @@ OI::OI() {
 //	frc::SmartDashboard::PutData("Set Default State", new SetDefaultState());
 #endif
 	frc::SmartDashboard::PutData("Vision Update Anchor", new VisionUpdateTurret());
+	frc::SmartDashboard::PutData("SetDesiredAngle(90)", new SetDesiredAngle(90));
 }
