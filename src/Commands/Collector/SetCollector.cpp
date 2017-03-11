@@ -6,6 +6,8 @@ SetCollector::SetCollector(float power) {
 }
 
 void SetCollector::Initialize() {
+	RobotMap::Log.AddEntry("SetCollector::Initialize()");
+
 	Robot::collector.get()->SetRoller(m_power);
 }
 
@@ -17,6 +19,8 @@ bool SetCollector::IsFinished() {
 }
 
 void SetCollector::End() {
+	RobotMap::Log.AddEntry("SetCollector::End()");
+
 }
 
 void SetCollector::Interrupted() {

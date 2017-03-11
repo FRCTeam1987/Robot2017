@@ -39,6 +39,9 @@ std::shared_ptr<CANTalon> RobotMap::turretMotor;
 //OI
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
 
+//Logging
+RoboLog RobotMap::Log;
+
 void RobotMap::init() {
 	initCollector();
 	initDriveTrain();

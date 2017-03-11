@@ -150,7 +150,7 @@ float DriveTrain::GetHeadingChange() {
 		m_recentHeadings.erase(m_recentHeadings.begin());
 	}
 	double currentHeading = GetAngle();
-	printf("heading! %f\n", currentHeading);
+//	printf("heading! %f\n", currentHeading);
 	double headingChange = GetRecentHeadingChange();
 	if(headingChange > 180) {
 		headingChange -= 360;

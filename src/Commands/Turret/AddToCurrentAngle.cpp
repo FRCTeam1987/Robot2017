@@ -1,15 +1,12 @@
 #include "AddToCurrentAngle.h"
 
 AddToCurrentAngle::AddToCurrentAngle(double angleToAdd) {
-	Requires(Robot::turret.get());
 	m_angleToAdd = angleToAdd;
 }
 
 void AddToCurrentAngle::Initialize() {
-	double currentAngle = Robot::turret.get()->GetAngle();
-	double targetAngle = currentAngle + m_angleToAdd;
-	Robot::turret.get()->SetPosition(targetAngle);
-
+	double currentTargetAngle = Robot::turret->GetDesiredAngle();
+	Robot::turret->SetDesiredAngle(m_angleToAdd + currentTargetAngle);
 }
 
 void AddToCurrentAngle::Execute() {
@@ -17,7 +14,7 @@ void AddToCurrentAngle::Execute() {
 }
 
 bool AddToCurrentAngle::IsFinished() {
-	return (Robot::turret.get()->isOnTarget());
+	return true;
 }
 
 void AddToCurrentAngle::End() {

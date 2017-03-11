@@ -13,6 +13,7 @@
 #include "GearManipulator/SetGearPosition.h"
 #include "GearManipulator/SetGearManipulatorRoller.h"
 #include "DriveTrain/DriveArcPower.h"
+#include "Turret/WaitForOnTarget.h"
 
 MiddlePegBlue::MiddlePegBlue() {
 	//Middle (BLUE)
@@ -30,6 +31,5 @@ MiddlePegBlue::MiddlePegBlue() {
 	AddSequential(new SetGearPosition(true));
 
 	AddSequential(new SetDesiredAngle(60));
-//	AddSequential(new WaitCommand(.50));
-//	AddSequential(new Shoot());
+	AddSequential(new Shoot());
 }

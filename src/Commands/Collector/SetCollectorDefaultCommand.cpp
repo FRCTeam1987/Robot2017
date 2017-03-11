@@ -8,6 +8,8 @@ SetCollectorDefaultCommand::SetCollectorDefaultCommand(bool setOnOff) {
 }
 
 void SetCollectorDefaultCommand::Initialize() {
+	RobotMap::Log.AddEntry("SetCollectorDefaultCommand::Initialize()");
+
 	if (m_setOnOff) {
 		Robot::collector.get()->SetDefaultCommand(new CollectFuel());
 	} else {
@@ -24,6 +26,8 @@ bool SetCollectorDefaultCommand::IsFinished() {
 }
 
 void SetCollectorDefaultCommand::End() {
+	RobotMap::Log.AddEntry("SetCollectorDefaultCommand::End()");
+
 
 }
 

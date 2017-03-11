@@ -6,6 +6,7 @@
 #include <Talon.h>
 #include <AHRS.h>
 #include <navXSensor.h>
+#include "RoboLog.h"
 
 class RobotMap {
 public:
@@ -96,6 +97,9 @@ public:
 		BUTTON_SHIFT_XBOX = 9,		//LS
 		DRIVER_XBOX = 0,
 	};
+
+	// Logging
+	static RoboLog Log;
 
 	static void init();
 	static void initCollector();

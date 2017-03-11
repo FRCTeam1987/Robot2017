@@ -99,7 +99,7 @@ void DrivePivot::Execute() {
 //				m_isSlow = true;
 				if(m_turnSpeed < 0)
 					m_turnSpeed += 0.1;
-				printf("Reducing speed\n");
+//				printf("Reducing speed\n");
 			}
 		}
 		else
@@ -109,7 +109,7 @@ void DrivePivot::Execute() {
 //				m_isSlow = true;
 				if(m_turnSpeed > 0)
 					m_turnSpeed -= 0.1;
-				printf("Reducing speed\n");
+//				printf("Reducing speed\n");
 			}
 		}
 	}

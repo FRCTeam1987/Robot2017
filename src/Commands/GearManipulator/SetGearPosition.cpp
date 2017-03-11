@@ -7,6 +7,8 @@ SetGearPosition::SetGearPosition(bool isRaised) {
 
 void SetGearPosition::Initialize() {
 	Robot::gearManipulator.get()->SetGearPosition(m_isRaised);
+	RobotMap::Log.AddEntry("SetGearPosition::Initialize()");
+
 }
 
 void SetGearPosition::Execute() {
@@ -19,6 +21,8 @@ bool SetGearPosition::IsFinished() {
 }
 
 void SetGearPosition::End() {
+	RobotMap::Log.AddEntry("SetGearPosition::End()");
+
 }
 
 void SetGearPosition::Interrupted() {

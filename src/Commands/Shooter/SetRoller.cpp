@@ -7,6 +7,8 @@ SetRoller::SetRoller(float power) {
 
 void SetRoller::Initialize() {
 	Robot::shooter.get()->SetRoller(m_power);
+	RobotMap::Log.AddEntry("SetRoller::Initialize()");
+
 }
 
 void SetRoller::Execute() {
@@ -17,6 +19,8 @@ bool SetRoller::IsFinished() {
 }
 
 void SetRoller::End() {
+	RobotMap::Log.AddEntry("SetRoller::End()");
+
 }
 
 void SetRoller::Interrupted() {

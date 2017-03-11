@@ -75,3 +75,7 @@ TimeStampedValue TimeStampedHistory::GetInterpolatedValue(TimeStampedValue timeS
 	interpolatedValue.SetTimeStamp(targetTimeStamp);
 	return interpolatedValue;
 }
+
+std::vector<TimeStampedValue> TimeStampedHistory::GetHistories() {
+	return m_history;
+}

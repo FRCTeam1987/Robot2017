@@ -6,6 +6,8 @@ SetElevator::SetElevator(float power) {
 }
 
 void SetElevator::Initialize() {
+	RobotMap::Log.AddEntry("SetElevator::Initialize()");
+
 	Robot::shooter.get()->SetElevator(m_power);
 }
 
@@ -17,6 +19,8 @@ bool SetElevator::IsFinished() {
 }
 
 void SetElevator::End() {
+	RobotMap::Log.AddEntry("SetElevator::End()");
+
 }
 
 void SetElevator::Interrupted() {

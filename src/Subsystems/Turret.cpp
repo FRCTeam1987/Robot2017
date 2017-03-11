@@ -46,6 +46,7 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 }
 
 void Turret::InitDefaultCommand() {
+	RobotMap::Log.AddEntry("Turret::InitDefaultCommand()");
 	SetDefaultCommand(new AnchorTurret());
 //	SetDefaultCommand(new ::AutoTarget());
 }
@@ -231,4 +232,25 @@ double Turret::GetDesiredAngle() {
 
 double Turret::GetOutputVoltage() {
 	return motor->GetOutputVoltage();
+}
+
+bool Turret::isStill() {
+	std::vector<TimeStampedValue> histories = m_history.GetHistories();
+	//get size of history and iterate over the last 3 ish values and check if the
+	int historySize = histories.size();
+
+	double currentAngle = 0.0;
+	double prevAngle = 0.0;
+
+	for (int i = historySize - 3; i < historySize; i++) {
+		currentAngle = histories[i].GetValue1();
+		if ((currentAngle + 1) >= prevAngle && prevAngle >= (currentAngle - 1)) {
+			printf("Not the same");
+			return false;
+		}
+		prevAngle = currentAngle;
+
+	}
+
+	return true;
 }

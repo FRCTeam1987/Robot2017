@@ -44,6 +44,11 @@
 #include "Commands/MiddlePegRed.h"
 #include "Commands/MiddlePegBlue.h"
 #include "Commands/Vision/VisionUpdateTurret.h"
+#include "Commands/Turret/WaitForOnTarget.h"
+#include "Commands/Shooter/ShootDistance.h"
+#include "Commands/DriveTrain/SetPTO.h"
+#include "Commands/HopperRed.h"
+#include "Commands/RoboLogCommand.h"
 
 OI::OI() {
 	//Xbox Controls
@@ -183,4 +188,20 @@ OI::OI() {
 #endif
 	frc::SmartDashboard::PutData("Vision Update Anchor", new VisionUpdateTurret());
 	frc::SmartDashboard::PutData("SetDesiredAngle(90)", new SetDesiredAngle(90));
+
+	frc::SmartDashboard::PutData("Turret +30", new AddToCurrentAngle(30));
+	frc::SmartDashboard::PutData("Turret -30", new AddToCurrentAngle(-30));
+
+	frc::SmartDashboard::PutData("Wait for On target", new WaitForOnTarget());
+
+	frc::SmartDashboard::PutNumber("Testing RPM", 0);
+
+	frc::SmartDashboard::PutData("Shoot", new Shoot());
+	frc::SmartDashboard::PutData("ShootForDistance", new ShootDistance());
+	frc::SmartDashboard::PutData("Stop Shooter", new SetShooter(0));
+	frc::SmartDashboard::PutData("Engage pto", new SetPTO(true));
+	frc::SmartDashboard::PutData("Disengage pto", new SetPTO(false));
+
+	frc::SmartDashboard::PutData("ROBOLog", new RoboLogCommand());
+
 }

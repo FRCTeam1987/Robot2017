@@ -26,7 +26,7 @@ void DriveRotate::Execute() {
 //	if(fabs(m_turnSpeed) >= m_maxTurnSpeed) {
 //		return;
 //	}
-	printf("Drive Rotate Execute\n");
+//	printf("Drive Rotate Execute\n");
 
 	if(IsRotating() == true && m_minTurnSpeed == 0) {
 		m_minTurnSpeed = m_turnSpeed;

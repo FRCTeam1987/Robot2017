@@ -41,6 +41,7 @@ public:
 	void SetDesiredAngle(double desiredAngle, double timeStamp);
 	double GetDesiredAngle();
 	double GetOutputVoltage();
+	bool isStill();
 };
 
 #endif  // Turret_H

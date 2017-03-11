@@ -8,6 +8,8 @@ SetDesiredAngle::SetDesiredAngle(double desiredAngle) {
 
 // Called just before this Command runs the first time
 void SetDesiredAngle::Initialize() {
+	RobotMap::Log.AddEntry("SetDesiredAngle::Initialize()");
+
 	printf("Command_SetDesiredAngle(%f)\n", m_desiredAngle);
 	Robot::turret->SetDesiredAngle(m_desiredAngle);
 }
@@ -24,6 +26,7 @@ bool SetDesiredAngle::IsFinished() {
 
 // Called once after isFinished returns true
 void SetDesiredAngle::End() {
+	RobotMap::Log.AddEntry("SetDesiredAngle::End()");
 
 }
 

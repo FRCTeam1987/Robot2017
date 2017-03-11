@@ -7,6 +7,8 @@ SetGearManipulatorRoller::SetGearManipulatorRoller(float power) {
 
 // Called just before this Command runs the first time
 void SetGearManipulatorRoller::Initialize() {
+	RobotMap::Log.AddEntry("SetGearManipulatorRoller::Initialize()");
+
 	Robot::gearManipulator.get()->SetRoller(m_power);
 }
 
@@ -22,6 +24,7 @@ bool SetGearManipulatorRoller::IsFinished() {
 
 // Called once after isFinished returns true
 void SetGearManipulatorRoller::End() {
+	RobotMap::Log.AddEntry("SetGearManipulatorRoller::End()");
 
 }
 

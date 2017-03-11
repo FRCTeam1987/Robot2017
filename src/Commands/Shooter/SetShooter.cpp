@@ -4,22 +4,24 @@ SetShooter::SetShooter(float rpm) {
 	printf("SetShooter::SetShooter - begin\n");
 	Requires(Robot::shooter.get());
 	m_rpm = rpm;
-	m_tolerance = 100;
+	m_tolerance = 10;
 	printf("SetShooter::SetShooter - end\n");
 }
 
 void SetShooter::Initialize() {
 	printf("SetShooter::Initialize - begin\n");
+	m_rpm = frc::SmartDashboard::GetNumber("Testing RPM", 0);
 	Robot::shooter.get()->SetShooterRpm(m_rpm);
 	printf("SetShooter::Initialize - rpm: %f\n", m_rpm);
 	printf("SetShooter::Initialize - end\n");
 }
 
 void SetShooter::Execute() {
-	printf("SetShooter::Execute - begin\n");
+//	printf("SetShooter::Execute - begin\n");
 	frc::SmartDashboard::PutNumber("Shooter RPM", Robot::shooter.get()->GetWheelRPM());
-	printf("SetShooter::Execute rpm: %f\n", Robot::shooter.get()->GetWheelRPM());
-	printf("SetShooter::Execute - end\n");
+//	printf("SetShooter::Execute rpm: %f\n", Robot::shooter.get()->GetWheelRPM());
+//	printf("SetShooter::Execute - end\n");
+
 }
 
 bool SetShooter::IsFinished() {

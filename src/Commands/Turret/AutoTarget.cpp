@@ -56,12 +56,12 @@ void AutoTarget::Execute() {
 	if (!target.GetValue1()) {
 		return;
 	}
-	printf("Voltage: %f \n", Robot::turret->GetOutputVoltage());
+//	printf("Voltage: %f \n", Robot::turret->GetOutputVoltage());
 
 	if(fabs(m_angleToGoal) <= 1 || !Robot::turret->isOnTarget() || (Robot::turret->GetOutputVoltage() != 0.0)) {
 		return;
 	}
-	printf("isOnTarget, angle To goal:  %f \n", m_angleToGoal);
+//	printf("isOnTarget, angle To goal:  %f \n", m_angleToGoal);
 	Robot::turret.get()->SetMyPosition(m_angleToGoal);
 
 }

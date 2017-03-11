@@ -24,7 +24,11 @@ void Robot::RobotInit() {
 //	autoChooser.AddDefault("Middle Peg", new MiddlePeg(new MiddlePegRed, new MiddlePegBlue));
 	autoChooser.AddDefault("Place Gear And Hopper", new PlaceGearAndHopperAuto());
 	autoChooser.AddObject("Middle Peg Red", new MiddlePegRed());
+
 	autoChooser.AddObject("Middle Peg Blue", new MiddlePegBlue());
+	autoChooser.AddObject("Hopper Red", new HopperRed());
+	autoChooser.AddObject("Hopper Blue", new HopperBlue());
+
 	frc::SmartDashboard::PutData("Auto Modes!!", &autoChooser);
 }
 
@@ -41,7 +45,9 @@ void Robot::AutonomousInit() {
 	}
 
 	driveTrain.get()->SetBrake();
+	turret.get()->ZeroPosition();
 	autonomousCommand.reset(autoChooser.GetSelected());
+	printf("AutoSelected: %s \n", autoChooser.GetSelected()->GetName().c_str());
 	if (autonomousCommand.get() != nullptr) {
 		printf("Running autonomous chooser\n");
 		autonomousCommand->Start();
@@ -60,6 +66,7 @@ void Robot::TeleopInit() {
 	}
 	driveTrain.get()->SetBrake();
 	driveTrain.get()->ZeroAngle();
+	new StopShoot();
 }
 
 void Robot::TeleopPeriodic() {

@@ -6,6 +6,8 @@
 class MiddlePegRed : public CommandGroup {
 public:
 	MiddlePegRed();
+	void Initialize();
+	void End();
 };
 
 #endif  // MiddlePegRed_H

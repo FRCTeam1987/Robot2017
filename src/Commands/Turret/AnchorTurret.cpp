@@ -10,6 +10,7 @@ AnchorTurret::AnchorTurret() {
 }
 
 void AnchorTurret::Initialize() {
+	RobotMap::Log.AddEntry("AnchorTurret::Initialize()");
 }
 
 void AnchorTurret::Execute() {
@@ -32,9 +33,9 @@ bool AnchorTurret::IsFinished() {
 }
 
 void AnchorTurret::End() {
-
+	RobotMap::Log.AddEntry("AnchorTurret::End()");
 }
 
 void AnchorTurret::Interrupted() {
-
+	RobotMap::Log.AddEntry("AnchorTurret::Interrupted()");
 }

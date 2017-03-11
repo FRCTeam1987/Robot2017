@@ -11,7 +11,8 @@ Vision::Vision() : Subsystem("Vision") {
 }
 
 void Vision::InitDefaultCommand() {
-	 SetDefaultCommand(new VisionUpdateTurret());
+	RobotMap::Log.AddEntry("Vision::InitDefaultCommand()");
+	SetDefaultCommand(new VisionUpdateTurret());
 }
 
 void Vision::UpdateInfo() {

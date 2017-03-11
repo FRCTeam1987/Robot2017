@@ -11,6 +11,8 @@ DriveStraight::DriveStraight(double distance, double initialSpeed, double finalS
 
 void DriveStraight::Initialize() {
 	m_currentSpeed = m_initialSpeed;
+	RobotMap::Log.AddEntry("DriveStraight::Initialize()");
+
 	Robot::driveTrain.get()->ZeroEncoders();
 	Robot::driveTrain.get()->ZeroAngle();
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
@@ -38,20 +40,20 @@ void DriveStraight::Execute() {
 			if (deltaDistance > 19 && m_currentSpeed < m_maxSpeed) {
 				m_currentSpeed += m_accRate;
 
-				printf("CurrentSpeed: %f\n", m_currentSpeed);
+//				printf("CurrentSpeed: %f\n", m_currentSpeed);
 
 			} else if (deltaDistance <= 19 && m_currentSpeed > m_finalSpeed+m_decRate) {
 				m_currentSpeed -= m_decRate;
-				printf("CurrentSpeed: %f\n", m_currentSpeed);
+//				printf("CurrentSpeed: %f\n", m_currentSpeed);
 			}
 		} else {
 			if (deltaDistance > 19 && m_currentSpeed > m_maxSpeed * -1) {
 				m_currentSpeed -= m_accRate;
-				printf("CurrentSpeed: %f\n", m_currentSpeed);
+//				printf("CurrentSpeed: %f\n", m_currentSpeed);
 
 			} else if (deltaDistance <= 19 && m_currentSpeed < m_finalSpeed-m_decRate) {
 				m_currentSpeed += m_decRate;
-				printf("CurrentSpeed: %f\n", m_currentSpeed);
+//				printf("CurrentSpeed: %f\n", m_currentSpeed);
 			}
 		}
 //	} else {
@@ -59,7 +61,7 @@ void DriveStraight::Execute() {
 //	}
 
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);
-	printf("Left Encoder Distance: %f     Right Encoder Distance: %f\n", Robot::driveTrain.get()->GetLeftEncoderDistance(), Robot::driveTrain.get()->GetRightEncoderDistance());
+//	printf("Left Encoder Distance: %f     Right Encoder Distance: %f\n", Robot::driveTrain.get()->GetLeftEncoderDistance(), Robot::driveTrain.get()->GetRightEncoderDistance());
 }
 
 bool DriveStraight::IsFinished() {
@@ -68,6 +70,8 @@ bool DriveStraight::IsFinished() {
 
 void DriveStraight::End() {
 	printf("Drive Straight Ended\n");
+	RobotMap::Log.AddEntry("DriveStraight::End()");
+
 	frc::SmartDashboard::PutNumber("Left Encoder Post Drive", Robot::driveTrain.get()->GetLeftEncoderDistance());
 	frc::SmartDashboard::PutNumber("Right Encoder Post Drive", Robot::driveTrain.get()->GetRightEncoderDistance());
 	Robot::driveTrain.get()->Disable();

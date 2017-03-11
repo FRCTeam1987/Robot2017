@@ -16,6 +16,9 @@
 #include "Commands/MiddlePeg.h"
 #include "Commands/MiddlePegRed.h"
 #include "Commands/MiddlePegBlue.h"
+#include "Commands/HopperBlue.h"
+#include "Commands/HopperRed.h"
+#include "Commands/Shooter/StopShoot.h"
 
 
 class Robot : public IterativeRobot {
