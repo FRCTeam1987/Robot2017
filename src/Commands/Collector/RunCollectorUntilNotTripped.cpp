@@ -1,8 +1,11 @@
 #include "RunCollectorUntilNotTripped.h"
+#include "Timer.h"
 
 RunCollectorUntilNotTripped::RunCollectorUntilNotTripped(float power) {
-	m_power = power;
 	Requires(Robot::collector.get());
+	m_power = power;
+	m_lastTripped = 0.0;
+	m_timeAfterTrip = .5;
 }
 
 void RunCollectorUntilNotTripped::Initialize() {
@@ -10,11 +13,13 @@ void RunCollectorUntilNotTripped::Initialize() {
 }
 
 void RunCollectorUntilNotTripped::Execute() {
-
+	if (Robot::collector->HasBall()) {
+		m_lastTripped = Timer::GetFPGATimestamp();
+	}
 }
 
 bool RunCollectorUntilNotTripped::IsFinished() {
-	return !(Robot::collector.get()->HasBall());
+	return (m_lastTripped < (Timer::GetFPGATimestamp() - m_timeAfterTrip));
 }
 
 void RunCollectorUntilNotTripped::End() {

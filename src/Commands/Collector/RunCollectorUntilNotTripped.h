@@ -7,6 +7,8 @@
 class RunCollectorUntilNotTripped : public frc::Command {
 private:
 	float m_power;
+	double m_lastTripped;
+	double m_timeAfterTrip;
 public:
 	RunCollectorUntilNotTripped(float power);
 	void Initialize();

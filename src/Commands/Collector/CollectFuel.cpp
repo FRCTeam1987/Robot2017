@@ -9,8 +9,6 @@ CollectFuel::CollectFuel() {
 	AddSequential(new HasBall());
 	AddSequential(new SetElevator(-0.5));
 	AddSequential(new RunCollectorUntilNotTripped(1));
-	AddSequential(new WaitCommand(.5));
-	//Removed Wait Due To Jumpy Hopper
 	AddSequential(new SetElevator(0));
 	AddSequential(new SetCollectorDefaultCommand(true));
 }
