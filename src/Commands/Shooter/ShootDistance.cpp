@@ -41,6 +41,7 @@ ShootDistance::ShootDistance() {
 
 // Called just before this Command runs the first time
 void ShootDistance::Initialize() {
+	m_shooterRpm = 0;
 	RobotMap::Log.AddEntry("ShootDistance::Initialize()");
 
 	//find if the distance to the goal is in the map.
