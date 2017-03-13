@@ -28,6 +28,7 @@ private:
 	double m_headingOffset;
 	double m_azimuth;
 	bool m_isHigh;
+	bool m_isEngaged;
 	std::vector<double> m_recentHeadings;
 	ADXRS450_Gyro* gyro;
 	TimeStampedHistory m_history;
@@ -66,6 +67,7 @@ public:
 	void UpdateHistory();
 	TimeStampedValue GetHistory(double timeStamp);
 	void ToggleShift();
+	void TogglePto();
 };
 
 #endif  // DriveTrain_H

@@ -19,6 +19,7 @@
 #include "Commands/HopperBlue.h"
 #include "Commands/HopperRed.h"
 #include "Commands/Shooter/StopShoot.h"
+#include "Commands/BoilerSidePegBlue.h"
 
 
 class Robot : public IterativeRobot {

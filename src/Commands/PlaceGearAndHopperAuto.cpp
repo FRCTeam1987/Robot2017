@@ -18,21 +18,23 @@ PlaceGearAndHopperAuto::PlaceGearAndHopperAuto() {
 	//Right Side (RED)
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
-	AddSequential(new DriveStraight(-93, 0, -.10));
+	AddSequential(new DriveStraight(-96, 0, -.10));
 	AddSequential(new DriveRotate(-57));
 	AddSequential(new WaitCommand(.25));
-	AddSequential(new DriveStraight(-24, 0, -.30));
+	AddSequential(new DriveStraight(-20, 0, -.10));
 	AddSequential(new SetGearPosition(false));
 	AddSequential(new WaitCommand(.25));
 	AddSequential(new SetGearManipulatorRoller(-0.75));
 	AddSequential(new WaitCommand(.5));
 	AddSequential(new SetGearManipulatorRoller(0));
 
-	AddSequential(new DriveStraight(24, 0, .3));
+	AddSequential(new DriveStraight(24, 0, .1));
 	AddSequential(new SetGearPosition(true));
 
 	AddSequential(new SetDesiredAngle(30));
 
+	AddSequential(new WaitCommand(1));
+//	AddSequential(new Shoot());
 
 	//Middle (RED)
 //	AddSequential(new ZeroDriveTrain());

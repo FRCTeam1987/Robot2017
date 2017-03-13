@@ -3,7 +3,7 @@
 
 #include <Commands/CommandGroup.h>
 
-class HopperRed : public CommandGroup {
+class HopperRed : public frc::CommandGroup {
 public:
 	HopperRed();
 };

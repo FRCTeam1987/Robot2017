@@ -6,6 +6,7 @@
 #include "Commands/Collector/SetCollector.h"
 #include "Commands/Collector/ShowHasBall.h"
 #include "Commands/GearManipulator/SetGearManipulator.h"
+#include "Commands/GearManipulator/SetGearManipulatorRoller.h"
 #include "Commands/GearManipulator/SetGearPosition.h"
 #include "Commands/GearManipulator/CollectGear.h"
 #include "Commands/GearManipulator/PlaceGear.h"
@@ -49,6 +50,7 @@
 #include "Commands/DriveTrain/SetPTO.h"
 #include "Commands/HopperRed.h"
 #include "Commands/RoboLogCommand.h"
+#include "Commands/DriveTrain/TogglePTO.h"
 
 OI::OI() {
 	//Xbox Controls
@@ -58,6 +60,15 @@ OI::OI() {
 	frc::JoystickButton *collectGearXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_XBOX);
 	frc::JoystickButton *collectGearFromHopperXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_HOPPER);
 	frc::JoystickButton *shiftButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHIFT_XBOX);
+	frc::JoystickButton *ptoButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_PTO_XBOX);
+
+	frc::JoystickButton *reverseGearCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_GEAR_CO);
+	frc::JoystickButton *reverseBallCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_BALL_CO);
+	frc::JoystickButton *reverseElevatorCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_ELEVATOR_CO);
+	frc::JoystickButton *stopAllCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_STOP_ALL_CO);
+	frc::JoystickButton *turretRightCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TURRET_RIGHT_CO);
+	frc::JoystickButton *turretLeftCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TURRET_LEFT_CO);
+	frc::JoystickButton *shootCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHOOT_CO);
 
 
 	placeGearXbox->WhenPressed(new PlaceGear());
@@ -66,6 +77,16 @@ OI::OI() {
 	collectGearXbox->WhenPressed(new CollectGear());
 	collectGearFromHopperXbox->WhenPressed(new SetGearManipulator(.75));
 	shiftButton->WhenPressed(new ToggleShift());
+	ptoButton->WhenPressed(new TogglePTO());
+
+	//CoDriver
+//	reverseGearCo->WhenPressed(new SetGearManipulatorRoller(-.5));
+//	reverseBallCo->WhenPressed(new SetCollector(-.5));
+//	reverseElevatorCo->WhenPressed(new SetElevator(-.5));
+//	stopAllCo->WhenPressed(new AddToCurrentAngle(30));
+//	turretRightCo->WhenPressed(new AddToCurrentAngle(30));
+//	turretLeftCo->WhenPressed(new AddToCurrentAngle(-30));
+//	shootCo->WhenPressed(new Shoot());
 
 #if 0
 	//Auto

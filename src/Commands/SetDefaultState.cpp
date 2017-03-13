@@ -5,6 +5,7 @@
 #include "Shooter/SetShooter.h"
 #include "GearManipulator/SetGearManipulator.h"
 #include "GearManipulator/SetGearPosition.h"
+#include "Collector/SetCollectorDefaultCommand.h"
 
 
 SetDefaultState::SetDefaultState() {
@@ -14,4 +15,5 @@ SetDefaultState::SetDefaultState() {
 	AddSequential(new SetShooter(0));
 	AddSequential(new SetGearManipulator(0));
 	AddSequential(new SetGearPosition(false));
+	AddSequential(new SetCollectorDefaultCommand(true));
 }

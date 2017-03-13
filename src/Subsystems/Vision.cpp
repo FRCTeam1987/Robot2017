@@ -8,6 +8,7 @@ Vision::Vision() : Subsystem("Vision") {
 	m_distanceToTarget = 0;
 	m_isTargetVisible = 0;
 	m_timeStamp = 0;
+	m_computeTime = 0;
 }
 
 void Vision::InitDefaultCommand() {
@@ -27,7 +28,11 @@ void Vision::UpdateInfo() {
 	double computeTime = frc::SmartDashboard::GetNumber("timeDelta", defaultComputeTime);
 	double distanceToTarget = frc::SmartDashboard::GetNumber("distance", defaultDistanceToTarget);
 
-	if(m_angleToTarget == angleToTarget) {
+	if(m_angleToTarget == angleToTarget && m_computeTime == computeTime) {
+//		char msg[256];
+//		sprintf(msg, "Vision::UpdateInfo() same data, angleToTarget:%.2f, isTargetVisible:%f, computeTime:%f, distanceToTarget:%f",
+//				angleToTarget, isTargetVisible, computeTime, distanceToTarget);
+//		RobotMap::Log.AddEntry(msg);
 		//printf("Vision::UpdateInfo same data, don't update vision info!\n");
 		return;
 	}
@@ -38,6 +43,7 @@ void Vision::UpdateInfo() {
 	m_distanceToTarget = distanceToTarget;
 	m_isTargetVisible = isTargetVisible;
 	m_timeStamp = imageCaptureTime;
+	m_computeTime = computeTime;
 }
 
 TimeStampedValue Vision::GetInfo() {

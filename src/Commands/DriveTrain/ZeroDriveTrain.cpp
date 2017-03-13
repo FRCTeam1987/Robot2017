@@ -1,7 +1,7 @@
 #include "ZeroDriveTrain.h"
 
 ZeroDriveTrain::ZeroDriveTrain() {
-	Requires(Robot::driveTrain.get());
+//	Requires(Robot::driveTrain.get());
 }
 
 void ZeroDriveTrain::Initialize() {

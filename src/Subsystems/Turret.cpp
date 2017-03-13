@@ -217,6 +217,7 @@ void Turret::SetDesiredAngle(double desiredAngle, double timeStamp) {
 	TimeStampedValue snapshot = GetHistory(timeStamp);
 	double oldAngle = snapshot.GetValue1();
 	if(oldAngle == 0.0) {
+//		printf("other old!\n");
 		return;
 	}
 	double currentAngle = oldAngle + desiredAngle;

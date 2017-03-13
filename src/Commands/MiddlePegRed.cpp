@@ -26,7 +26,7 @@ MiddlePegRed::MiddlePegRed() {
 
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
-	AddSequential(new SetDesiredAngle(-60));
+	AddSequential(new SetDesiredAngle(-40));
 
 	AddSequential(new DriveStraight(-77, 0, 0));
 	//Place Gear
@@ -42,6 +42,10 @@ MiddlePegRed::MiddlePegRed() {
 	AddSequential(new WaitCommand(1));
 
 	AddSequential(new Shoot());
+
+//	AddSequential(new StopShoot());
+//	AddSequential(new DriveArcPower(true, 45));
+//	AddSequential(new DriveStraight(4, 0, 0));
 //	AddSequential(new WaitCommand(2));
 
 

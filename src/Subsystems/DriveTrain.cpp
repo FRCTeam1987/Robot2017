@@ -22,6 +22,7 @@ DriveTrain::DriveTrain() :
 	rightEncoder = RobotMap::driveRightEncoder;
 	gyro = new ADXRS450_Gyro();
 	m_isHigh = true;
+	m_isEngaged = false;
 
 //	ZeroAngle(); //move to somewhere else
 
@@ -50,7 +51,7 @@ void DriveTrain::UsePIDOutput(double output) {
 	m_output = output;
 	frc::SmartDashboard::PutNumber("drive-power", m_autoSpeed);
 	frc::SmartDashboard::PutNumber("drive-rotate", output);
-	printf("power: %f, rotate: %f, heading-change: %f\n", m_autoSpeed, output, Robot::driveTrain.get()->ReturnPIDInput());
+//	printf("power: %f, rotate: %f, heading-change: %f\n", m_autoSpeed, output, Robot::driveTrain.get()->ReturnPIDInput());
 	AutoDrive(m_autoSpeed, output + m_autoTurn);
 }
 
@@ -232,4 +233,10 @@ void DriveTrain::ToggleShift() {
 	shifter->Set((m_isHigh ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse));
 
 	m_isHigh = !m_isHigh;
+}
+
+void DriveTrain::TogglePto() {
+	PTO->Set((m_isEngaged ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse));
+
+	m_isEngaged = !m_isEngaged;
 }

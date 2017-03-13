@@ -24,6 +24,8 @@ void Robot::RobotInit() {
 //	autoChooser.AddDefault("Middle Peg", new MiddlePeg(new MiddlePegRed, new MiddlePegBlue));
 	autoChooser.AddDefault("Place Gear And Hopper", new PlaceGearAndHopperAuto());
 	autoChooser.AddObject("Middle Peg Red", new MiddlePegRed());
+	autoChooser.AddObject("Boiler Peg Blue", new BoilerSidePegBlue());
+
 
 	autoChooser.AddObject("Middle Peg Blue", new MiddlePegBlue());
 	autoChooser.AddObject("Hopper Red", new HopperRed());

@@ -5,8 +5,10 @@
 #include "../../Robot.h"
 
 class SetShooterPercent : public frc::Command {
+private:
+	double m_percent;
 public:
-	SetShooterPercent();
+	SetShooterPercent(double percent);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

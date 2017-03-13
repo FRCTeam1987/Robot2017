@@ -11,6 +11,7 @@ private:
 	double m_distanceToTarget;
 	double m_isTargetVisible;
 	double m_timeStamp;
+	double m_computeTime;
 public:
 	Vision();
 	void InitDefaultCommand();

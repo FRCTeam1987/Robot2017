@@ -9,21 +9,33 @@
 #include "Shooter/Shoot.h"
 #include "DriveTrain/DriveArcPower.h"
 #include "Vision/VisionUpdateTurret.h"
+#include "Turret/AddToCurrentAngle.h"
 
 
 HopperRed::HopperRed() {
+	AddSequential(new WaitCommand(2));
 	AddSequential(new ZeroDriveTrain());
-//	AddSequential(new ZeroTurretEncoder());
-	AddSequential(new SetDesiredAngle(90));
-	AddSequential(new DriveStraight(124, 0, -.10));
-//	AddSequential(new DriveArcPower(true, 20));
-	AddSequential(new DriveRotate(90));
-	AddSequential(new VisionUpdateTurret());
-	AddSequential(new WaitCommand(.25));
-	AddSequential(new DriveStraight(36, 0, -.10));
+	AddSequential(new ZeroTurretEncoder());
+////	AddSequential(new SetDesiredAngle(144));
+	AddSequential(new DriveStraight(24, 0, -.10)); //129
+	AddSequential(new WaitCommand(1));
+////	AddSequential(new DriveArcPower(true, 20));
+	AddSequential(new DriveRotate(90));//90
+////	AddSequential(new VisionUpdateTurret());
+//	AddSequential(new WaitCommand(.45));
+//	AddSequential(new SetDesiredAngle(160));
+//	AddSequential(new WaitCommand(2));
+//	AddParallel(new )
+
+
+//	AddSequential(new DriveStraight(34, 0, -.10));
+//	AddSequential(new SetDesiredAngle(85));
+//	AddSequential(new AddToCurrentAngle(40));
+//	AddSequential(new AnchorTurret());
+
 //	AddSequential(new DriveStraight(35, 0, -.10));
 //	AddSequential(new SetDesiredAngle(90));
 //	AddSequential(new AnchorTurret());
 //	AddSequential(new Shoot());
-
+	AddSequential(new WaitCommand(6));
 }
