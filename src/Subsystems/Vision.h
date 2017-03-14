@@ -17,6 +17,7 @@ public:
 	void InitDefaultCommand();
 	void UpdateInfo();
 	TimeStampedValue GetInfo();
+	void DisableDefaultCommand();
 };
 
 #endif  // Vision_H

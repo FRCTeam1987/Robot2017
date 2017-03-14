@@ -38,6 +38,7 @@ std::shared_ptr<CANTalon> RobotMap::turretMotor;
 
 //OI
 std::shared_ptr<frc::XboxController> RobotMap::xbox;
+std::shared_ptr<frc::XboxController> RobotMap::co;
 
 //Logging
 RoboLog RobotMap::Log;
@@ -155,4 +156,5 @@ void RobotMap::initTurret() {
 
 void RobotMap::initOI() {
 	xbox.reset(new frc::XboxController(DRIVER_XBOX));
+	co.reset(new frc::XboxController(CODRIVER_CO));
 }

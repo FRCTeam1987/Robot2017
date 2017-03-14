@@ -88,6 +88,7 @@ public:
 
 	//OI
 	static std::shared_ptr<frc::XboxController> xbox;
+	static std::shared_ptr<frc::XboxController> co;
 
 	enum {
 		BUTTON_PLACE_GEAR_XBOX = 4, 	//Y
@@ -101,7 +102,7 @@ public:
 	};
 
 	enum {
-		BUTTON_REVERSE_GEAR_CO = 1,		//A
+		BUTTON_GEAR_ROLLER_CO = 1,		//A
 		BUTTON_REVERSE_BALL_CO = 4,		//Y
 		BUTTON_REVERSE_ELEVATOR_CO = 3, //X
 		BUTTON_STOP_ALL_CO = 2,			//B

@@ -17,6 +17,7 @@ bool SetGearManipulator::IsFinished() {
 }
 
 void SetGearManipulator::End() {
+
 	Robot::gearManipulator.get()->SetRoller(0);
 }
 

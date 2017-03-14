@@ -28,7 +28,7 @@ ShootDistance::ShootDistance() {
 	m_distanceToRpm[171]=3680;
 	m_distanceToRpm[175]=3700;
 	m_distanceToRpm[179]=3750;
-	m_distanceToRpm[183]=3770;
+	m_distanceToRpm[183]=3770;//3770
 	m_distanceToRpm[187]=3800;
 	m_distanceToRpm[191]=3830;
 	m_distanceToRpm[195]=3860;

@@ -8,7 +8,7 @@ SetRoller::SetRoller(float power) {
 void SetRoller::Initialize() {
 	Robot::shooter.get()->SetRoller(m_power);
 	RobotMap::Log.AddEntry("SetRoller::Initialize()");
-
+	printf("rollerStarted\n");
 }
 
 void SetRoller::Execute() {

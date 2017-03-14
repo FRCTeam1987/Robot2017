@@ -48,6 +48,8 @@ void Robot::AutonomousInit() {
 
 	driveTrain.get()->SetBrake();
 	turret.get()->ZeroPosition();
+	driveTrain.get()->Shift(false);
+	driveTrain.get()->SetPTO(false);
 	autonomousCommand.reset(autoChooser.GetSelected());
 	printf("AutoSelected: %s \n", autoChooser.GetSelected()->GetName().c_str());
 	if (autonomousCommand.get() != nullptr) {

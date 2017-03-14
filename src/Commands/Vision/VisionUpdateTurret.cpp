@@ -25,7 +25,7 @@ void VisionUpdateTurret::Execute() {
 		return;
 	}
 //	printf("lastTimeStamp: %f, visionTimeStamp: %f, visionAngle: %f, visionSawTarget: %f\n", m_lastTimeStamp, visionTimeStamp, visionAngle, visionSawTarget ? 1.0 : 0.0);
-	if(visionSawTarget == true && fabs(visionAngle) > .25) {
+	if(visionSawTarget == true && fabs(visionAngle) > .5) {
 //		printf("here\n");
 		double currentDesiredAngle = Robot::turret->GetDesiredAngle();
 		Robot::turret->SetDesiredAngle(currentDesiredAngle - visionAngle);

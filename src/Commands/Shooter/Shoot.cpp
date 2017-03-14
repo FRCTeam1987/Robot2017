@@ -7,9 +7,11 @@
 #include "../Collector/SetCollectorDefaultCommand.h"
 #include "ShootDistance.h"
 #include "../Turret/WaitForOnTarget.h"
+#include "../Vision/SetVisionDefaultCommand.h"
 
 Shoot::Shoot() {
 //	AddSequential(new WaitForOnTarget());
+//	AddSequential(new SetVisionDefaultCommand(false));
 	AddSequential(new SetCollectorDefaultCommand(false));
 	AddSequential(new ShootDistance()); //3100 RPM for Hopper && 3900 RPM for Gear (~3770 RPM)
 	AddSequential(new SetRoller(-0.5));

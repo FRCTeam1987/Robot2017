@@ -9,6 +9,8 @@ void SetCollector::Initialize() {
 	RobotMap::Log.AddEntry("SetCollector::Initialize()");
 
 	Robot::collector.get()->SetRoller(m_power);
+	printf("collectorRunning\n");
+
 }
 
 void SetCollector::Execute() {

@@ -9,6 +9,8 @@ void SetElevator::Initialize() {
 	RobotMap::Log.AddEntry("SetElevator::Initialize()");
 
 	Robot::shooter.get()->SetElevator(m_power);
+	printf("elevatorRunning\n");
+
 }
 
 void SetElevator::Execute() {

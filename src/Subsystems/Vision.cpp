@@ -51,3 +51,7 @@ TimeStampedValue Vision::GetInfo() {
 	info.SetTimeStamp(m_timeStamp);
 	return info;
 }
+void Vision::DisableDefaultCommand() {
+	SetDefaultCommand(NULL);
+
+}

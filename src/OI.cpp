@@ -53,7 +53,7 @@
 #include "Commands/DriveTrain/TogglePTO.h"
 
 OI::OI() {
-	//Xbox Controls
+	//Driver
 	frc::JoystickButton *placeGearXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_PLACE_GEAR_XBOX);
 	frc::JoystickButton *shootXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHOOT_XBOX);
 	frc::JoystickButton *stopShootXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_STOP_SHOOT_XBOX);
@@ -62,15 +62,16 @@ OI::OI() {
 	frc::JoystickButton *shiftButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHIFT_XBOX);
 	frc::JoystickButton *ptoButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_PTO_XBOX);
 
-	frc::JoystickButton *reverseGearCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_GEAR_CO);
-	frc::JoystickButton *reverseBallCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_BALL_CO);
-	frc::JoystickButton *reverseElevatorCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_REVERSE_ELEVATOR_CO);
-	frc::JoystickButton *stopAllCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_STOP_ALL_CO);
-	frc::JoystickButton *turretRightCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TURRET_RIGHT_CO);
-	frc::JoystickButton *turretLeftCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TURRET_LEFT_CO);
-	frc::JoystickButton *shootCo = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHOOT_CO);
+	//CoDriver
+	frc::JoystickButton *gearRollerCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_GEAR_ROLLER_CO);
+	frc::JoystickButton *reverseBallCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_REVERSE_BALL_CO);
+	frc::JoystickButton *reverseElevatorCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_REVERSE_ELEVATOR_CO);
+	frc::JoystickButton *stopAllCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_STOP_ALL_CO);
+	frc::JoystickButton *turretRightCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TURRET_RIGHT_CO);
+	frc::JoystickButton *turretLeftCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TURRET_LEFT_CO);
+	frc::JoystickButton *shootCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_SHOOT_CO);
 
-
+	//Driver
 	placeGearXbox->WhenPressed(new PlaceGear());
 	shootXbox->WhenPressed(new Shoot());
 	stopShootXbox->WhenPressed(new StopShoot());
@@ -79,14 +80,17 @@ OI::OI() {
 	shiftButton->WhenPressed(new ToggleShift());
 	ptoButton->WhenPressed(new TogglePTO());
 
-	//CoDriver
-//	reverseGearCo->WhenPressed(new SetGearManipulatorRoller(-.5));
-//	reverseBallCo->WhenPressed(new SetCollector(-.5));
-//	reverseElevatorCo->WhenPressed(new SetElevator(-.5));
-//	stopAllCo->WhenPressed(new AddToCurrentAngle(30));
-//	turretRightCo->WhenPressed(new AddToCurrentAngle(30));
-//	turretLeftCo->WhenPressed(new AddToCurrentAngle(-30));
-//	shootCo->WhenPressed(new Shoot());
+//	CoDriver
+	gearRollerCo->WhenPressed(new SetGearManipulatorRoller(.5));
+	gearRollerCo->WhenReleased(new SetGearManipulatorRoller(0));
+	reverseBallCo->WhenPressed(new SetCollector(-.95));
+	reverseBallCo->WhenReleased(new SetCollector(0));
+	reverseElevatorCo->WhenPressed(new SetElevator(-.5));
+	reverseElevatorCo->WhenReleased(new SetElevator(0));
+	stopAllCo->WhenPressed(new SetDefaultState());
+	turretRightCo->WhenPressed(new AddToCurrentAngle(30));
+	turretLeftCo->WhenPressed(new AddToCurrentAngle(-30));
+	shootCo->WhenPressed(new Shoot());
 
 #if 0
 	//Auto
@@ -224,5 +228,5 @@ OI::OI() {
 	frc::SmartDashboard::PutData("Disengage pto", new SetPTO(false));
 
 	frc::SmartDashboard::PutData("ROBOLog", new RoboLogCommand());
-
+	frc::SmartDashboard::PutData("set default state", new SetDefaultState());
 }
