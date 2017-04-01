@@ -5,7 +5,7 @@ ShootDistance::ShootDistance() {
 	// eg. Requires(Robot::chassis.get());
 
 	m_distance = 0;
-	m_tolerance = 10;
+	m_tolerance = 20;
 	m_shooterRpm = 0;
 
 	m_distanceToRpm[103]=3000;
@@ -46,7 +46,7 @@ void ShootDistance::Initialize() {
 
 	//find if the distance to the goal is in the map.
 	TimeStampedValue target = Robot::vision->GetInfo();
-	m_distance = target.GetValue3();
+	m_distance = target.GetValue3() * .97;
 
 	int distance = m_distance + .5;
 	if (distance > 203 ) {
@@ -65,6 +65,7 @@ void ShootDistance::Initialize() {
 			}
 		}
 	}
+	Robot::shooter->SetCurrentRpm(m_shooterRpm);
 	Robot::shooter.get()->SetShooterRpm(m_shooterRpm);
 
 }

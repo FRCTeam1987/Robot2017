@@ -12,6 +12,7 @@ private:
 	std::shared_ptr<Talon> elevator;
 	std::shared_ptr<CANTalon> roller;
 	const CANTalon::FeedbackDevice feedbackDevice = CANTalon::CtreMagEncoder_Relative;
+	double m_currentRPM;
 public:
 	bool m_isRun;
 	Shooter();
@@ -22,6 +23,8 @@ public:
 	void SetRoller(float power);
 	float GetWheelRPM();
 	float GetRollerRPM();
+	void SetCurrentRpm(double rpm);
+	double GetCurrentRpm();
 };
 
 #endif  // Shooter_H

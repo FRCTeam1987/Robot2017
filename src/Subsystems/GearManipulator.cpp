@@ -13,7 +13,7 @@ void GearManipulator::InitDefaultCommand() {
 }
 
 bool GearManipulator::HasGear() {
-	return !gearSensor->Get();
+	return !gearSensor->Get(); //TODO inverted for comp bot
 }
 
 bool GearManipulator::IsGearLowered() {

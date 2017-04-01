@@ -35,6 +35,7 @@ void Robot::RobotInit() {
 }
 
 void Robot::DisabledInit() {
+	RobotMap::Log.DumpEntries();
 }
 
 void Robot::DisabledPeriodic() {
@@ -48,7 +49,7 @@ void Robot::AutonomousInit() {
 
 	driveTrain.get()->SetBrake();
 	turret.get()->ZeroPosition();
-	driveTrain.get()->Shift(false);
+//	driveTrain.get()->Shift(false);
 	driveTrain.get()->SetPTO(false);
 	autonomousCommand.reset(autoChooser.GetSelected());
 	printf("AutoSelected: %s \n", autoChooser.GetSelected()->GetName().c_str());
@@ -68,6 +69,7 @@ void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr) {
 		autonomousCommand->Cancel();
 	}
+//	driveTrain.get()->Shift(true);
 	driveTrain.get()->SetBrake();
 	driveTrain.get()->ZeroAngle();
 	new StopShoot();

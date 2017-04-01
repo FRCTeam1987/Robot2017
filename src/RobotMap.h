@@ -108,8 +108,12 @@ public:
 		BUTTON_STOP_ALL_CO = 2,			//B
 		BUTTON_TURRET_RIGHT_CO = 6,		//RB
 		BUTTON_TURRET_LEFT_CO = 5,		//LB
-		BUTTON_SHOOT_CO = 8,			//START
+		BUTTON_SHOOT_CO = 15,			//START
+		BUTTON_ADD_RPM_CO = 7,			//RT Dpad up BACK
+		BUTTON_SUB_RPM_CO = 8,			//LT Dpad down  START
 		CODRIVER_CO = 1,
+		//toggle rpm up
+		//toggle rpm down
 	};
 	// Logging
 	static RoboLog Log;

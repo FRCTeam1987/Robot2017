@@ -2,6 +2,7 @@
 
 DriveStraight::DriveStraight(double distance, double initialSpeed, double finalSpeed) {
 	Requires(Robot::driveTrain.get());
+	SetTimeout(2.5);
 	m_distance = distance + (distance < 0 ? -1.0 : 1.0);  // bump the distance by an inch
 	m_initialSpeed = initialSpeed;
 	m_finalSpeed = finalSpeed;
@@ -65,7 +66,7 @@ void DriveStraight::Execute() {
 }
 
 bool DriveStraight::IsFinished() {
-	return fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) - 1 && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance) - 1;
+	return (fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) - 1 && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance) - 1) || IsTimedOut();
 }
 
 void DriveStraight::End() {

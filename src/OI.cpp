@@ -51,6 +51,7 @@
 #include "Commands/HopperRed.h"
 #include "Commands/RoboLogCommand.h"
 #include "Commands/DriveTrain/TogglePTO.h"
+#include "Commands/Shooter/ChangeRPMBasedOnCurrent.h"
 
 OI::OI() {
 	//Driver
@@ -70,6 +71,10 @@ OI::OI() {
 	frc::JoystickButton *turretRightCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TURRET_RIGHT_CO);
 	frc::JoystickButton *turretLeftCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TURRET_LEFT_CO);
 	frc::JoystickButton *shootCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_SHOOT_CO);
+	frc::JoystickButton *increaseRpmCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_ADD_RPM_CO);
+	frc::JoystickButton *decreaseRpmCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_SUB_RPM_CO);
+
+
 
 	//Driver
 	placeGearXbox->WhenPressed(new PlaceGear());
@@ -91,6 +96,9 @@ OI::OI() {
 	turretRightCo->WhenPressed(new AddToCurrentAngle(30));
 	turretLeftCo->WhenPressed(new AddToCurrentAngle(-30));
 	shootCo->WhenPressed(new Shoot());
+	increaseRpmCo->WhenPressed(new ChangeRPMBasedOnCurrent(10));
+	decreaseRpmCo->WhenPressed(new ChangeRPMBasedOnCurrent(-10));
+
 
 #if 0
 	//Auto

@@ -28,14 +28,14 @@ void VisionUpdateTurret::Execute() {
 	if(visionSawTarget == true && fabs(visionAngle) > .5) {
 //		printf("here\n");
 		double currentDesiredAngle = Robot::turret->GetDesiredAngle();
-		Robot::turret->SetDesiredAngle(currentDesiredAngle - visionAngle);
+//		Robot::turret->SetDesiredAngle(currentDesiredAngle - visionAngle);				//todo duplicate????????????
 //		printf("Desired Angle:  %f \n", currentDesiredAngle - (visionAngle * 0.175));
 //
 //		char msg[256];
 //		sprintf(msg, "VisionUpdateTurret::Execute moving - currentDesiredAngle:%f - SetDesiredAngle(%f)",
 //				currentDesiredAngle, currentDesiredAngle - (visionAngle * 0.175));
 //		RobotMap::Log.AddEntry(msg);
-		Robot::turret->SetDesiredAngle(currentDesiredAngle - (visionAngle * 0.175), visionTimeStamp);
+		Robot::turret->SetDesiredAngle(currentDesiredAngle - (visionAngle * 0.2), visionTimeStamp);
 		m_lastTimeStamp = visionTimeStamp;
 	} else {
 		RobotMap::Log.AddEntry("VisionUpdateTurret::Execute not moving");

@@ -15,6 +15,7 @@
 #include "DriveTrain/DriveArcPower.h"
 #include "Turret/WaitForOnTarget.h"
 #include "Turret/AddToCurrentAngle.h"
+#include "Shooter/SetShooterPercent.h"
 
 
 MiddlePegRed::MiddlePegRed() {
@@ -26,20 +27,24 @@ MiddlePegRed::MiddlePegRed() {
 
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
-	AddSequential(new SetDesiredAngle(-40));
 
-	AddSequential(new DriveStraight(-77, 0, 0));
+	AddSequential(new DriveStraight(-74, 0, .270));
+	AddSequential(new SetShooterPercent(-.7));
 	//Place Gear
 	AddSequential(new SetGearPosition(false));
-	AddSequential(new WaitCommand(.25));
+	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new SetGearManipulatorRoller(-0.75));
-	AddSequential(new WaitCommand(.5));
+	AddSequential(new frc::WaitCommand(.5));
 	AddSequential(new SetGearManipulatorRoller(0));
 
-	AddSequential(new DriveStraight(25 , 0, .20));
+	AddSequential(new SetDesiredAngle(-30));
+
+	AddSequential(new DriveStraight(25 , 0, .4));
+	AddSequential(new DriveStraight(0 , 0, 0));
+
 	AddSequential(new SetGearPosition(true));
 
-	AddSequential(new WaitCommand(1));
+	AddSequential(new frc::WaitCommand(1));
 
 	AddSequential(new Shoot());
 

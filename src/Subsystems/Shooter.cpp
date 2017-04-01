@@ -14,7 +14,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	wheelMaster->ConfigNeutralMode(frc::CANSpeedController::kNeutralMode_Coast);
 //	wheelMaster->SetPID(0.09, (double) 0.0, 0.8525, 0.02555);
 //	wheelMaster->SetPID(0.045, (double) 0.0, 0.9, 0.0247); //Practice bot
-	wheelMaster->SetPID(0.084, (double) 0.0, 0.0, 0.0275); //comp
+	wheelMaster->SetPID(0.084, (double) 0.0, 0.0, 0.0267); //comp
 
 
 	if(wheelMaster->IsSensorPresent(feedbackDevice) != CANTalon::FeedbackStatusPresent) {
@@ -22,9 +22,9 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	}
 
 	m_isRun = false;
+	m_currentRPM = 0;
 
 }
-
 void Shooter::InitDefaultCommand() {
 }
 
@@ -64,4 +64,10 @@ float Shooter::GetWheelRPM(){
 
 float Shooter::GetRollerRPM(){
 	return roller->GetSpeed();
+}
+void Shooter::SetCurrentRpm(double rpm) {
+	m_currentRPM = rpm;
+}
+double Shooter::GetCurrentRpm() {
+	return m_currentRPM;
 }

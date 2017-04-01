@@ -33,10 +33,10 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 	motor->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	motor->SetAllowableClosedLoopErr(0);
 	motor->SetClosedLoopOutputDirection(true);
-	motor->ConfigPeakOutputVoltage(10, -10); // change this cuz mechanizm is lame
+	motor->ConfigPeakOutputVoltage(12, -12); // change this cuz mechanizm is lame //10 comp
 //	motor->ConfigNominalOutputVoltage(3, -3);
 //	motor->SetPID(.7, 0, 30.0, 0);
-	motor->SetPID(0.05, 0, 2.25, 0);
+	motor->SetPID(0.1, 0, 2.15, 0);
 
 	if(motor->IsSensorPresent(CANTalon::CtreMagEncoder_Relative) != CANTalon::FeedbackStatusPresent) {
 		printf("Device Error: Could not detect turret encoder.\n");

@@ -29,10 +29,10 @@ void Vision::UpdateInfo() {
 	double distanceToTarget = frc::SmartDashboard::GetNumber("distance", defaultDistanceToTarget);
 
 	if(m_angleToTarget == angleToTarget && m_computeTime == computeTime) {
-//		char msg[256];
-//		sprintf(msg, "Vision::UpdateInfo() same data, angleToTarget:%.2f, isTargetVisible:%f, computeTime:%f, distanceToTarget:%f",
-//				angleToTarget, isTargetVisible, computeTime, distanceToTarget);
-//		RobotMap::Log.AddEntry(msg);
+		char msg[256];
+		sprintf(msg, "Vision::UpdateInfo() same data, angleToTarget:%.2f, isTargetVisible:%f, computeTime:%f, distanceToTarget:%f",
+				angleToTarget, isTargetVisible, computeTime, distanceToTarget);
+		RobotMap::Log.AddEntry(msg);
 		//printf("Vision::UpdateInfo same data, don't update vision info!\n");
 		return;
 	}

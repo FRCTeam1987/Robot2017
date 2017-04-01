@@ -19,14 +19,14 @@ BoilerSidePegBlue::BoilerSidePegBlue() {
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
 
-	AddSequential(new DriveStraight(-91, 0, -.10));
+	AddSequential(new DriveStraight(-91, 0, -.25));
 	AddSequential(new DriveRotate(57));
-	AddSequential(new WaitCommand(.25));
+	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new DriveStraight(-22, 0, -.30));
 	AddSequential(new SetGearPosition(false));
-	AddSequential(new WaitCommand(.25));
+	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new SetGearManipulatorRoller(-0.75));
-	AddSequential(new WaitCommand(.5));
+	AddSequential(new frc::WaitCommand(.5));
 
 	AddSequential(new SetGearManipulatorRoller(0));
 
@@ -37,7 +37,7 @@ BoilerSidePegBlue::BoilerSidePegBlue() {
 
 	AddSequential(new SetDesiredAngle(-30));
 
-	AddSequential(new WaitCommand(1.5));
+	AddSequential(new frc::WaitCommand(1.5));
 	AddSequential(new Shoot());
 
 //	AddSequential(new StopShoot());

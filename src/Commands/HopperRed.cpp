@@ -13,12 +13,12 @@
 
 
 HopperRed::HopperRed() {
-	AddSequential(new WaitCommand(2));
+	AddSequential(new frc::WaitCommand(2));
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
 ////	AddSequential(new SetDesiredAngle(144));
 	AddSequential(new DriveStraight(24, 0, -.10)); //129
-	AddSequential(new WaitCommand(1));
+	AddSequential(new frc::WaitCommand(1));
 ////	AddSequential(new DriveArcPower(true, 20));
 	AddSequential(new DriveRotate(90));//90
 ////	AddSequential(new VisionUpdateTurret());
@@ -37,5 +37,5 @@ HopperRed::HopperRed() {
 //	AddSequential(new SetDesiredAngle(90));
 //	AddSequential(new AnchorTurret());
 //	AddSequential(new Shoot());
-	AddSequential(new WaitCommand(6));
+	AddSequential(new frc::WaitCommand(6));
 }
