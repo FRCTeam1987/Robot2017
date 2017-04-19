@@ -102,18 +102,18 @@ public:
 	};
 
 	enum {
-		BUTTON_GEAR_ROLLER_CO = 1,		//A
+		BUTTON_GEAR_ROLLER_CO = 15,		//Not Used
 		BUTTON_REVERSE_BALL_CO = 4,		//Y
 		BUTTON_REVERSE_ELEVATOR_CO = 3, //X
 		BUTTON_STOP_ALL_CO = 2,			//B
 		BUTTON_TURRET_RIGHT_CO = 6,		//RB
 		BUTTON_TURRET_LEFT_CO = 5,		//LB
-		BUTTON_SHOOT_CO = 15,			//START
+		BUTTON_SHOOT_CO = 1,			//A
 		BUTTON_ADD_RPM_CO = 7,			//RT Dpad up BACK
 		BUTTON_SUB_RPM_CO = 8,			//LT Dpad down  START
+		BUTTON_TOGGLE_COLLECT_CO = 9, 	//LS
 		CODRIVER_CO = 1,
-		//toggle rpm up
-		//toggle rpm down
+
 	};
 	// Logging
 	static RoboLog Log;

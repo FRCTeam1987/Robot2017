@@ -33,10 +33,11 @@ Turret::Turret() : Subsystem("Turret"), m_history(100) {
 	motor->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	motor->SetAllowableClosedLoopErr(0);
 	motor->SetClosedLoopOutputDirection(true);
-	motor->ConfigPeakOutputVoltage(12, -12); // change this cuz mechanizm is lame //10 comp
+	motor->ConfigPeakOutputVoltage(10, -10); // change this cuz mechanizm is lame //10 comp
 //	motor->ConfigNominalOutputVoltage(3, -3);
 //	motor->SetPID(.7, 0, 30.0, 0);
-	motor->SetPID(0.1, 0, 2.15, 0);
+//	motor->SetPID(0.1, 0, 2.15, 0);
+	motor->SetPID(0.05, 0, 2.25, 0);
 
 	if(motor->IsSensorPresent(CANTalon::CtreMagEncoder_Relative) != CANTalon::FeedbackStatusPresent) {
 		printf("Device Error: Could not detect turret encoder.\n");
@@ -53,6 +54,8 @@ void Turret::InitDefaultCommand() {
 
 void Turret::SetAbsoluteAngle(double targetAngle)
 {
+//	printf("SetAbsoluteAngle\n");
+
 	double targetPosition = (targetAngle * m_rotationsToDegrees);//accounts for 10:1 gear ration on turret
 	if (targetAngle > 180) {
 		targetPosition -= 10.0;
@@ -70,21 +73,9 @@ void Turret::SetMyPosition(double deltaAngle) {
 	double currentAngle = GetAngle();
 	double targetAngle = currentAngle + deltaAngle;
 	frc::SmartDashboard::PutNumber("Target Turret Angle", targetAngle);
-//	if (fabs(GetAngle()) < 120 && fabs(targetAngle) > 120) {
-//
-//		targetAngle = 119 * (targetAngle < 0 ? -1 : 1);
-//		printf("AngleLess than more than 120 %f\n", targetAngle);
-//
-//	}
-//	if (fabs(GetAngle()) > 240 && fabs(targetAngle) < 240) {
-//
-//		targetAngle = 241 * (targetAngle < 0 ? -1 : 1);
-//		printf("Angle Less than 240 %f\n", targetAngle);
-//
-//	}
+
 
 	double targetPosition = (targetAngle * m_rotationsToDegrees);//accounts for 10:1 gear ration on turret
-//	printf("deltaAngle: %f, currentAngle: %f, targetAngle: %f, currentPosition: %f, targetPosition: %f\n", deltaAngle, currentAngle, targetAngle, GetPosition(), targetPosition);
 
 	motor->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motor->Set(targetPosition);
@@ -99,7 +90,6 @@ void Turret::SetPosition(double angle) {
 
 
 	targetAngle = targetAngle - GetHeading(); //Accounts for robot heading
-//	targetAngle = fmod(targetAngle+360.0, 360.0);
 
 	frc::SmartDashboard::PutNumber("Target Angle First", targetAngle);
 
@@ -150,7 +140,6 @@ double Turret::GetPositionError() {
 }
 
 bool Turret::isOnTarget() {
-//	printf("isOnTarget: %d, isEnabled: %d\n", motor->GetTalonControlMode(), motor->IsEnabled()?1:0);
 	return (fabs(GetPositionError()) <= m_tolerance);
 }
 
@@ -217,11 +206,9 @@ void Turret::SetDesiredAngle(double desiredAngle, double timeStamp) {
 	TimeStampedValue snapshot = GetHistory(timeStamp);
 	double oldAngle = snapshot.GetValue1();
 	if(oldAngle == 0.0) {
-//		printf("other old!\n");
 		return;
 	}
 	double currentAngle = oldAngle + desiredAngle;
-	//printf("desiredAngle: %f, currentTurretAngle: %f, newTurretAngle: %f\n", desiredAngle, oldAngle, currentAngle);
 	if(currentAngle > TURRET_NOGO_LO && currentAngle < TURRET_NOGO_HI) {
 		m_desiredAngle = desiredAngle;
 	}
@@ -237,7 +224,6 @@ double Turret::GetOutputVoltage() {
 
 bool Turret::isStill() {
 	std::vector<TimeStampedValue> histories = m_history.GetHistories();
-	//get size of history and iterate over the last 3 ish values and check if the
 	int historySize = histories.size();
 
 	double currentAngle = 0.0;

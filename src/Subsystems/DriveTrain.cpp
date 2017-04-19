@@ -20,7 +20,6 @@ DriveTrain::DriveTrain() :
 	plateSensor = RobotMap::climberPlateSensor;
 	leftEncoder = RobotMap::driveLeftEncoder;
 	rightEncoder = RobotMap::driveRightEncoder;
-	gyro = new ADXRS450_Gyro();
 	m_isHigh = true;
 	m_isEngaged = false;
 
@@ -39,11 +38,8 @@ DriveTrain::DriveTrain() :
 }
 
 double DriveTrain::ReturnPIDInput() {
-//	printf("heading change: %d\n", GetHeadingChange()); //Warning
 	float headingChange = GetAngle();
-//	if (headingChange > 180) {
-//		headingChange -= 360;
-//	}
+
 	return headingChange;
 }
 
@@ -51,13 +47,11 @@ void DriveTrain::UsePIDOutput(double output) {
 	m_output = output;
 	frc::SmartDashboard::PutNumber("drive-power", m_autoSpeed);
 	frc::SmartDashboard::PutNumber("drive-rotate", output);
-//	printf("power: %f, rotate: %f, heading-change: %f\n", m_autoSpeed, output, Robot::driveTrain.get()->ReturnPIDInput());
 	AutoDrive(m_autoSpeed, output + m_autoTurn);
 }
 
 void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new Drive());
-//	SetDefaultCommand(new UpdateSmartDashboard());
 }
 
 void DriveTrain::DriveArcade(frc::XboxController *xbox) {
@@ -70,7 +64,6 @@ void DriveTrain::DriveArcade(frc::XboxController *xbox) {
 	frc::SmartDashboard::PutNumber("imu-displacement-y", ahrs->GetDisplacementY());
 	frc::SmartDashboard::PutNumber("drive-left-encoder-distance", GetLeftEncoderDistance());
 	frc::SmartDashboard::PutNumber("drive-right-encoder-distance", GetRightEncoderDistance());
-	frc::SmartDashboard::PutNumber("gryo-angle", GetGyroAngle());
 	robotDrive->ArcadeDrive((-xbox->GetTriggerAxis(XboxController::kLeftHand) + xbox->GetTriggerAxis(XboxController::kRightHand)), -xbox->GetX(XboxController::kLeftHand));
 }
 
@@ -126,9 +119,7 @@ float DriveTrain::GetAngle() {
 }
 
 void DriveTrain::ZeroAngle() {
-//	ahrs->ZeroYaw();
 	ahrs->Reset();
-//	m_headingOffset = Robot::driveTrain.get()->GetAngle();
 }
 
 void DriveTrain::ZeroEncoders() {
@@ -150,8 +141,6 @@ float DriveTrain::GetHeadingChange() {
 	if (m_recentHeadings.size() > 5) {
 		m_recentHeadings.erase(m_recentHeadings.begin());
 	}
-	double currentHeading = GetAngle();
-//	printf("heading! %f\n", currentHeading);
 	double headingChange = GetRecentHeadingChange();
 	if(headingChange > 180) {
 		headingChange -= 360;
@@ -210,14 +199,6 @@ double DriveTrain::GetRecentHeadingChange()
 		last -= 360;
 
 	return last - first;
-}
-
-double DriveTrain::GetGyroAngle() {
-	return gyro->GetAngle();
-}
-
-void DriveTrain::ResetGyro() {
-	gyro->Reset();
 }
 
 void DriveTrain::UpdateHistory() {

@@ -21,7 +21,6 @@ void Robot::RobotInit() {
     vision.reset(new Vision());
 	oi.reset(new OI());
 
-//	autoChooser.AddDefault("Middle Peg", new MiddlePeg(new MiddlePegRed, new MiddlePegBlue));
 	autoChooser.AddDefault("Place Gear And Hopper", new PlaceGearAndHopperAuto());
 	autoChooser.AddObject("Middle Peg Red", new MiddlePegRed());
 	autoChooser.AddObject("Boiler Peg Blue", new BoilerSidePegBlue());
@@ -49,7 +48,6 @@ void Robot::AutonomousInit() {
 
 	driveTrain.get()->SetBrake();
 	turret.get()->ZeroPosition();
-//	driveTrain.get()->Shift(false);
 	driveTrain.get()->SetPTO(false);
 	autonomousCommand.reset(autoChooser.GetSelected());
 	printf("AutoSelected: %s \n", autoChooser.GetSelected()->GetName().c_str());
@@ -69,7 +67,6 @@ void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr) {
 		autonomousCommand->Cancel();
 	}
-//	driveTrain.get()->Shift(true);
 	driveTrain.get()->SetBrake();
 	driveTrain.get()->ZeroAngle();
 	new StopShoot();

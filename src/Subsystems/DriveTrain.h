@@ -30,7 +30,6 @@ private:
 	bool m_isHigh;
 	bool m_isEngaged;
 	std::vector<double> m_recentHeadings;
-	ADXRS450_Gyro* gyro;
 	TimeStampedHistory m_history;
 
 	double GetRecentHeadingChange();
@@ -62,8 +61,6 @@ public:
 	void ResetHeadingOffset();
 	void SetAzimuth(double azimuth);
 	double GetAzimuth();
-	double GetGyroAngle();
-	void ResetGyro();
 	void UpdateHistory();
 	TimeStampedValue GetHistory(double timeStamp);
 	void ToggleShift();

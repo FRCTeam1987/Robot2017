@@ -35,11 +35,7 @@ void Shooter::SetShooter(float power){
 
 void Shooter::SetShooterRpm(float rpm) {
 
-//	if (rpm < 0 ) {
-//		wheelMaster->Disable();
-//	}else {
-//		wheelMaster->Enable();
-//	}
+
 	wheelMaster->Enable();
 	wheelMaster->SetTalonControlMode(CANTalon::kSpeedMode);
 	wheelMaster->Set(-rpm);

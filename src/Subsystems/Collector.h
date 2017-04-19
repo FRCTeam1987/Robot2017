@@ -10,6 +10,7 @@ class Collector : public frc::Subsystem {
 private:
 	std::shared_ptr<Talon> roller;
 	std::shared_ptr<frc::DigitalInput> ballSensor;
+	bool m_isEnabled;
 
 public:
 	Collector();
@@ -17,6 +18,7 @@ public:
 	void DisableDefaultCommand();
 	bool HasBall();
 	void SetRoller(float power);
+	void ToggleDefault();
 };
 
 #endif  // Collector_H
