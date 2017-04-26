@@ -21,7 +21,7 @@ void Robot::RobotInit() {
     vision.reset(new Vision());
 	oi.reset(new OI());
 
-	autoChooser.AddDefault("Place Gear And Hopper", new PlaceGearAndHopperAuto());
+	autoChooser.AddDefault("Boiler Peg Red", new PlaceGearAndHopperAuto());
 	autoChooser.AddObject("Middle Peg Red", new MiddlePegRed());
 	autoChooser.AddObject("Boiler Peg Blue", new BoilerSidePegBlue());
 
@@ -38,6 +38,7 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
+	frc::SmartDashboard::PutString("Mode Selected", autoChooser.GetSelected()->GetName().c_str());
 	frc::Scheduler::GetInstance()->Run();
 }
 

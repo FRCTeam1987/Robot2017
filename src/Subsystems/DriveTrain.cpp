@@ -23,6 +23,9 @@ DriveTrain::DriveTrain() :
 	m_isHigh = true;
 	m_isEngaged = false;
 
+	flashLight = RobotMap::driveFlashlight;
+	m_isFlashlightOn = false;
+
 //	ZeroAngle(); //move to somewhere else
 
 	GetPIDController()->SetAbsoluteTolerance(2.0);
@@ -220,4 +223,12 @@ void DriveTrain::TogglePto() {
 	PTO->Set((m_isEngaged ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse));
 
 	m_isEngaged = !m_isEngaged;
+}
+
+void DriveTrain::ToggleFlashlight() {
+	double voltageOn = 5;
+	double voltageOff = 0;
+	flashLight->SetVoltage(m_isFlashlightOn ? voltageOn : voltageOff);
+
+	m_isFlashlightOn = !m_isFlashlightOn;
 }

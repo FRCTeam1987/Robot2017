@@ -13,8 +13,8 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	wheelMaster->ConfigPeakOutputVoltage(0,-12);
 	wheelMaster->ConfigNeutralMode(frc::CANSpeedController::kNeutralMode_Coast);
 //	wheelMaster->SetPID(0.09, (double) 0.0, 0.8525, 0.02555);
-//	wheelMaster->SetPID(0.045, (double) 0.0, 0.9, 0.0247); //Practice bot
-	wheelMaster->SetPID(0.084, (double) 0.0, 0.0, 0.0267); //comp
+//	wheelMaster->SetPID(0.083, (double) 0.0, 0.9, 0.0267); //Practice bot
+	wheelMaster->SetPID(0.086, (double) 0.0, 0.0, 0.0267); //comp
 
 
 	if(wheelMaster->IsSensorPresent(feedbackDevice) != CANTalon::FeedbackStatusPresent) {
@@ -26,6 +26,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 }
 void Shooter::InitDefaultCommand() {
+
 }
 
 void Shooter::SetShooter(float power){
@@ -66,4 +67,11 @@ void Shooter::SetCurrentRpm(double rpm) {
 }
 double Shooter::GetCurrentRpm() {
 	return m_currentRPM;
+}
+void Shooter::SetPIDForMaintain() {
+	wheelMaster->SetPID(0.110, (double) 0.0, 0.01, 0.0267);
+}
+
+void Shooter::SetPIDForSpeedUp() {
+	wheelMaster->SetPID(0.086, (double) 0.0, 0.0, 0.0267);
 }

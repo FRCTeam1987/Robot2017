@@ -17,4 +17,5 @@ SetDefaultState::SetDefaultState() {
 	AddSequential(new SetGearManipulator(0));
 	AddSequential(new SetGearPosition(false));
 	AddSequential(new SetCollectorDefaultCommand(true));
+//	AddSequential();
 }

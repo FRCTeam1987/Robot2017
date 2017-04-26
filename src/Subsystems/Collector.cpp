@@ -5,12 +5,13 @@
 Collector::Collector() : Subsystem("Collector") {
 	roller = RobotMap::collectorRoller;
 	ballSensor = RobotMap::collectorBallSensor;
+	pdp = RobotMap::collectorPdp;
 
 	m_isEnabled = true;
 }
 
 void Collector::InitDefaultCommand() {
-	SetDefaultCommand(new CollectFuel());
+//	SetDefaultCommand(new CollectFuel());
 
 
 }
@@ -33,7 +34,10 @@ void Collector::ToggleDefault() {
 	if (m_isEnabled == true) {
 		DisableDefaultCommand();
 	} else {
-		SetDefaultCommand(new CollectFuel());
+		DisableDefaultCommand();
+		//SetDefaultCommand(new CollectFuel());
 	}
 	m_isEnabled = !m_isEnabled;
 }
+
+

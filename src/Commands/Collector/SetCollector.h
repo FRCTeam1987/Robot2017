@@ -8,6 +8,8 @@
 class SetCollector : public frc::Command {
 private:
 	float m_power;
+	double m_time;
+	bool m_isClockwise;
 public:
 	SetCollector(float power);
 	void Initialize();

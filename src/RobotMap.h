@@ -4,6 +4,7 @@
 
 #include "WPILib.h"
 #include <CANTalon.h>
+#include <ctre/PDP.h>
 #include <Talon.h>
 #include <AHRS.h>
 #include <navXSensor.h>
@@ -14,10 +15,12 @@ public:
 	//Collector
 	static std::shared_ptr<Talon> collectorRoller;
 	static std::shared_ptr<frc::DigitalInput> collectorBallSensor;
+	static std::shared_ptr<PDP> collectorPdp;
 
 	enum {
 		COLLECTOR_PWM_ROLLER = 0,
 		COLLECTOR_DIO_BALL = 4,
+		COLLECTOR_PDP = 0,
 	};
 
 	//Drive Train
@@ -33,6 +36,7 @@ public:
 	static std::shared_ptr<frc::DigitalInput> climberPlateSensor;
 	static std::shared_ptr<frc::Encoder> driveLeftEncoder;
 	static std::shared_ptr<frc::Encoder> driveRightEncoder;
+	static std::shared_ptr<frc::AnalogOutput> driveFlashlight;
 
 	enum {
 		DRIVE_CAN_LEFT_MASTER = 1,
@@ -48,6 +52,7 @@ public:
 		DRIVE_DIO_LEFT_ENCODER_B = 1,
 		DRIVE_DIO_RIGHT_ENCODER_A = 2,
 		DRIVE_DIO_RIGHT_ENCODER_B = 3,
+		DRIVE_AIO_FLASHLIGHT = 0
 	};
 
 	//Gear Manipulator
@@ -95,7 +100,7 @@ public:
 		BUTTON_SHOOT_XBOX = 6, 			//RB
 		BUTTON_STOP_SHOOT_XBOX = 2,		//B
 		BUTTON_COLLECT_GEAR_XBOX = 3,	//X
-		BUTTON_COLLECT_GEAR_HOPPER = 1, //A
+		BUTTON_TOGGLE_FLASHLIGHT = 1,   //A
 		BUTTON_SHIFT_XBOX = 9,			//LS
 		BUTTON_PTO_XBOX = 10, 			//RS
 		DRIVER_XBOX = 0,

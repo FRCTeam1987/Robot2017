@@ -12,8 +12,8 @@ private:
 	double m_initialSpeed;
 	double m_finalSpeed;
 	bool m_isDec;
-	const double m_accRate = 0.05; //todo:needs to change
-	const double m_maxSpeed = 0.95;
+	const double m_accRate = 0.15; //todo:needs to change
+	const double m_maxSpeed = 1.0;
 	const double m_decRate = .05;
 	const double m_decRatio = 0.1/6; //todo:needs to change
 public:

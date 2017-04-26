@@ -9,10 +9,11 @@
 
 StopShoot::StopShoot() {
 	AddSequential(new SetVisionDefaultCommand(true));
-	AddSequential(new SetCollectorDefaultCommand(true));
+//	AddSequential(new SetCollectorDefaultCommand(true));
 	AddSequential(new SetRoller(0));
 	AddSequential(new SetElevator(0));
-	AddSequential(new SetCollector(0));
+
 	AddSequential(new SetShooter(0));
+	AddParallel(new SetCollector(0));
 
 }

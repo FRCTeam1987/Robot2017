@@ -29,6 +29,8 @@ private:
 	double m_azimuth;
 	bool m_isHigh;
 	bool m_isEngaged;
+	bool m_isFlashlightOn;
+	std::shared_ptr<AnalogOutput> flashLight;
 	std::vector<double> m_recentHeadings;
 	TimeStampedHistory m_history;
 
@@ -65,6 +67,8 @@ public:
 	TimeStampedValue GetHistory(double timeStamp);
 	void ToggleShift();
 	void TogglePto();
+	void ToggleFlashlight();
+	void SetFlashLight(bool isOn);
 };
 
 #endif  // DriveTrain_H

@@ -25,6 +25,8 @@ public:
 	float GetRollerRPM();
 	void SetCurrentRpm(double rpm);
 	double GetCurrentRpm();
+	void SetPIDForMaintain();
+	void SetPIDForSpeedUp();
 };
 
 #endif  // Shooter_H

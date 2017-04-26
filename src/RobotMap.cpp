@@ -5,6 +5,7 @@
 //Collector
 std::shared_ptr<Talon> RobotMap::collectorRoller;
 std::shared_ptr<frc::DigitalInput> RobotMap::collectorBallSensor;
+std::shared_ptr<PDP> RobotMap::collectorPdp;
 
 //Drive Train
 std::shared_ptr<CANTalon> RobotMap::driveLeftMaster;
@@ -19,6 +20,7 @@ std::shared_ptr<DoubleSolenoid> RobotMap::climberPTO;
 std::shared_ptr<DigitalInput> RobotMap::climberPlateSensor;
 std::shared_ptr<frc::Encoder> RobotMap::driveLeftEncoder;
 std::shared_ptr<frc::Encoder> RobotMap::driveRightEncoder;
+std::shared_ptr<frc::AnalogOutput> RobotMap::driveFlashlight;
 
 //Gear Manipulator
 std::shared_ptr<frc::DigitalInput> RobotMap::gearSensor;
@@ -55,6 +57,7 @@ void RobotMap::init() {
 void RobotMap::initCollector() {
 	collectorRoller.reset(new Talon(COLLECTOR_PWM_ROLLER));
 	collectorBallSensor.reset(new DigitalInput(COLLECTOR_DIO_BALL));
+	collectorPdp.reset(new PDP(COLLECTOR_PDP));
 }
 
 void RobotMap::initDriveTrain() {
@@ -105,6 +108,8 @@ void RobotMap::initDriveTrain() {
 	driveRightEncoder.reset(new Encoder(DRIVE_DIO_RIGHT_ENCODER_A, DRIVE_DIO_RIGHT_ENCODER_B));
 	driveRightEncoder->SetDistancePerPulse((PI * wheelDiameter) / ENCODER_TICKS);
 	lw->AddActuator("DriveTrain", "right Drive Encoder", driveRightEncoder);
+
+	driveFlashlight.reset(new frc::AnalogOutput(DRIVE_AIO_FLASHLIGHT));
 }
 
 void RobotMap::initGearManipulator() {

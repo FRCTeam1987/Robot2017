@@ -5,7 +5,6 @@
 #include "Buttons/JoystickButton.h"
 #include "Commands/Collector/SetCollector.h"
 #include "Commands/Collector/ShowHasBall.h"
-#include "Commands/GearManipulator/SetGearManipulator.h"
 #include "Commands/GearManipulator/SetGearManipulatorRoller.h"
 #include "Commands/GearManipulator/SetGearPosition.h"
 #include "Commands/GearManipulator/CollectGear.h"
@@ -33,6 +32,7 @@
 #include "Commands/DriveTrain/PlaceGearFromDriveStation.h"
 #include "Commands/DriveTrain/DriveArcPower.h"
 #include "Commands/DriveTrain/TestDriveStuff.h"
+#include "Commands/DriveTrain/ToggleFlashlight.h"
 #include "Commands/Shooter/StopShoot.h"
 #include "Commands/SetDefaultState.h"
 #include "Commands/Turret/ZeroAndMove.h"
@@ -62,9 +62,10 @@ OI::OI() {
 	frc::JoystickButton *shootXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHOOT_XBOX);
 	frc::JoystickButton *stopShootXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_STOP_SHOOT_XBOX);
 	frc::JoystickButton *collectGearXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_XBOX);
-	frc::JoystickButton *collectGearFromHopperXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_HOPPER);
+//	frc::JoystickButton *collectGearFromHopperXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_HOPPER);
 	frc::JoystickButton *shiftButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHIFT_XBOX);
 	frc::JoystickButton *ptoButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_PTO_XBOX);
+	frc::JoystickButton *flashlightButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TOGGLE_FLASHLIGHT);
 
 	//CoDriver
 	frc::JoystickButton *gearRollerCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_GEAR_ROLLER_CO);
@@ -84,9 +85,10 @@ OI::OI() {
 	shootXbox->WhenPressed(new Shoot());
 	stopShootXbox->WhenPressed(new StopShoot());
 	collectGearXbox->WhenPressed(new CollectGear());
-	collectGearFromHopperXbox->WhenPressed(new SetGearManipulator(.75));
+//	collectGearFromHopperXbox->WhenPressed(new SetGearManipulator(.75));
 	shiftButton->WhenPressed(new ToggleShift());
 	ptoButton->WhenPressed(new TogglePTO());
+	flashlightButton->WhenPressed(new ToggleFlashlight());
 
 //	CoDriver
 	gearRollerCo->WhenPressed(new SetGearManipulatorRoller(.5));
@@ -101,7 +103,7 @@ OI::OI() {
 	shootCo->WhenPressed(new Shoot());
 	increaseRpmCo->WhenPressed(new ChangeRPMBasedOnCurrent(10));
 	decreaseRpmCo->WhenPressed(new ChangeRPMBasedOnCurrent(-10));
-	toggleCollectorCo->WhenPressed(new ToggleDefaultCommand());
+//	toggleCollectorCo->WhenPressed(new ToggleDefaultCommand());
 
 
 	frc::SmartDashboard::PutData("Vision Update Anchor", new VisionUpdateTurret());

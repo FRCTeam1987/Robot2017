@@ -18,7 +18,9 @@
 #include "Shooter/SetShooterPercent.h"
 
 
+
 MiddlePegRed::MiddlePegRed() {
+
 	//Middle (RED)
 //	AddSequential(new ZeroDriveTrain());
 //	AddSequential(new ZeroTurretEncoder());
@@ -37,7 +39,7 @@ MiddlePegRed::MiddlePegRed() {
 	AddSequential(new frc::WaitCommand(.5));
 	AddSequential(new SetGearManipulatorRoller(0));
 
-	AddSequential(new SetDesiredAngle(-30));
+	AddSequential(new SetDesiredAngle(-40));
 
 	AddSequential(new DriveStraight(25 , 0, .4));
 	AddSequential(new DriveStraight(0 , 0, 0));
@@ -69,3 +71,5 @@ void MiddlePegRed::End() {
 	RobotMap::Log.AddEntry("MiddlePegRed::End()");
 
 }
+
+

@@ -22,7 +22,7 @@ void VisionUpdateTurret::Execute() {
 	if(visionSawTarget == true && fabs(visionAngle) > .5) {
 		double currentDesiredAngle = Robot::turret->GetDesiredAngle();
 
-		Robot::turret->SetDesiredAngle(currentDesiredAngle - (visionAngle * 0.2), visionTimeStamp);
+		Robot::turret->SetDesiredAngle(currentDesiredAngle - (visionAngle * 0.1), visionTimeStamp);
 		m_lastTimeStamp = visionTimeStamp;
 	} else {
 		RobotMap::Log.AddEntry("VisionUpdateTurret::Execute not moving");

@@ -16,7 +16,7 @@ Shoot::Shoot() {
 	AddSequential(new ShootDistance()); //3100 RPM for Hopper && 3900 RPM for Gear (~3770 RPM)
 	AddSequential(new SetRoller(-0.5));
 	AddSequential(new SetElevator(0.95));
-	AddSequential(new SetCollector(0.95));
+	AddSequential(new SetCollector(-0.45));
 }
 void Shoot::Initialize() {
 	RobotMap::Log.AddEntry("Shoot::Initialize()");
