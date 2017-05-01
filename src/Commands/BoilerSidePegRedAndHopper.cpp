@@ -19,12 +19,12 @@ BoilerSidePegRedAndHopper::BoilerSidePegRedAndHopper() {
 	AddSequential(new ZeroTurretEncoder());
 	AddSequential(new DriveStraight(-96, 0, -.25));
 	AddSequential(new DriveRotate(-57));
-	AddSequential(new frc::WaitCommand(.25));
+	AddSequential(new WaitCommand(.25));
 	AddSequential(new DriveStraight(-22, 0, -.10));
 	AddSequential(new SetGearPosition(false));
-	AddSequential(new frc::WaitCommand(.25));
+	AddSequential(new WaitCommand(.25));
 	AddSequential(new SetGearManipulatorRoller(-0.75));
-	AddSequential(new frc::WaitCommand(.5));
+	AddSequential(new WaitCommand(.5));
 	AddSequential(new SetGearManipulatorRoller(0));
 
 	AddSequential(new DriveStraight(18, 0, .27));
@@ -32,10 +32,10 @@ BoilerSidePegRedAndHopper::BoilerSidePegRedAndHopper() {
 
 	AddSequential(new SetDesiredAngle(30));
 
-	AddSequential(new frc::WaitCommand(1.5));
+	AddSequential(new WaitCommand(1.5));
 	AddSequential(new Shoot());
 
-	AddSequential(new frc::WaitCommand(5));
+	AddSequential(new WaitCommand(5));
 	AddSequential(new DriveRotate(-40));
 	AddSequential(new StopShoot());
 	AddSequential(new DriveStraight(50, 0 , .1));

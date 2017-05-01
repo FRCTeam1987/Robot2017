@@ -66,7 +66,8 @@ void DriveStraight::Execute() {
 }
 
 bool DriveStraight::IsFinished() {
-	return (fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) - 1 && fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance) - 1) || IsTimedOut();
+	return (fabs(Robot::driveTrain.get()->GetLeftEncoderDistance()) >= fabs(m_distance) - 1 || IsTimedOut());
+	//fabs(Robot::driveTrain.get()->GetRightEncoderDistance()) >= fabs(m_distance) - 1)
 }
 
 void DriveStraight::End() {
@@ -74,7 +75,7 @@ void DriveStraight::End() {
 	RobotMap::Log.AddEntry("DriveStraight::End()");
 
 	frc::SmartDashboard::PutNumber("Left Encoder Post Drive", Robot::driveTrain.get()->GetLeftEncoderDistance());
-	frc::SmartDashboard::PutNumber("Right Encoder Post Drive", Robot::driveTrain.get()->GetRightEncoderDistance());
+//	frc::SmartDashboard::PutNumber("Right Encoder Post Drive", Robot::driveTrain.get()->GetRightEncoderDistance());
 	Robot::driveTrain.get()->Disable();
 	Robot::driveTrain.get()->AutoDrive(m_finalSpeed, 0);
 	Robot::driveTrain.get()->SetAutoSpeed(m_currentSpeed);

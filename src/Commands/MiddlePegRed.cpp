@@ -16,6 +16,8 @@
 #include "Turret/WaitForOnTarget.h"
 #include "Turret/AddToCurrentAngle.h"
 #include "Shooter/SetShooterPercent.h"
+#include "DriveTrain/Shift.h"
+
 
 
 
@@ -26,6 +28,7 @@ MiddlePegRed::MiddlePegRed() {
 //	AddSequential(new ZeroTurretEncoder());
 //
 //	AddSequential(new AddToCurrentAngle(-60));
+	AddSequential(new Shift(true));
 
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());

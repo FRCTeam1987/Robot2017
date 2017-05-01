@@ -105,6 +105,12 @@ void RobotMap::initDriveTrain() {
 	driveLeftEncoder->SetDistancePerPulse((PI * wheelDiameter) / ENCODER_TICKS);
 	lw->AddActuator("DriveTrain", "left Drive Encoder", driveLeftEncoder);
 
+	//printf(driveLeftEncoder->GetError().GetMessage().c_str());
+	//printf("\n");
+
+	//printf(driveRightEncoder->GetError().GetMessage().c_str());
+	//printf("\n");
+
 	driveRightEncoder.reset(new Encoder(DRIVE_DIO_RIGHT_ENCODER_A, DRIVE_DIO_RIGHT_ENCODER_B));
 	driveRightEncoder->SetDistancePerPulse((PI * wheelDiameter) / ENCODER_TICKS);
 	lw->AddActuator("DriveTrain", "right Drive Encoder", driveRightEncoder);

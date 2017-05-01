@@ -65,7 +65,7 @@ OI::OI() {
 //	frc::JoystickButton *collectGearFromHopperXbox = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_COLLECT_GEAR_HOPPER);
 	frc::JoystickButton *shiftButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_SHIFT_XBOX);
 	frc::JoystickButton *ptoButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_PTO_XBOX);
-	frc::JoystickButton *flashlightButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TOGGLE_FLASHLIGHT);
+//	frc::JoystickButton *flashlightButton = new frc::JoystickButton(RobotMap::xbox.get(), RobotMap::BUTTON_TOGGLE_FLASHLIGHT);
 
 	//CoDriver
 	frc::JoystickButton *gearRollerCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_GEAR_ROLLER_CO);
@@ -77,7 +77,7 @@ OI::OI() {
 	frc::JoystickButton *shootCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_SHOOT_CO);
 	frc::JoystickButton *increaseRpmCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_ADD_RPM_CO);
 	frc::JoystickButton *decreaseRpmCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_SUB_RPM_CO);
-	frc::JoystickButton *toggleCollectorCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TOGGLE_COLLECT_CO);
+//	frc::JoystickButton *toggleCollectorCo = new frc::JoystickButton(RobotMap::co.get(), RobotMap::BUTTON_TOGGLE_COLLECT_CO);
 
 
 	//Driver
@@ -88,7 +88,7 @@ OI::OI() {
 //	collectGearFromHopperXbox->WhenPressed(new SetGearManipulator(.75));
 	shiftButton->WhenPressed(new ToggleShift());
 	ptoButton->WhenPressed(new TogglePTO());
-	flashlightButton->WhenPressed(new ToggleFlashlight());
+//	flashlightButton->WhenPressed(new ToggleFlashlight());
 
 //	CoDriver
 	gearRollerCo->WhenPressed(new SetGearManipulatorRoller(.5));

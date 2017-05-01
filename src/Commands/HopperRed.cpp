@@ -15,10 +15,14 @@
 #include "Shooter/SetRoller.h"
 #include "Shooter/SetElevator.h"
 #include "Collector/SetCollector.h"
+#include "DriveTrain/Shift.h"
+
 
 
 HopperRed::HopperRed() {
-//	AddSequential(new frc::WaitCommand(.25));
+	AddSequential(new Shift(true));
+
+	//	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
 //	AddSequential(new SetDesiredAngle(90));

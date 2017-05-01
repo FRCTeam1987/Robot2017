@@ -3,6 +3,7 @@
 
 DriveRotate::DriveRotate(float desiredAngle) {
 	Requires(Robot::driveTrain.get());
+	SetTimeout(2.5);
 	m_desiredAngle = desiredAngle;
 	m_turnSpeed = 0;
 	m_isClockwise = false;
@@ -53,8 +54,8 @@ bool DriveRotate::IsFinished() {
 //		upperBound -= 360;
 //	}
 	// probs won't work for close to 360/0, pls fix
-	return (Robot::driveTrain->GetAngle() > lowerBound &&
-			Robot::driveTrain->GetAngle() < upperBound);
+	return (fabs(Robot::driveTrain->GetAngle()) > fabs(m_desiredAngle) || IsTimedOut());
+	//(Robot::driveTrain->GetAngle() > lowerBound && Robot::driveTrain->GetAngle() < upperBound)
 }
 
 // Called once after isFinished returns true
