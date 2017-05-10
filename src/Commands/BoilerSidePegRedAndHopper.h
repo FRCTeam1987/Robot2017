@@ -3,7 +3,7 @@
 
 #include <Commands/CommandGroup.h>
 
-class BoilerSidePegRedAndHopper : public CommandGroup {
+class BoilerSidePegRedAndHopper : public frc::CommandGroup {
 public:
 	BoilerSidePegRedAndHopper();
 };

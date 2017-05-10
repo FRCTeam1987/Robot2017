@@ -48,7 +48,7 @@ void ShootDistance::Initialize() {
 
 	//find if the distance to the goal is in the map.
 	TimeStampedValue target = Robot::vision->GetInfo();
-	m_distance = target.GetValue3() * .92;
+	m_distance = target.GetValue3() * .90;
 
 	int distance = m_distance + .5;
 	if (distance > 203 ) {

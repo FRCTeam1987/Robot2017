@@ -9,12 +9,12 @@
 
 StopShoot::StopShoot() {
 	AddSequential(new SetCollector(0));
-	AddSequential(new WaitCommand(.25));
+	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new SetVisionDefaultCommand(true));
 //	AddSequential(new SetCollectorDefaultCommand(true));
 	AddSequential(new SetRoller(0));
 	AddSequential(new SetElevator(0));
 
-	AddSequential(new SetShooter(0));
+	AddSequential(new SetShooterPercent(0));
 
 }

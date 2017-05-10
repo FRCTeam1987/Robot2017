@@ -21,7 +21,7 @@ void SetCollector::Initialize() {
 
 void SetCollector::Execute() {
 
-		if (m_isClockwise && frc::Timer::GetFPGATimestamp() - m_time > 1.5) {
+		if (m_isClockwise && frc::Timer::GetFPGATimestamp() - m_time > 1.25) {
 			Robot::collector.get()->SetRoller(1);
 			m_time = frc::Timer::GetFPGATimestamp();
 			m_isClockwise = false;

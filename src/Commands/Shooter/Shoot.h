@@ -8,6 +8,7 @@ public:
 	Shoot();
 	void Initialize();
 	void End();
+	bool IsFinished();
 };
 
 #endif  // Shoot_H

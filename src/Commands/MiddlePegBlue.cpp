@@ -24,7 +24,9 @@ MiddlePegBlue::MiddlePegBlue() {
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
 
-	AddSequential(new DriveStraight(-70, 0, -.25));
+	AddSequential(new DriveStraight(-70, 0, -.45));
+	AddSequential(new DriveStraight(0, 0, 0));
+
 	//Place Gear
 	AddSequential(new SetGearPosition(false));
 	AddSequential(new frc::WaitCommand(.25));
@@ -33,7 +35,7 @@ MiddlePegBlue::MiddlePegBlue() {
 	AddSequential(new SetGearManipulatorRoller(0));
 	AddSequential(new SetDesiredAngle(50));
 
-	AddSequential(new DriveStraight(25, 0, .25));
+	AddSequential(new DriveStraight(25, 0, .45));
 	AddSequential(new DriveStraight(0, 0, 0));
 
 	AddSequential(new SetGearPosition(true));

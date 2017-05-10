@@ -2,6 +2,9 @@
 #include <Timer.h>
 
 #include "Commands/PlaceGearAndHopperAuto.h"
+#include "Commands/BoilerSidePegBlueAndChuteAuto.h"
+#include "Commands/BoilerSidePegRed.h"
+#include "Commands/BoilerSideRedPegAndMiddleHopperAuto.h"
 
 std::shared_ptr<Collector> Robot::collector;
 std::shared_ptr<DriveTrain> Robot::driveTrain;
@@ -25,6 +28,9 @@ void Robot::RobotInit() {
 	autoChooser.AddObject("Middle Peg Red", new MiddlePegRed());
 	autoChooser.AddObject("Boiler Peg Blue", new BoilerSidePegBlue());
 
+	autoChooser.AddObject("Boiler peg blue and chute", new BoilerSidePegBlueAndChuteAuto());
+	autoChooser.AddObject("Boiler Side Peg Red and Chute", new BoilerSidePegRed());
+	autoChooser.AddObject("Boiler peg red and middle hopper", new BoilerSideRedPegAndMiddleHopperAuto());
 
 	autoChooser.AddObject("Middle Peg Blue", new MiddlePegBlue());
 	autoChooser.AddObject("Hopper Red", new HopperRed());

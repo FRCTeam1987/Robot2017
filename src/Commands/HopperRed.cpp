@@ -22,38 +22,30 @@
 HopperRed::HopperRed() {
 	AddSequential(new Shift(true));
 
-	//	AddSequential(new frc::WaitCommand(.25));
 	AddSequential(new ZeroDriveTrain());
 	AddSequential(new ZeroTurretEncoder());
-//	AddSequential(new SetDesiredAngle(90));
-	AddSequential(new DriveStraight(130, 0, -.10)); //129
-//	AddSequential(new frc::WaitCommand(.5));
-//	AddSequential(new DriveArcPower(true, 20));
-	AddSequential(new DriveRotate(90));//90
+	AddSequential(new DriveStraight(128, 0, .950)); //129
+	AddSequential(new DriveStraight(0, 0, .0));
+
+	AddSequential(new DriveRotate(90));
 	AddSequential(new SetShooterPercent(.65));
-	AddSequential(new SetDesiredAngle(75));
 
-////	AddSequential(new VisionUpdateTurret());
-//	AddSequential(new frc::WaitCommand(.8));
-//	AddSequential(new SetDesiredAngle(160));
-//	AddSequential(new WaitCommand(2));
-//	AddParallel(new )
 
-	AddSequential(new DriveStraight(32, 0, -.10));
-	AddSequential(new frc::WaitCommand(.25));
+	AddSequential(new SetDesiredAngle(78));
+
+	AddSequential(new DriveStraight(32, 0, .850));
+	AddSequential(new DriveStraight(0, 0, .0));
+
+//	AddSequential(new SetVisionDefaultCommand(false));
+	AddSequential(new frc::WaitCommand(1));
+
+	AddSequential(new Shoot());
+	AddSequential(new frc::WaitCommand(4.75));
+	AddSequential(new Shoot());
+	AddSequential(new frc::WaitCommand(4.75));
 	AddSequential(new Shoot());
 
 
 
 
-//	AddSequential(new SetDesiredAngle(120));
-//	AddSequential(new AddToCurrentAngle(40));
-//	AddSequential(new AnchorTurret());
-
-
-//	AddSequential(new DriveStraight(35, 0, -.10));
-//	AddSequential(new SetDesiredAngle(90));
-//	AddSequential(new AnchorTurret());
-//	AddSequential(new Shoot());
-//	AddSequential(new frc::WaitCommand(6));
 }
